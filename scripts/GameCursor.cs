@@ -25,6 +25,12 @@ public partial class GameCursor : Control
                 16
             )
         );
+
+        Vector2 newPos = Position;
+        Vector2 moveAmount = Input.GetVector("cursor_left", "cursor_right", "cursor_up", "cursor_down");
+        newPos += moveAmount * 256f * (float)delta;
+        SetPosition(newPos);
+
         if (Input.IsKeyPressed(Key.Escape)) Input.SetMouseMode(Input.MouseModeEnum.Visible);
         if (Input.IsMouseButtonPressed(MouseButton.Left)) Input.SetMouseMode(Input.MouseModeEnum.Hidden);
     }

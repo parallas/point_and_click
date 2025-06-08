@@ -11,4 +11,9 @@ public partial class MainUI : Node
         get => GameCursor.PlayerController;
         set => GameCursor.PlayerController = value;
     }
+
+    public override void _Ready()
+    {
+        PlayerController.MainUi = this;
+    }
 }

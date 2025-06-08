@@ -6,15 +6,15 @@ namespace PointAndClick.Scripts.Engine;
 
 public static class PhysicsTools
 {
-    public struct HitInfo
+    public readonly struct HitInfo
     {
-        public Vector3 Position;
-        public Vector3 Normal;
-        public Variant Collider;
-        public ulong ColliderId;
-        public Rid Rid;
-        public int Shape;
-        public Variant Metadata;
+        public readonly Vector3 Position;
+        public readonly Vector3 Normal;
+        public readonly GodotObject Collider;
+        public readonly ulong ColliderId;
+        public readonly Rid Rid;
+        public readonly int Shape;
+        public readonly Variant Metadata;
 
         public HitInfo()
         {
@@ -23,12 +23,12 @@ public static class PhysicsTools
 
         public HitInfo(Dictionary hitResult)
         {
-            Position = hitResult["position"].As<Vector3>();
-            Normal = hitResult["normal"].As<Vector3>();
-            Collider = hitResult["collider"];
+            Position = hitResult["position"].AsVector3();
+            Normal = hitResult["normal"].AsVector3();
+            Collider = hitResult["collider"].AsGodotObject();
             ColliderId = hitResult["collider_id"].As<ulong>();
-            Rid = hitResult["rid"].As<Rid>();
-            Shape = hitResult["shape"].As<int>();
+            Rid = hitResult["rid"].AsRid();
+            Shape = hitResult["shape"].AsInt32();
             hitResult.TryGetValue("metadata", out Metadata);
         }
     }
@@ -44,11 +44,16 @@ public static class PhysicsTools
         return true;
     }
 
+    public static bool CheckHit(Vector2 screenPosition, Viewport viewport, Camera3D camera3D, float distance, World3D world, out HitInfo result, Array<Rid> exclude = null)
+    {
+        var from = camera3D.ProjectRayOrigin(screenPosition);
+        var dir = from + camera3D.ProjectRayNormal(screenPosition) - from;
+        return CheckHit(from, from + dir * distance, world, out result, exclude);
+    }
+
     public static bool CheckHitMouse(Viewport viewport, Camera3D camera3D, float distance, World3D world, out HitInfo result, Array<Rid> exclude = null)
     {
         var mousePosition = viewport.GetMousePosition();
-        var from = camera3D.ProjectRayOrigin(mousePosition);
-        var dir = from + camera3D.ProjectRayNormal(mousePosition) - from;
-        return CheckHit(from, from + dir * distance, world, out result, exclude);
+        return CheckHit(mousePosition, viewport, camera3D, distance, world, out result, exclude);
     }
 }

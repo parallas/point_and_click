@@ -18,8 +18,9 @@ PlayerController = NodePath("../PlayerController")
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_74lek")
 
-[node name="PlayerController" type="Node3D" parent="."]
+[node name="PlayerController" type="Node3D" parent="." node_paths=PackedStringArray("MainUi")]
 script = ExtResource("1_uyl1e")
+MainUi = NodePath("../MainUi")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.997349, 0.0727678, 0, -0.0727678, 0.997349, -0.422661, 0.0970805, -0.670443)

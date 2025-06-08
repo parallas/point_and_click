@@ -7,7 +7,7 @@ using PointAndClick.Scripts.Interactables;
 namespace PointAndClick.Scripts;
 public partial class PlayerController : Node3D
 {
-    [Export] private GameCursor _gameCursor;
+    [Export] public MainUI MainUi;
 
     public Interactable HoverTarget { get; private set; }
 
@@ -20,12 +20,11 @@ public partial class PlayerController : Node3D
         var viewport = GetViewport();
         var cam = viewport.GetCamera3D();
         var world = GetWorld3D();
-        var didHit = PhysicsTools.CheckHitMouse(viewport, cam, 100, world, out var result);
+        var didHit = PhysicsTools.CheckHit(MainUi.GameCursor.Position, viewport, cam, 100, world, out var result);
         if (!didHit) return;
 
         // ensure object is of type interactable
-        var interactable = result.Collider.As<Interactable>();
-        if (interactable is null) return;
+        if (result.Collider is not Interactable interactable) return;
         HoverTarget = interactable;
 
         // do something
