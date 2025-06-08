@@ -2,6 +2,7 @@ using Godot;
 using System;
 using PointAndClick.Scripts;
 using PointAndClick.Scripts.Engine;
+using PointAndClick.Scripts.Interactables;
 
 public partial class PlayerController : Node3D
 {
@@ -22,5 +23,10 @@ public partial class PlayerController : Node3D
 
         // do something
         interactable.Hovered();
+
+        if (Input.IsActionJustPressed("interact"))
+        {
+            interactable.Interacted();
+        }
     }
 }
