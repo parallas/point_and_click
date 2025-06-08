@@ -1,0 +1,43 @@
+[gd_scene load_steps=6 format=3 uid="uid://c2wadbts0v0p6"]
+
+[ext_resource type="Script" uid="uid://bxyi547r1qtg2" path="res://scripts/PlayerController.cs" id="1_uyl1e"]
+[ext_resource type="PackedScene" uid="uid://ccbhv1ml8uk4o" path="res://scenes/nodes/TestInteractable.tscn" id="2_7115g"]
+[ext_resource type="PackedScene" uid="uid://dwoj65lima5sx" path="res://models/room_test.glb" id="3_koekj"]
+[ext_resource type="Material" uid="uid://hy6p0syppvcf" path="res://post_processing/pixel_noise.tres" id="4_kw13u"]
+
+[sub_resource type="Environment" id="Environment_74lek"]
+background_mode = 1
+background_color = Color(0.064049, 0.0575724, 0.134604, 1)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_74lek")
+
+[node name="PlayerController" type="Node3D" parent="."]
+script = ExtResource("1_uyl1e")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.997349, 0.0727678, 0, -0.0727678, 0.997349, -0.422661, 0.0970805, -0.670443)
+fov = 60.0
+
+[node name="TestInteractable" parent="." instance=ExtResource("2_7115g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.898694, 0.214064, -3.12243)
+
+[node name="room_test" parent="." instance=ExtResource("3_koekj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.75)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="room_test"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1.421, 0)
+spot_angle = 85.0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+follow_viewport_enabled = true
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+material = ExtResource("4_kw13u")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

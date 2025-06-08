@@ -22,11 +22,11 @@ public partial class PlayerController : Node3D
         if (interactable is null) return;
 
         // do something
-        interactable.Hovered();
+        interactable.Hover();
 
         if (Input.IsActionJustPressed("interact"))
         {
-            interactable.Interacted();
+            interactable.Interact();
         }
     }
 }
