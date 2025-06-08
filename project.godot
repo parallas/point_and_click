@@ -11,7 +11,8 @@ config_version=5
 [application]
 
 config/name="point_and_click"
-config/features=PackedStringArray("4.4", "Forward Plus")
+run/main_scene="uid://c2wadbts0v0p6"
+config/features=PackedStringArray("4.4", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
 [dotnet]
