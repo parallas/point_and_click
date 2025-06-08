@@ -21,8 +21,8 @@ radius = 0.2
 radial_segments = 16
 rings = 8
 
-[node name="ColorChanger" parent="." instance=ExtResource("3_yx3jf")]
-_material = ExtResource("2_yx3jf")
+[node name="ColorChanger" parent="." node_paths=PackedStringArray("_geometryInstance3D") instance=ExtResource("3_yx3jf")]
+_geometryInstance3D = NodePath("../CSGSphere3D")
 
 [node name="Jiggle" parent="." node_paths=PackedStringArray("JiggleNode") instance=ExtResource("4_ww1he")]
 JiggleNode = NodePath("../CSGSphere3D")

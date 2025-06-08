@@ -29,6 +29,12 @@ fov = 60.0
 [node name="TestInteractable" parent="." instance=ExtResource("2_7115g")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.898694, 0.214064, -3.12243)
 
+[node name="TestInteractable2" parent="." instance=ExtResource("2_7115g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.476692, 0.611157, -3.12243)
+
+[node name="TestInteractable3" parent="." instance=ExtResource("2_7115g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.53189, -0.0345907, -3.33328)
+
 [node name="room_test" parent="." instance=ExtResource("3_koekj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.75)
 
