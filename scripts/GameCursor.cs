@@ -1,10 +1,13 @@
 using Godot;
+using Parallas;
 
 namespace PointAndClick.Scripts;
 public partial class GameCursor : Control
 {
     [Export] public PlayerController PlayerController;
     [Export] private TextureRect _textureRect;
+
+    private float _cursorCurrentSpeed = 1f;
 
     public override void _Ready()
     {
@@ -27,8 +30,18 @@ public partial class GameCursor : Control
         );
 
         Vector2 newPos = Position;
-        Vector2 moveAmount = Input.GetVector("cursor_left", "cursor_right", "cursor_up", "cursor_down");
-        newPos += moveAmount * 256f * (float)delta;
+        Vector2 moveAmount = Input.GetVector(
+            "cursor_left",
+            "cursor_right",
+            "cursor_up",
+            "cursor_down"
+        ).Clamp(-1f, 1f);
+        if (moveAmount.LengthSquared() > 0)
+            _cursorCurrentSpeed = MathUtil.ExpDecay(_cursorCurrentSpeed, 5f, 1f, (float)delta);
+        else
+            _cursorCurrentSpeed = 1f;
+        newPos += moveAmount * 128f * _cursorCurrentSpeed * (float)delta;
+        newPos = newPos.Clamp(Vector2.Zero, GetViewportRect().Size);
         SetPosition(newPos);
 
         if (Input.IsKeyPressed(Key.Escape)) Input.SetMouseMode(Input.MouseModeEnum.Visible);

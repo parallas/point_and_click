@@ -38,9 +38,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.53189, -0.0345907, -3.3332
 [node name="room_test" parent="." instance=ExtResource("3_koekj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.75)
 
-[node name="SpotLight3D" type="SpotLight3D" parent="room_test"]
+[node name="SpotLight3D" type="OmniLight3D" parent="room_test"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1.421, 0)
-spot_angle = 85.0
+light_intensity_lumens = 15.0
+light_temperature = 5951.0
+light_size = 0.075
+shadow_enabled = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 follow_viewport_enabled = true
