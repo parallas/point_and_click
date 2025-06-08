@@ -1,0 +1,7 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://hy6p0syppvcf"]
+
+[ext_resource type="Shader" uid="uid://clg0u045p8uwt" path="res://post_processing/pixel_noise.gdshader" id="1_62nto"]
+
+[resource]
+shader = ExtResource("1_62nto")
+shader_parameter/size = Vector2(32, 28)
