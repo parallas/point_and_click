@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://bo0gg3ua6v8s4"]
+
+[ext_resource type="Script" uid="uid://c102ch0gv7g6q" path="res://scripts/GameCursor.cs" id="1_7insp"]
+[ext_resource type="Script" uid="uid://nf070513fwtb" path="res://scripts/MainUI.cs" id="1_lmh70"]
+[ext_resource type="Texture2D" uid="uid://lkqsrwjp6je5" path="res://sprites/cursor.png" id="1_rhlsw"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7insp"]
+atlas = ExtResource("1_rhlsw")
+region = Rect2(0, 0, 16, 16)
+
+[node name="MainUi" type="Control" node_paths=PackedStringArray("GameCursor")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_lmh70")
+GameCursor = NodePath("Cursor")
+
+[node name="Cursor" type="CenterContainer" parent="." node_paths=PackedStringArray("_textureRect")]
+layout_mode = 0
+localize_numeral_system = false
+use_top_left = true
+script = ExtResource("1_7insp")
+_textureRect = NodePath("TextureRect")
+
+[node name="TextureRect" type="TextureRect" parent="Cursor"]
+texture_filter = 1
+texture_repeat = 1
+layout_mode = 2
+texture = SubResource("AtlasTexture_7insp")

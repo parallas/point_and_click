@@ -1,5 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://c2wadbts0v0p6"]
+[gd_scene load_steps=7 format=3 uid="uid://c2wadbts0v0p6"]
 
+[ext_resource type="PackedScene" uid="uid://bo0gg3ua6v8s4" path="res://scenes/nodes/MainUI.tscn" id="1_7115g"]
 [ext_resource type="Script" uid="uid://bxyi547r1qtg2" path="res://scripts/PlayerController.cs" id="1_uyl1e"]
 [ext_resource type="PackedScene" uid="uid://ccbhv1ml8uk4o" path="res://scenes/nodes/TestInteractable.tscn" id="2_7115g"]
 [ext_resource type="PackedScene" uid="uid://dwoj65lima5sx" path="res://models/room_test.glb" id="3_koekj"]
@@ -10,6 +11,9 @@ background_mode = 1
 background_color = Color(0.064049, 0.0575724, 0.134604, 1)
 
 [node name="Node3D" type="Node3D"]
+
+[node name="MainUi" parent="." node_paths=PackedStringArray("PlayerController") instance=ExtResource("1_7115g")]
+PlayerController = NodePath("../PlayerController")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_74lek")
