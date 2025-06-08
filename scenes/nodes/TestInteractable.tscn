@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://ccbhv1ml8uk4o"]
+[gd_scene load_steps=6 format=3 uid="uid://ccbhv1ml8uk4o"]
 
 [ext_resource type="PackedScene" uid="uid://c3k1bl3so1prf" path="res://scenes/components/Interactable.tscn" id="1_h7b2r"]
 [ext_resource type="Material" uid="uid://dd1f68st5a0y2" path="res://materials/test_material.tres" id="2_yx3jf"]
 [ext_resource type="PackedScene" uid="uid://dpxxr5afi8s64" path="res://scenes/components/ColorChanger.tscn" id="3_yx3jf"]
+[ext_resource type="PackedScene" uid="uid://7jaiajbv4ru0" path="res://scenes/components/Jiggle.tscn" id="4_ww1he"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ww1he"]
 radius = 0.2
@@ -23,4 +24,11 @@ rings = 8
 [node name="ColorChanger" parent="." instance=ExtResource("3_yx3jf")]
 _material = ExtResource("2_yx3jf")
 
+[node name="Jiggle" parent="." node_paths=PackedStringArray("JiggleNode") instance=ExtResource("4_ww1he")]
+JiggleNode = NodePath("../CSGSphere3D")
+DampingRatio = 0.3
+Frequency = 13.0
+HitAmount = 4.0
+
 [connection signal="OnInteracted" from="Interactable" to="ColorChanger" method="ChangeColor"]
+[connection signal="OnInteracted" from="Interactable" to="Jiggle" method="JiggleHit"]

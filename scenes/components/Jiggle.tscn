@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://7jaiajbv4ru0"]
+
+[ext_resource type="Script" uid="uid://d7yjmqg7ig72" path="res://scripts/interactables/Jiggle.cs" id="1_oi0gx"]
+
+[node name="Jiggle" type="Node"]
+script = ExtResource("1_oi0gx")
