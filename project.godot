@@ -26,6 +26,12 @@ window/stretch/aspect="expand"
 
 project/assembly_name="point_and_click"
 
+[global_group]
+
+InteractionObjects=""
+ActiveInteractionObjects=""
+InactiveInteractionObjects=""
+
 [input]
 
 interact={

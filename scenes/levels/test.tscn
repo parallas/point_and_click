@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://c2wadbts0v0p6"]
+[gd_scene load_steps=13 format=3 uid="uid://c2wadbts0v0p6"]
 
 [ext_resource type="PackedScene" uid="uid://bo0gg3ua6v8s4" path="res://scenes/nodes/MainUI.tscn" id="1_7115g"]
 [ext_resource type="PackedScene" uid="uid://ccbhv1ml8uk4o" path="res://scenes/nodes/TestInteractable.tscn" id="2_7115g"]
@@ -6,7 +6,16 @@
 [ext_resource type="Environment" uid="uid://bbx50g0qsv3jf" path="res://environments/environment_light.tres" id="3_im2du"]
 [ext_resource type="PackedScene" uid="uid://dwoj65lima5sx" path="res://models/room_test.glb" id="3_koekj"]
 [ext_resource type="Texture2D" uid="uid://bgs7hx85q4kln" path="res://textures/cookie_flashlight.png" id="3_kw13u"]
+[ext_resource type="Script" uid="uid://wq24jtvwn558" path="res://scripts/SceneCamera.cs" id="4_53yew"]
 [ext_resource type="Material" uid="uid://hy6p0syppvcf" path="res://post_processing/pixel_noise.tres" id="4_kw13u"]
+[ext_resource type="PackedScene" uid="uid://cn7jisqiafjom" path="res://scenes/nodes/light_switch_double.tscn" id="8_im2du"]
+[ext_resource type="PackedScene" uid="uid://c3k1bl3so1prf" path="res://scenes/components/InteractionObject.tscn" id="9_f5esd"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5tpx0"]
+size = Vector3(0.2, 0.2, 0.1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_53yew"]
+size = Vector3(0.3, 0.2, 0)
 
 [node name="Node3D" type="Node3D"]
 
@@ -29,9 +38,18 @@ grow_vertical = 2
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("3_im2du")
 
-[node name="Camera3D" type="Camera3D" parent="."]
+[node name="Camera3D" type="Camera3D" parent="." node_paths=PackedStringArray("_interactionNodes")]
 transform = Transform3D(0.964313, -0.0192664, 0.264063, 0, 0.997349, 0.0727678, -0.264765, -0.0701709, 0.961756, -1.07182, 0.105714, -0.341003)
+current = true
 fov = 50.0
+script = ExtResource("4_53yew")
+_interactionNodes = [NodePath("../TestInteractable"), NodePath("../TestInteractable2"), NodePath("../TestInteractable3"), NodePath("../GoToLightSwitch")]
+
+[node name="Camera3D2" type="Camera3D" parent="." node_paths=PackedStringArray("_interactionNodes")]
+transform = Transform3D(1, 0, 0, 0, 0.967188, 0.254062, 0, -0.254062, 0.967188, -1.62887, 0.4957, -3.26005)
+fov = 50.0
+script = ExtResource("4_53yew")
+_interactionNodes = [NodePath("../light_switch_double"), NodePath("../ToRoomFromLightSwitch")]
 
 [node name="Flashlight" type="SpotLight3D" parent="." node_paths=PackedStringArray("_mainUi")]
 light_color = Color(1, 0.966667, 0.9, 1)
@@ -42,6 +60,7 @@ spot_range = 15.0
 spot_angle = 20.0
 script = ExtResource("3_7115g")
 _mainUi = NodePath("../CanvasLayer2/MainUi")
+_shiftAmount = 0.1
 
 [node name="TestInteractable" parent="." instance=ExtResource("2_7115g")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.898694, 0.214064, -3.12243)
@@ -71,3 +90,27 @@ light_size = 0.075
 shadow_enabled = true
 omni_range = 2.0
 omni_attenuation = 1.5
+
+[node name="GoToLightSwitch" parent="." instance=ExtResource("9_f5esd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.63365, 0.361574, -3.75419)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GoToLightSwitch"]
+shape = SubResource("BoxShape3D_5tpx0")
+
+[node name="light_switch_double" parent="." instance=ExtResource("8_im2du")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.63365, 0.361574, -3.75419)
+
+[node name="ToRoomFromLightSwitch" parent="." instance=ExtResource("9_f5esd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.629, 0.308574, -3.406)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ToRoomFromLightSwitch"]
+shape = SubResource("BoxShape3D_53yew")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="ToRoomFromLightSwitch"]
+visible = false
+size = Vector3(0.3, 0.2, 0.001)
+
+[connection signal="OnInteracted" from="GoToLightSwitch" to="Camera3D2" method="Initialize"]
+[connection signal="OnLeftChange" from="light_switch_double" to="Flashlight" method="set_visible"]
+[connection signal="OnRightChange" from="light_switch_double" to="room_test/Light" method="set_visible"]
+[connection signal="OnInteracted" from="ToRoomFromLightSwitch" to="Camera3D" method="Initialize"]

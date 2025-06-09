@@ -6,6 +6,7 @@ using PointAndClick.Scripts;
 public partial class Flashlight : Node3D
 {
     [Export] private MainUI _mainUi;
+    [Export] private float _shiftAmount = 0.6f;
 
     public override void _Process(double delta)
     {
@@ -16,8 +17,8 @@ public partial class Flashlight : Node3D
         var from = cam.ProjectRayOrigin(_mainUi.GameCursor.Position);
         var dir = from + cam.ProjectRayNormal(_mainUi.GameCursor.Position) - from;
         var dirShift = MathUtil.ProjectOnPlane(dir, cam.GlobalBasis.Z);
-        var fromShift = from + dirShift * 0.6f;
-        var fromShiftHalf = from + dirShift * 0.3f;
+        var fromShift = from + dirShift * _shiftAmount;
+        var fromShiftHalf = from + dirShift * _shiftAmount * 0.5f;
 
         Position = MathUtil.ExpDecay(Position, fromShift, 16f, (float)delta);
 
