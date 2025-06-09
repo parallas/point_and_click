@@ -74,6 +74,7 @@ cancel={
 
 [rendering]
 
-lights_and_shadows/use_physical_light_units=true
 lights_and_shadows/positional_shadow/soft_shadow_filter_quality=4
+global_illumination/sdfgi/probe_ray_count=3
+global_illumination/sdfgi/frames_to_converge=0
 lights_and_shadows/positional_shadow/atlas_size=8192

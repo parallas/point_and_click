@@ -12,8 +12,9 @@ float random (vec2 uv) {
 }
 
 void fragment() {
-	float vignette_amount = mix(1.0, 0.0, distance(vec2(0.5, 0.5), SCREEN_UV));
-	
+	float vignette_amount = 1.0 - clamp(distance(vec2(0.5, 0.5), SCREEN_UV) * 1.25, 0, 1);
+	vignette_amount = pow(vignette_amount, 0.1);
+
 	vec4 screen_color = textureLod(screen_texture, SCREEN_UV, 0.0);
 	float random_time_offset = random(vec2(TIME, TIME * 0.215));
 	float random_x_offset = random(vec2(TIME * 0.18571, 0));
@@ -25,13 +26,13 @@ void fragment() {
 		mix(
 			0,
 			min_brightness,
-			pow(vignette_amount, 0.75)
+			vignette_amount
 		),
 		max_brightness,
 		noise_value_raw
 	);
 	vec3 final_color = screen_color.rgb;
 	final_color *= noise_value_ranged;
-	final_color *= mix(0.2, 1.0, vignette_amount);
+	//final_color *= pow(vignette_amount, 3);
 	COLOR = vec4(final_color, 1.0);
 }

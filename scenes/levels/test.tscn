@@ -9,6 +9,18 @@
 
 [sub_resource type="Environment" id="Environment_74lek"]
 background_mode = 1
+background_color = Color(0.256793, 0.253428, 0.372696, 1)
+tonemap_mode = 2
+ssao_enabled = true
+ssao_intensity = 5.0
+ssao_power = 0.215381
+ssao_light_affect = 1.0
+ssil_radius = 16.0
+sdfgi_read_sky_light = false
+sdfgi_min_cell_size = 0.195312
+sdfgi_cascade0_distance = 12.5
+sdfgi_max_distance = 200.0
+volumetric_fog_density = 0.2
 
 [node name="Node3D" type="Node3D"]
 
@@ -32,15 +44,14 @@ grow_vertical = 2
 environment = SubResource("Environment_74lek")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.997349, 0.0727678, 0, -0.0727678, 0.997349, -1.07845, 0.0970805, -0.670443)
-fov = 60.0
+transform = Transform3D(0.964313, -0.0192664, 0.264063, 0, 0.997349, 0.0727678, -0.264765, -0.0701709, 0.961756, -1.07182, 0.105714, -0.341003)
+fov = 50.0
 
 [node name="Flashlight" type="SpotLight3D" parent="." node_paths=PackedStringArray("_mainUi")]
-light_intensity_lumens = 20.0
-light_temperature = 6061.0
+light_energy = 5.0
 light_projector = ExtResource("3_kw13u")
 shadow_enabled = true
-spot_range = 8.0
+spot_range = 15.0
 spot_angle = 20.0
 script = ExtResource("3_7115g")
 _mainUi = NodePath("../CanvasLayer2/MainUi")
@@ -58,10 +69,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.53189, -0.0345907, -3.3332
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.75)
 
 [node name="Light" type="OmniLight3D" parent="room_test"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1.421, 0)
-visible = false
-light_intensity_lumens = 15.0
-light_temperature = 5951.0
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1.17818, 0)
 light_size = 0.075
 shadow_enabled = true
 omni_range = 4.5
