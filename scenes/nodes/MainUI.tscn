@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://bo0gg3ua6v8s4"]
+[gd_scene load_steps=6 format=3 uid="uid://bo0gg3ua6v8s4"]
 
 [ext_resource type="Script" uid="uid://c102ch0gv7g6q" path="res://scripts/GameCursor.cs" id="1_7insp"]
 [ext_resource type="Script" uid="uid://nf070513fwtb" path="res://scripts/MainUI.cs" id="1_lmh70"]
 [ext_resource type="Texture2D" uid="uid://lkqsrwjp6je5" path="res://sprites/cursor.png" id="1_rhlsw"]
+[ext_resource type="Script" uid="uid://bxyi547r1qtg2" path="res://scripts/PlayerController.cs" id="4_a1bga"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7insp"]
 atlas = ExtResource("1_rhlsw")
@@ -30,3 +31,7 @@ texture_filter = 1
 texture_repeat = 1
 layout_mode = 2
 texture = SubResource("AtlasTexture_7insp")
+
+[node name="Player Controller" type="Node3D" parent="." node_paths=PackedStringArray("GameCursor")]
+script = ExtResource("4_a1bga")
+GameCursor = NodePath("../Cursor")

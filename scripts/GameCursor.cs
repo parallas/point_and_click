@@ -4,9 +4,9 @@ using Parallas;
 namespace PointAndClick.Scripts;
 public partial class GameCursor : Control
 {
-    [Export] public PlayerController PlayerController;
     [Export] private TextureRect _textureRect;
 
+    public bool IsHighlighted { get; set; }
     private float _cursorCurrentSpeed = 1f;
 
     public override void _Ready()
@@ -22,7 +22,7 @@ public partial class GameCursor : Control
         var atlasTexture = (AtlasTexture)_textureRect.Texture;
         atlasTexture.SetRegion(
             new Rect2(
-                PlayerController.HoverTarget is not null ? 16 : 0,
+                IsHighlighted ? 16 : 0,
                 0,
                 16,
                 16
