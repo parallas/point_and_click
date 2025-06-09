@@ -2,22 +2,34 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using Godot.Collections;
+using Parallas;
+using PointAndClick.Scripts;
 using PointAndClick.Scripts.Interactables;
 
 public partial class SceneCamera : Camera3D
 {
     [Export] private Array<Node3D> _interactionNodes = new();
+    [Export] private float _shiftAmount = 0.1f;
     private Array<InteractionObject> _interactionObjects = new();
+
+    private MainUI _mainUi;
+
+    private Vector3 _initialPosition;
+    private Quaternion _initialRotation;
 
     public override void _Ready()
     {
         base._Ready();
 
+        _initialPosition = GlobalPosition;
+        _initialRotation = Quaternion;
+        _mainUi = GetTree().GetFirstNodeInGroup("MainUI") as MainUI;
+
         foreach (var node in _interactionNodes)
         {
             if (node is InteractionObject baseInteractionObject)
                 _interactionObjects.Add(baseInteractionObject);
-            
+
             var children = node.FindChildren("InteractionObject");
             foreach (var child in children)
             {
@@ -27,6 +39,19 @@ public partial class SceneCamera : Camera3D
         }
 
         if (IsCurrent()) Initialize();
+    }
+
+    public override void _Process(double delta)
+    {
+        base._Process(delta);
+        var normalizedCursorPos = _mainUi.GameCursor.Position / GetViewport().GetVisibleRect().Size;
+        normalizedCursorPos *= 2f;
+        normalizedCursorPos -= Vector2.One;
+
+        var shiftVector = new Vector3(normalizedCursorPos.X, -normalizedCursorPos.Y, 0f);
+        shiftVector *= _shiftAmount;
+        var targetPosition = _initialPosition + (_initialRotation * shiftVector);
+        GlobalPosition = MathUtil.ExpDecay(GlobalPosition, targetPosition, 8f, (float)delta);
     }
 
     private void SetAllObjectStates(bool state)
