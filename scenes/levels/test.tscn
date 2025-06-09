@@ -12,9 +12,8 @@ background_mode = 1
 
 [node name="Node3D" type="Node3D"]
 
-[node name="MainUi" parent="." instance=ExtResource("1_7115g")]
-
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 0
 follow_viewport_enabled = true
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
@@ -24,6 +23,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+
+[node name="MainUi" parent="CanvasLayer2" instance=ExtResource("1_7115g")]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_74lek")
@@ -40,7 +43,7 @@ shadow_enabled = true
 spot_range = 8.0
 spot_angle = 20.0
 script = ExtResource("3_7115g")
-_mainUi = NodePath("../MainUi")
+_mainUi = NodePath("../CanvasLayer2/MainUi")
 
 [node name="TestInteractable" parent="." instance=ExtResource("2_7115g")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.898694, 0.214064, -3.12243)
