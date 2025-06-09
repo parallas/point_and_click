@@ -8,8 +8,11 @@ using PointAndClick.Scripts.Interactables;
 
 public partial class SceneCamera : Camera3D
 {
+    public static Action OnCameraChange;
     [Export] private Array<Node3D> _interactionNodes = new();
-    [Export] private float _shiftAmount = 0.1f;
+    [Export] public float ShiftAmount { get; private set; } = 0.1f;
+    [Export] public float FlashlightAngle { get; private set; } = 20f;
+    [Export] public float FlashlightBrightness { get; private set; } = 5f;
     private Array<InteractionObject> _interactionObjects = new();
 
     private MainUI _mainUi;
@@ -49,7 +52,7 @@ public partial class SceneCamera : Camera3D
         normalizedCursorPos -= Vector2.One;
 
         var shiftVector = new Vector3(normalizedCursorPos.X, -normalizedCursorPos.Y, 0f);
-        shiftVector *= _shiftAmount;
+        shiftVector *= ShiftAmount;
         var targetPosition = _initialPosition + (_initialRotation * shiftVector);
         GlobalPosition = MathUtil.ExpDecay(GlobalPosition, targetPosition, 8f, (float)delta);
     }
@@ -86,5 +89,6 @@ public partial class SceneCamera : Camera3D
         }
         SetObjectStates(true);
         SetCurrent(true);
+        OnCameraChange?.Invoke();
     }
 }
