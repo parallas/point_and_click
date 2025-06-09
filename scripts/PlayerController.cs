@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using Parallas;
 using PointAndClick.Scripts;
 using PointAndClick.Scripts.Engine;
 using PointAndClick.Scripts.Interactables;
@@ -30,7 +31,7 @@ public partial class PlayerController : Node3D
         // do something
         interactable.Hover();
 
-        if (Input.IsActionJustPressed("interact"))
+        if (InputFixer.ConfirmActionPressed())
         {
             interactable.Interact();
         }

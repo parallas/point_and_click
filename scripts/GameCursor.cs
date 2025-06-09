@@ -51,6 +51,7 @@ public partial class GameCursor : Control
     public override void _Input(InputEvent @event)
     {
         base._Input(@event);
+        InputFixer.UpdateInput(@event);
 
         if (@event is InputEventMouseMotion mouseEvent)
         {
