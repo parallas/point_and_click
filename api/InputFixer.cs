@@ -16,7 +16,6 @@ public static class InputFixer
     {
         IsGamepad = inputEvent is InputEventJoypadButton or InputEventJoypadMotion;
         var joyName = Input.GetJoyName(inputEvent.Device);
-        GD.Print(joyName);
         SwapAB = AutoSwapGamepads.Contains(joyName.Trim().ToUpper());
     }
 
