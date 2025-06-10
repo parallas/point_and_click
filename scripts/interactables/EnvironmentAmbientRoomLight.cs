@@ -1,0 +1,32 @@
+using Godot;
+using System;
+using Environment = Godot.Environment;
+
+public partial class EnvironmentAmbientRoomLight : Node
+{
+    [Export] private bool _isOn = true;
+    [Export] private Light3D _lightSource;
+    [Export] private WorldEnvironment _worldEnvironment;
+
+    private void SetState(bool isOn)
+    {
+        _isOn = isOn;
+        _lightSource.Visible = _isOn;
+        _worldEnvironment.Environment.BackgroundEnergyMultiplier = _isOn ? 1f : 0f;
+    }
+
+    public void TurnOn()
+    {
+        SetState(true);
+    }
+
+    public void TurnOff()
+    {
+        SetState(false);
+    }
+
+    public void ToggleAmbientLight()
+    {
+        SetState(!_isOn);
+    }
+}
