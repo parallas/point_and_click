@@ -2,7 +2,10 @@ using Godot;
 using System;
 using Parallas;
 
-public partial class LightSwitch : Node3D
+namespace PointAndClick.Scripts.Interactables.Components;
+
+[GlobalClass]
+public partial class Lever : InteractionComponent
 {
     [Signal]
     public delegate void OnLightStateChangedEventHandler(bool state);
@@ -35,7 +38,7 @@ public partial class LightSwitch : Node3D
 
     public bool Toggle()
     {
-        GD.Print("LightSwitch Toggle");
+        GD.Print("Lever Toggle");
         IsOn = !IsOn;
         EmitSignalOnLightStateChanged(IsOn);
         return IsOn;

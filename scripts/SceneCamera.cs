@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Godot.Collections;
 using Parallas;
 using PointAndClick.Scripts;
@@ -33,13 +34,15 @@ public partial class SceneCamera : Camera3D
             if (node is InteractionObject baseInteractionObject)
                 _interactionObjects.Add(baseInteractionObject);
 
-            var children = node.FindChildren("*");
-            foreach (var child in children)
+            var children = node.FindChildren("*", "InteractionObject")
+                .OfType<InteractionObject>();
+            foreach (var interactionObject in children)
             {
-                if (child is not InteractionObject interactionObject) continue;
                 _interactionObjects.Add(interactionObject);
             }
         }
+
+        GD.Print($"Camera {Name} has {_interactionObjects.Count} interaction objects.");
 
         if (IsCurrent()) Initialize();
     }

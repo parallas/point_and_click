@@ -2,7 +2,10 @@ using Godot;
 using System;
 using Parallas;
 
-public partial class Jiggle : Node
+namespace PointAndClick.Scripts.Interactables.Components;
+
+[GlobalClass]
+public partial class Jiggle : InteractionComponent
 {
     [Export] public Node3D JiggleNode;
     [Export] public float DampingRatio = 1f;

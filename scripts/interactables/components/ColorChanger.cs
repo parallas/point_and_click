@@ -1,8 +1,9 @@
 using Godot;
 
-namespace PointAndClick.Scripts.Interactables;
+namespace PointAndClick.Scripts.Interactables.Components;
 
-public partial class ColorChanger : Node
+[GlobalClass]
+public partial class ColorChanger : InteractionComponent
 {
     [Export] private GeometryInstance3D _geometryInstance3D;
 

@@ -1,6 +1,8 @@
 using Godot;
 using System;
 
+namespace PointAndClick.Scripts.Interactables;
+
 public partial class DoubleLightSwitch : Node3D
 {
     [Signal] public delegate void OnRightChangeEventHandler(bool state);

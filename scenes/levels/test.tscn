@@ -9,8 +9,8 @@
 [ext_resource type="Script" uid="uid://wq24jtvwn558" path="res://scripts/SceneCamera.cs" id="4_53yew"]
 [ext_resource type="Material" uid="uid://hy6p0syppvcf" path="res://post_processing/pixel_noise.tres" id="4_kw13u"]
 [ext_resource type="PackedScene" uid="uid://cn7jisqiafjom" path="res://scenes/nodes/light_switch_double.tscn" id="8_im2du"]
-[ext_resource type="PackedScene" uid="uid://c3k1bl3so1prf" path="res://scenes/components/InteractionObject.tscn" id="9_f5esd"]
-[ext_resource type="PackedScene" uid="uid://csixsksfbss65" path="res://scenes/components/EnvironmentAmbientRoomLight.tscn" id="11_5tpx0"]
+[ext_resource type="Script" uid="uid://cs4l3hmc6dahe" path="res://scripts/interactables/InteractionObject.cs" id="9_wu1oq"]
+[ext_resource type="Script" uid="uid://cwacnbt5x5lar" path="res://scripts/interactables/components/EnvironmentAmbientRoomLight.cs" id="11_5tpx0"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_5tpx0"]
 size = Vector3(0.2, 0.2, 0.1)
@@ -95,8 +95,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.476692, 0.611157, -1.37243
 [node name="TestInteractable3" parent="room_test" instance=ExtResource("2_7115g")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.53189, -0.0345907, -1.58328)
 
-[node name="GoToLightSwitch" parent="room_test" instance=ExtResource("9_f5esd")]
+[node name="GoToLightSwitch" type="StaticBody3D" parent="room_test"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.63365, 0.361574, -2.00419)
+script = ExtResource("9_wu1oq")
+metadata/_custom_type_script = "uid://cs4l3hmc6dahe"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="room_test/GoToLightSwitch"]
 shape = SubResource("BoxShape3D_5tpx0")
@@ -104,12 +106,16 @@ shape = SubResource("BoxShape3D_5tpx0")
 [node name="light_switch_double" parent="room_test" instance=ExtResource("8_im2du")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.63365, 0.361574, -2.00419)
 
-[node name="EnvironmentAmbientRoomLight" parent="room_test/light_switch_double" node_paths=PackedStringArray("_lightSource", "_worldEnvironment") instance=ExtResource("11_5tpx0")]
+[node name="EnvironmentAmbientRoomLight" type="Node" parent="room_test/light_switch_double" node_paths=PackedStringArray("_lightSource", "_worldEnvironment")]
+script = ExtResource("11_5tpx0")
 _lightSource = NodePath("../../Room Light")
 _worldEnvironment = NodePath("../../../WorldEnvironment")
+metadata/_custom_type_script = "uid://cwacnbt5x5lar"
 
-[node name="ToRoomFromLightSwitch" parent="room_test" instance=ExtResource("9_f5esd")]
+[node name="ToRoomFromLightSwitch" type="StaticBody3D" parent="room_test"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.629, 0.308574, -1.656)
+script = ExtResource("9_wu1oq")
+metadata/_custom_type_script = "uid://cs4l3hmc6dahe"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="room_test/ToRoomFromLightSwitch"]
 shape = SubResource("BoxShape3D_53yew")

@@ -2,6 +2,7 @@ using Godot;
 
 namespace PointAndClick.Scripts.Interactables;
 
+[GlobalClass]
 public partial class InteractionObject : StaticBody3D
 {
     [Signal]

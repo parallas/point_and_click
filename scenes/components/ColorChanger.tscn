@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://dpxxr5afi8s64"]
-
-[ext_resource type="Script" uid="uid://db7557jsjs1m1" path="res://scripts/interactables/ColorChanger.cs" id="1_7ovmw"]
-
-[node name="ColorChanger" type="Node"]
-script = ExtResource("1_7ovmw")

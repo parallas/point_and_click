@@ -2,7 +2,10 @@ using Godot;
 using System;
 using Environment = Godot.Environment;
 
-public partial class EnvironmentAmbientRoomLight : Node
+namespace PointAndClick.Scripts.Interactables.Components;
+
+[GlobalClass]
+public partial class EnvironmentAmbientRoomLight : InteractionComponent
 {
     [Export] private bool _isOn = true;
     [Export] private Light3D _lightSource;

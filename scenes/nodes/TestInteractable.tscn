@@ -1,16 +1,18 @@
 [gd_scene load_steps=6 format=3 uid="uid://ccbhv1ml8uk4o"]
 
-[ext_resource type="PackedScene" uid="uid://c3k1bl3so1prf" path="res://scenes/components/InteractionObject.tscn" id="1_h7b2r"]
+[ext_resource type="Script" uid="uid://cs4l3hmc6dahe" path="res://scripts/interactables/InteractionObject.cs" id="1_ww1he"]
 [ext_resource type="Material" uid="uid://dd1f68st5a0y2" path="res://materials/test_material.tres" id="2_yx3jf"]
-[ext_resource type="PackedScene" uid="uid://dpxxr5afi8s64" path="res://scenes/components/ColorChanger.tscn" id="3_yx3jf"]
-[ext_resource type="PackedScene" uid="uid://7jaiajbv4ru0" path="res://scenes/components/Jiggle.tscn" id="4_ww1he"]
+[ext_resource type="Script" uid="uid://d7yjmqg7ig72" path="res://scripts/interactables/components/Jiggle.cs" id="3_ww1he"]
+[ext_resource type="Script" uid="uid://db7557jsjs1m1" path="res://scripts/interactables/components/ColorChanger.cs" id="4_edbvf"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ww1he"]
 radius = 0.2
 
 [node name="TestInteractable" type="Node3D"]
 
-[node name="InteractionObject" parent="." instance=ExtResource("1_h7b2r")]
+[node name="InteractionObject" type="StaticBody3D" parent="."]
+script = ExtResource("1_ww1he")
+metadata/_custom_type_script = "uid://cs4l3hmc6dahe"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="InteractionObject"]
 shape = SubResource("SphereShape3D_ww1he")
@@ -21,14 +23,18 @@ radius = 0.2
 radial_segments = 16
 rings = 8
 
-[node name="ColorChanger" parent="." node_paths=PackedStringArray("_geometryInstance3D") instance=ExtResource("3_yx3jf")]
-_geometryInstance3D = NodePath("../CSGSphere3D")
-
-[node name="Jiggle" parent="." node_paths=PackedStringArray("JiggleNode") instance=ExtResource("4_ww1he")]
+[node name="Jiggle" type="Node" parent="." node_paths=PackedStringArray("JiggleNode")]
+script = ExtResource("3_ww1he")
 JiggleNode = NodePath("../CSGSphere3D")
 DampingRatio = 0.3
 Frequency = 13.0
 HitAmount = 4.0
+metadata/_custom_type_script = "uid://d7yjmqg7ig72"
 
-[connection signal="OnInteracted" from="InteractionObject" to="ColorChanger" method="ChangeColor"]
+[node name="ColorChanger" type="Node" parent="." node_paths=PackedStringArray("_geometryInstance3D")]
+script = ExtResource("4_edbvf")
+_geometryInstance3D = NodePath("../CSGSphere3D")
+metadata/_custom_type_script = "uid://db7557jsjs1m1"
+
 [connection signal="OnInteracted" from="InteractionObject" to="Jiggle" method="JiggleHit"]
+[connection signal="OnInteracted" from="InteractionObject" to="ColorChanger" method="ChangeColor"]
