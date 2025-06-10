@@ -33,7 +33,7 @@ public partial class SceneCamera : Camera3D
             if (node is InteractionObject baseInteractionObject)
                 _interactionObjects.Add(baseInteractionObject);
 
-            var children = node.FindChildren("InteractionObject");
+            var children = node.FindChildren("*");
             foreach (var child in children)
             {
                 if (child is not InteractionObject interactionObject) continue;
