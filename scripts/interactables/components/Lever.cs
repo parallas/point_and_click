@@ -43,4 +43,9 @@ public partial class Lever : InteractionComponent
         EmitSignalOnLightStateChanged(IsOn);
         return IsOn;
     }
+
+    public override void OnInteract()
+    {
+        Toggle();
+    }
 }

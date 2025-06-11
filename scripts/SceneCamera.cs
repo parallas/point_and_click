@@ -10,7 +10,7 @@ using PointAndClick.Scripts.Interactables;
 public partial class SceneCamera : Camera3D
 {
     public static Action OnCameraChange;
-    [Export] private Array<Node3D> _interactionNodes = new();
+    [Export] private Array<Node> _interactionNodes = new();
     [Export] public float ShiftAmount { get; private set; } = 0.1f;
     [Export] public float FlashlightAngle { get; private set; } = 20f;
     [Export] public float FlashlightBrightness { get; private set; } = 5f;
@@ -30,6 +30,8 @@ public partial class SceneCamera : Camera3D
         _initialRotation = Quaternion;
         _mainUi = GetTree().GetFirstNodeInGroup("MainUI") as MainUI;
         _viewport = GetViewport();
+
+        _interactionNodes.Add(this);
 
         foreach (var node in _interactionNodes)
         {

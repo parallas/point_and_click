@@ -1,19 +1,34 @@
+using System.Collections.Generic;
+using System.Linq;
 using Godot;
+using PointAndClick.Scripts.Interactables.Components;
 
 namespace PointAndClick.Scripts.Interactables;
 
 [GlobalClass]
-public partial class InteractionObject : StaticBody3D
+public abstract partial class InteractionObject : Node
 {
     [Signal]
     public delegate void OnHoveredEventHandler();
     [Signal]
     public delegate void OnInteractedEventHandler();
 
-    private InteractionObject()
+    public List<InteractionComponent> InteractionComponents = new List<InteractionComponent>();
+
+    public InteractionObject()
     {
         AddToGroup("InteractionObjects");
         SetActiveState(false);
+    }
+
+    public override void _EnterTree()
+    {
+        base._EnterTree();
+        InteractionComponents = FindChildren("*", nameof(InteractionComponent))
+            .OfType<InteractionComponent>()
+            .ToList();
+
+        GD.Print($"Interaction Components: {InteractionComponents.Count}");
     }
 
     public void SetActiveState(bool state)
@@ -30,13 +45,20 @@ public partial class InteractionObject : StaticBody3D
         }
     }
 
+    public virtual bool IsHovered(Vector2 position)
+    {
+        return true;
+    }
+
     public void Hover()
     {
         EmitSignalOnHovered();
+        InteractionComponents.ForEach(component => component.OnHover());
     }
 
     public void Interact()
     {
         EmitSignalOnInteracted();
+        InteractionComponents.ForEach(component => component.OnInteract());
     }
 }

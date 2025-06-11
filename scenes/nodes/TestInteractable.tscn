@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://ccbhv1ml8uk4o"]
 
-[ext_resource type="Script" uid="uid://cs4l3hmc6dahe" path="res://scripts/interactables/InteractionObject.cs" id="1_ww1he"]
+[ext_resource type="Script" uid="uid://cb62g5vln3p8w" path="res://scripts/interactables/PhysicalInteractionObject.cs" id="1_ww1he"]
 [ext_resource type="Material" uid="uid://dd1f68st5a0y2" path="res://materials/test_material.tres" id="2_yx3jf"]
 [ext_resource type="Script" uid="uid://d7yjmqg7ig72" path="res://scripts/interactables/components/Jiggle.cs" id="3_ww1he"]
 [ext_resource type="Script" uid="uid://db7557jsjs1m1" path="res://scripts/interactables/components/ColorChanger.cs" id="4_edbvf"]
@@ -10,31 +10,29 @@ radius = 0.2
 
 [node name="TestInteractable" type="Node3D"]
 
-[node name="InteractionObject" type="StaticBody3D" parent="."]
-script = ExtResource("1_ww1he")
-metadata/_custom_type_script = "uid://cs4l3hmc6dahe"
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractionObject"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 shape = SubResource("SphereShape3D_ww1he")
+
+[node name="PhysicalInteractionObject" type="Node" parent="StaticBody3D"]
+script = ExtResource("1_ww1he")
+
+[node name="Jiggle" type="Node" parent="StaticBody3D/PhysicalInteractionObject" node_paths=PackedStringArray("JiggleNode")]
+script = ExtResource("3_ww1he")
+JiggleNode = NodePath("../../../CSGSphere3D")
+DampingRatio = 0.3
+Frequency = 13.0
+HitAmount = 4.0
+metadata/_custom_type_script = "uid://d7yjmqg7ig72"
+
+[node name="ColorChanger" type="Node" parent="StaticBody3D/PhysicalInteractionObject" node_paths=PackedStringArray("_geometryInstance3D")]
+script = ExtResource("4_edbvf")
+_geometryInstance3D = NodePath("../../../CSGSphere3D")
+metadata/_custom_type_script = "uid://db7557jsjs1m1"
 
 [node name="CSGSphere3D" type="CSGSphere3D" parent="."]
 material_override = ExtResource("2_yx3jf")
 radius = 0.2
 radial_segments = 16
 rings = 8
-
-[node name="Jiggle" type="Node" parent="." node_paths=PackedStringArray("JiggleNode")]
-script = ExtResource("3_ww1he")
-JiggleNode = NodePath("../CSGSphere3D")
-DampingRatio = 0.3
-Frequency = 13.0
-HitAmount = 4.0
-metadata/_custom_type_script = "uid://d7yjmqg7ig72"
-
-[node name="ColorChanger" type="Node" parent="." node_paths=PackedStringArray("_geometryInstance3D")]
-script = ExtResource("4_edbvf")
-_geometryInstance3D = NodePath("../CSGSphere3D")
-metadata/_custom_type_script = "uid://db7557jsjs1m1"
-
-[connection signal="OnInteracted" from="InteractionObject" to="Jiggle" method="JiggleHit"]
-[connection signal="OnInteracted" from="InteractionObject" to="ColorChanger" method="ChangeColor"]

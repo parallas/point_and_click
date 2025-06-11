@@ -31,6 +31,11 @@ public partial class Jiggle : InteractionComponent
         JiggleNode.SetScale(MathUtil.SquashScale(_jiggleAmount));
     }
 
+    public override void OnInteract()
+    {
+        JiggleHit();
+    }
+
     public void JiggleHit()
     {
         _jiggleVelocity += HitAmount;

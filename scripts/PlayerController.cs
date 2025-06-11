@@ -29,26 +29,59 @@ public partial class PlayerController : Node3D
         // raycast for interactable object
         HoverTarget = null;
         GameCursor.IsHighlighted = false;
+
+        InteractionObject targetInteractionObject = null;
+
+        // Physical Interaction Objects
+        var physicalInteraction = GetPhysicalInteractionObject(GameCursor.Position);
+        if (physicalInteraction is not null)
+        {
+            targetInteractionObject = physicalInteraction;
+        }
+
+        // Screen Space Interaction Objects
+        var screenSpaceInteraction = GetScreenSpaceInteractionObject(GameCursor.Position);
+        if (screenSpaceInteraction is not null)
+        {
+            targetInteractionObject = screenSpaceInteraction;
+        }
+
+        if (targetInteractionObject is null) return;
+        HoverTarget = targetInteractionObject;
+        GameCursor.IsHighlighted = true;
+        targetInteractionObject.Hover();
+        if (InputFixer.ConfirmActionPressed())
+        {
+            targetInteractionObject.Interact();
+        }
+    }
+
+    private PhysicalInteractionObject GetPhysicalInteractionObject(Vector2 mousePosition)
+    {
+        // Physical Interaction Objects
         var viewport = GetViewport();
         var cam = viewport.GetCamera3D();
         var world = GetWorld3D();
         var inactiveInteractionObjects = GetTree().GetNodesInGroup("InactiveInteractionObjects")
-            .Select(node => (node as InteractionObject)!.GetRid()).ToArray();
-        var didHit = PhysicsTools.CheckHit(GameCursor.Position, viewport, cam, 100, world, out var result,
+            .OfType<PhysicalInteractionObject>()
+            .Select(node => node.PhysicsBody?.GetRid())
+            .OfType<Rid>()
+            .ToArray();
+        var didHit = PhysicsTools.CheckHit(mousePosition, viewport, cam, 100, world, out var result,
             new Array<Rid>(inactiveInteractionObjects));
-        if (!didHit) return;
+        if (!didHit) return null;
 
         // ensure object is of type interactable
-        if (result.Collider is not InteractionObject interactable) return;
-        HoverTarget = interactable;
-        GameCursor.IsHighlighted = true;
+        if (!result.Collider.HasMeta("PhysicalInteractionObject")) return null;
+        var physicalInteraction = result.Collider.GetMeta("PhysicalInteractionObject").As<PhysicalInteractionObject>();
+        return !physicalInteraction.IsHovered(mousePosition) ? null : physicalInteraction;
+    }
 
-        // do something
-        interactable.Hover();
-
-        if (InputFixer.ConfirmActionPressed())
-        {
-            interactable.Interact();
-        }
+    private ScreenSpaceInteractionObject GetScreenSpaceInteractionObject(Vector2 mousePosition)
+    {
+        var screenSpaceInteractionObjects = GetTree().GetNodesInGroup("ActiveInteractionObjects")
+            .OfType<ScreenSpaceInteractionObject>()
+            .Where(o => o.IsHovered(mousePosition));
+        return screenSpaceInteractionObjects.FirstOrDefault();
     }
 }

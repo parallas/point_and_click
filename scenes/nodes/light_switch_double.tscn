@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://cixiv7kjx37nj" path="res://models/light_switch_double.glb" id="1_qvapy"]
 [ext_resource type="Script" uid="uid://cgeoyviufvkwt" path="res://scripts/interactables/DoubleLightSwitch.cs" id="2_mc3vd"]
 [ext_resource type="Script" uid="uid://vq1jyb0mkdtf" path="res://scripts/interactables/components/Lever.cs" id="2_xjn38"]
-[ext_resource type="Script" uid="uid://cs4l3hmc6dahe" path="res://scripts/interactables/InteractionObject.cs" id="4_mc3vd"]
+[ext_resource type="Script" uid="uid://cb62g5vln3p8w" path="res://scripts/interactables/PhysicalInteractionObject.cs" id="3_mc3vd"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mc3vd"]
 size = Vector3(0.0292969, 0.0341797, 0.0418396)
@@ -11,35 +11,37 @@ size = Vector3(0.0292969, 0.0341797, 0.0418396)
 [node name="light_switch_double" instance=ExtResource("1_qvapy")]
 script = ExtResource("2_mc3vd")
 
-[node name="Lever" type="Node" parent="Lever_Right" index="0" node_paths=PackedStringArray("_lever")]
+[node name="InteractionObject" type="StaticBody3D" parent="Lever_Right" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0443211)
+
+[node name="PhysicalInteractionObject" type="Node" parent="Lever_Right/InteractionObject" index="0"]
+script = ExtResource("3_mc3vd")
+metadata/_custom_type_script = "uid://cb62g5vln3p8w"
+
+[node name="Lever" type="Node" parent="Lever_Right/InteractionObject/PhysicalInteractionObject" index="0" node_paths=PackedStringArray("_lever")]
 script = ExtResource("2_xjn38")
-_lever = NodePath("..")
+_lever = NodePath("../../..")
 metadata/_custom_type_script = "uid://vq1jyb0mkdtf"
 
-[node name="InteractionObject" type="StaticBody3D" parent="Lever_Right" index="1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0443211)
-script = ExtResource("4_mc3vd")
-metadata/_custom_type_script = "uid://cs4l3hmc6dahe"
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Lever_Right/InteractionObject" index="0"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Lever_Right/InteractionObject" index="1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.00706482)
 shape = SubResource("BoxShape3D_mc3vd")
 
-[node name="Lever" type="Node" parent="Lever_Left" index="0" node_paths=PackedStringArray("_lever")]
+[node name="InteractionObject" type="StaticBody3D" parent="Lever_Left" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0443211)
+
+[node name="PhysicalInteractionObject" type="Node" parent="Lever_Left/InteractionObject" index="0"]
+script = ExtResource("3_mc3vd")
+metadata/_custom_type_script = "uid://cb62g5vln3p8w"
+
+[node name="Lever" type="Node" parent="Lever_Left/InteractionObject/PhysicalInteractionObject" index="0" node_paths=PackedStringArray("_lever")]
 script = ExtResource("2_xjn38")
-_lever = NodePath("..")
+_lever = NodePath("../../..")
 metadata/_custom_type_script = "uid://vq1jyb0mkdtf"
 
-[node name="InteractionObject" type="StaticBody3D" parent="Lever_Left" index="1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0443211)
-script = ExtResource("4_mc3vd")
-metadata/_custom_type_script = "uid://cs4l3hmc6dahe"
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Lever_Left/InteractionObject" index="0"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Lever_Left/InteractionObject" index="1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.00706482)
 shape = SubResource("BoxShape3D_mc3vd")
 
-[connection signal="OnLightStateChanged" from="Lever_Right/Lever" to="." method="RightChange"]
-[connection signal="OnInteracted" from="Lever_Right/InteractionObject" to="Lever_Right/Lever" method="Toggle"]
-[connection signal="OnLightStateChanged" from="Lever_Left/Lever" to="." method="LeftChange"]
-[connection signal="OnInteracted" from="Lever_Left/InteractionObject" to="Lever_Left/Lever" method="Toggle"]
+[connection signal="OnLightStateChanged" from="Lever_Right/InteractionObject/PhysicalInteractionObject/Lever" to="." method="RightChange"]
+[connection signal="OnLightStateChanged" from="Lever_Left/InteractionObject/PhysicalInteractionObject/Lever" to="." method="LeftChange"]
