@@ -85,13 +85,17 @@ public partial class SceneCamera : Camera3D
 
     public void Initialize()
     {
-        if (GetViewport().GetCamera3D() is SceneCamera sceneCamera)
+        var existingCam = GetViewport().GetCamera3D() as SceneCamera;
+        existingCam?.Deinitialize();
+
+        var screenFader = (ScreenFader)GetTree().GetFirstNodeInGroup("MainScreenFade");
+        screenFader.FadeToOpaque(0.2f, () =>
         {
-            sceneCamera.Deinitialize();
-            sceneCamera.SetCurrent(false);
-        }
-        SetObjectStates(true);
-        SetCurrent(true);
-        OnCameraChange?.Invoke();
+            existingCam?.SetCurrent(false);
+            SetObjectStates(true);
+            SetCurrent(true);
+            OnCameraChange?.Invoke();
+            screenFader.FadeToClear(0.2f);
+        });
     }
 }

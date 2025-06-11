@@ -1,15 +1,16 @@
-[gd_scene load_steps=6 format=3 uid="uid://bo0gg3ua6v8s4"]
+[gd_scene load_steps=7 format=3 uid="uid://bo0gg3ua6v8s4"]
 
 [ext_resource type="Script" uid="uid://c102ch0gv7g6q" path="res://scripts/GameCursor.cs" id="1_7insp"]
-[ext_resource type="Script" uid="uid://nf070513fwtb" path="res://scripts/MainUI.cs" id="1_lmh70"]
+[ext_resource type="Script" uid="uid://nf070513fwtb" path="res://scripts/ui/MainUI.cs" id="1_lmh70"]
 [ext_resource type="Texture2D" uid="uid://lkqsrwjp6je5" path="res://sprites/cursor.png" id="1_rhlsw"]
+[ext_resource type="Script" uid="uid://cv6464g2l5y8p" path="res://scripts/ui/ScreenFader.cs" id="2_xt0rp"]
 [ext_resource type="Script" uid="uid://bxyi547r1qtg2" path="res://scripts/PlayerController.cs" id="4_a1bga"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7insp"]
 atlas = ExtResource("1_rhlsw")
 region = Rect2(0, 0, 16, 16)
 
-[node name="MainUi" type="Control" node_paths=PackedStringArray("GameCursor")]
+[node name="MainUi" type="Control" node_paths=PackedStringArray("GameCursor", "ScreenFader")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -18,6 +19,17 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_lmh70")
 GameCursor = NodePath("Cursor")
+ScreenFader = NodePath("Screen Fade")
+
+[node name="Screen Fade" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0)
+script = ExtResource("2_xt0rp")
 
 [node name="Cursor" type="CenterContainer" parent="." node_paths=PackedStringArray("_textureRect")]
 layout_mode = 0
