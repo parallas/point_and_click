@@ -9,6 +9,7 @@ public partial class ScreenFader : MarginContainer
 
     [Export] public ColorRect ColorRect;
     [Export] public TextureRect TextureRect;
+    [Export] public Viewport InGameViewport;
 
     private bool _isOpaque = false;
     private Tween _tween = null;
@@ -41,7 +42,7 @@ public partial class ScreenFader : MarginContainer
 
         if (fadeType == FadeTypes.ViewportTexture) duration = 0f;
 
-        var viewport = ViewportRegister.Viewports.TryGetValue("InGameWorld", out var inGameViewport) ? inGameViewport : GetViewport();
+        var viewport = InGameViewport ?? GetViewport();
         TextureRect.Texture = ImageTexture.CreateFromImage(viewport.GetTexture().GetImage());
 
         _tween?.Kill();

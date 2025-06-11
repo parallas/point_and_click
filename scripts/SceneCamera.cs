@@ -20,6 +20,7 @@ public partial class SceneCamera : Camera3D
 
     private Vector3 _initialPosition;
     private Quaternion _initialRotation;
+    private Viewport _viewport;
 
     public override void _Ready()
     {
@@ -28,6 +29,7 @@ public partial class SceneCamera : Camera3D
         _initialPosition = GlobalPosition;
         _initialRotation = Quaternion;
         _mainUi = GetTree().GetFirstNodeInGroup("MainUI") as MainUI;
+        _viewport = GetViewport();
 
         foreach (var node in _interactionNodes)
         {
@@ -50,7 +52,7 @@ public partial class SceneCamera : Camera3D
     public override void _Process(double delta)
     {
         base._Process(delta);
-        var normalizedCursorPos = _mainUi.GameCursor.Position / GetViewport().GetVisibleRect().Size;
+        var normalizedCursorPos = _mainUi.GameCursor.Position / _viewport.GetVisibleRect().Size;
         normalizedCursorPos *= 2f;
         normalizedCursorPos -= Vector2.One;
 
@@ -58,6 +60,11 @@ public partial class SceneCamera : Camera3D
         shiftVector *= ShiftAmount;
         var targetPosition = _initialPosition + (_initialRotation * shiftVector);
         GlobalPosition = MathUtil.ExpDecay(GlobalPosition, targetPosition, 8f, (float)delta);
+
+        if (IsCurrent())
+        {
+            _mainUi.ScreenFader.InGameViewport = _viewport;
+        }
     }
 
     private void SetAllObjectStates(bool state)
@@ -85,7 +92,7 @@ public partial class SceneCamera : Camera3D
 
     public void Initialize()
     {
-        var existingCam = GetViewport().GetCamera3D() as SceneCamera;
+        var existingCam = _viewport.GetCamera3D() as SceneCamera;
         existingCam?.Deinitialize();
 
         var screenFader = (ScreenFader)GetTree().GetFirstNodeInGroup("MainScreenFade");
