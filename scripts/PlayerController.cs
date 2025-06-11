@@ -14,6 +14,14 @@ public partial class PlayerController : Node3D
 
     public InteractionObject HoverTarget { get; private set; }
 
+    public override void _Ready()
+    {
+        base._Ready();
+
+        var mainUi = GetTree().GetFirstNodeInGroup("MainUI") as MainUI;
+        GameCursor = mainUi!.GameCursor;
+    }
+
     public override void _Process(double delta)
     {
         base._Process(delta);

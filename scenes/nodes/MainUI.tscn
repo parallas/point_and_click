@@ -1,10 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://bo0gg3ua6v8s4"]
+[gd_scene load_steps=6 format=3 uid="uid://bo0gg3ua6v8s4"]
 
 [ext_resource type="Script" uid="uid://c102ch0gv7g6q" path="res://scripts/GameCursor.cs" id="1_7insp"]
 [ext_resource type="Script" uid="uid://nf070513fwtb" path="res://scripts/ui/MainUI.cs" id="1_lmh70"]
 [ext_resource type="Texture2D" uid="uid://lkqsrwjp6je5" path="res://sprites/cursor.png" id="1_rhlsw"]
 [ext_resource type="Script" uid="uid://cv6464g2l5y8p" path="res://scripts/ui/ScreenFader.cs" id="2_xt0rp"]
-[ext_resource type="Script" uid="uid://bxyi547r1qtg2" path="res://scripts/PlayerController.cs" id="4_a1bga"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7insp"]
 atlas = ExtResource("1_rhlsw")
@@ -19,20 +18,34 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_lmh70")
 GameCursor = NodePath("Cursor")
-ScreenFader = NodePath("Screen Fade")
+ScreenFader = NodePath("Fill Container/ScreenFader")
 
-[node name="Screen Fade" type="ColorRect" parent="."]
+[node name="Fill Container" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0)
+
+[node name="ScreenFader" type="MarginContainer" parent="Fill Container" node_paths=PackedStringArray("ColorRect", "TextureRect")]
+layout_mode = 2
 script = ExtResource("2_xt0rp")
+ColorRect = NodePath("ColorRect")
+TextureRect = NodePath("TextureRect")
+metadata/_custom_type_script = "uid://cv6464g2l5y8p"
+
+[node name="ColorRect" type="ColorRect" parent="Fill Container/ScreenFader"]
+layout_mode = 2
+color = Color(0, 0, 0, 1)
+
+[node name="TextureRect" type="TextureRect" parent="Fill Container/ScreenFader"]
+layout_mode = 2
 
 [node name="Cursor" type="CenterContainer" parent="." node_paths=PackedStringArray("_textureRect")]
-layout_mode = 0
+layout_mode = 2
+offset_right = 512.0
+offset_bottom = 288.0
 localize_numeral_system = false
 use_top_left = true
 script = ExtResource("1_7insp")
@@ -43,7 +56,3 @@ texture_filter = 1
 texture_repeat = 1
 layout_mode = 2
 texture = SubResource("AtlasTexture_7insp")
-
-[node name="Player Controller" type="Node3D" parent="." node_paths=PackedStringArray("GameCursor")]
-script = ExtResource("4_a1bga")
-GameCursor = NodePath("../Cursor")

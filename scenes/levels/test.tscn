@@ -1,30 +1,41 @@
-[gd_scene load_steps=14 format=3 uid="uid://c2wadbts0v0p6"]
+[gd_scene load_steps=5 format=3 uid="uid://c2wadbts0v0p6"]
 
 [ext_resource type="PackedScene" uid="uid://bo0gg3ua6v8s4" path="res://scenes/nodes/MainUI.tscn" id="1_7115g"]
-[ext_resource type="PackedScene" uid="uid://ccbhv1ml8uk4o" path="res://scenes/nodes/TestInteractable.tscn" id="2_7115g"]
-[ext_resource type="Script" uid="uid://dg0s252bd10un" path="res://scripts/Flashlight.cs" id="3_7115g"]
-[ext_resource type="Environment" uid="uid://bbx50g0qsv3jf" path="res://environments/environment_light.tres" id="3_im2du"]
-[ext_resource type="PackedScene" uid="uid://dwoj65lima5sx" path="res://models/room_test.glb" id="3_koekj"]
-[ext_resource type="Texture2D" uid="uid://bgs7hx85q4kln" path="res://textures/cookie_flashlight.png" id="3_kw13u"]
-[ext_resource type="Script" uid="uid://wq24jtvwn558" path="res://scripts/SceneCamera.cs" id="4_53yew"]
+[ext_resource type="Script" uid="uid://ch1ct8odvms3" path="res://scripts/ViewportRegister.cs" id="2_uyl1e"]
+[ext_resource type="PackedScene" uid="uid://leywsnsi75nu" path="res://scenes/nodes/InGameWorld.tscn" id="3_yp2xm"]
 [ext_resource type="Material" uid="uid://hy6p0syppvcf" path="res://post_processing/pixel_noise.tres" id="4_kw13u"]
-[ext_resource type="PackedScene" uid="uid://cn7jisqiafjom" path="res://scenes/nodes/light_switch_double.tscn" id="8_im2du"]
-[ext_resource type="Script" uid="uid://cs4l3hmc6dahe" path="res://scripts/interactables/InteractionObject.cs" id="9_wu1oq"]
-[ext_resource type="Script" uid="uid://cwacnbt5x5lar" path="res://scripts/interactables/components/EnvironmentAmbientRoomLight.cs" id="11_5tpx0"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_5tpx0"]
-size = Vector3(0.2, 0.2, 0.1)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_53yew"]
-size = Vector3(0.3, 0.2, 0)
 
 [node name="Node3D" type="Node3D"]
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="In Game" type="CanvasLayer" parent="."]
 layer = 0
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="In Game"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="Game Viewport" type="SubViewport" parent="In Game/SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(512, 288)
+render_target_update_mode = 4
+
+[node name="InGameWorld" parent="In Game/SubViewportContainer/Game Viewport" instance=ExtResource("3_yp2xm")]
+
+[node name="ViewportRegister" type="Node" parent="In Game/SubViewportContainer/Game Viewport" node_paths=PackedStringArray("Viewport")]
+script = ExtResource("2_uyl1e")
+Viewport = NodePath("..")
+CustomName = "InGameWorld"
+metadata/_custom_type_script = "uid://ch1ct8odvms3"
+
+[node name="Post Processing" type="CanvasLayer" parent="."]
+layer = 5
 follow_viewport_enabled = true
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+[node name="ColorRect" type="ColorRect" parent="Post Processing"]
 material = ExtResource("4_kw13u")
 anchors_preset = 15
 anchor_right = 1.0
@@ -32,99 +43,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+[node name="Ui" type="CanvasLayer" parent="."]
+layer = 10
 
-[node name="MainUi" parent="CanvasLayer2" instance=ExtResource("1_7115g")]
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = ExtResource("3_im2du")
-
-[node name="Flashlight" type="SpotLight3D" parent="." node_paths=PackedStringArray("_light", "_mainUi")]
-light_color = Color(1, 0.966667, 0.9, 1)
-light_energy = 5.0
-light_projector = ExtResource("3_kw13u")
-shadow_enabled = true
-spot_range = 15.0
-spot_angle = 20.0
-script = ExtResource("3_7115g")
-_light = NodePath(".")
-_mainUi = NodePath("../CanvasLayer2/MainUi")
-_shiftAmount = 0.1
-
-[node name="room_test" parent="." instance=ExtResource("3_koekj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.75)
-
-[node name="Camera3D" type="Camera3D" parent="room_test" node_paths=PackedStringArray("_interactionNodes")]
-transform = Transform3D(0.964313, -0.0192664, 0.264063, 0, 0.997349, 0.0727678, -0.264765, -0.0701709, 0.961757, -1.07182, 0.105714, 1.409)
-current = true
-fov = 50.0
-script = ExtResource("4_53yew")
-_interactionNodes = [NodePath("../TestInteractable"), NodePath("../TestInteractable2"), NodePath("../TestInteractable3"), NodePath("../GoToLightSwitch")]
-
-[node name="Camera3D2" type="Camera3D" parent="room_test" node_paths=PackedStringArray("_interactionNodes")]
-transform = Transform3D(1, 0, 0, 0, 0.967188, 0.254062, 0, -0.254062, 0.967188, -1.62887, 0.4957, -1.51005)
-fov = 50.0
-script = ExtResource("4_53yew")
-_interactionNodes = [NodePath("../light_switch_double"), NodePath("../ToRoomFromLightSwitch")]
-ShiftAmount = 0.025
-FlashlightBrightness = 1.0
-
-[node name="Room Light" type="OmniLight3D" parent="room_test"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1.17818, 0)
-light_energy = 2.0
-light_size = 0.075
-shadow_enabled = true
-omni_range = 4.0
-omni_attenuation = 1.5
-
-[node name="Candle Light" type="OmniLight3D" parent="room_test"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.91711, -0.447081, -1.11558)
-light_color = Color(0.91, 0.633967, 0.4368, 1)
-light_energy = 0.25
-light_size = 0.075
-shadow_enabled = true
-omni_range = 2.0
-omni_attenuation = 1.5
-
-[node name="TestInteractable" parent="room_test" instance=ExtResource("2_7115g")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.898694, 0.214064, -1.37243)
-
-[node name="TestInteractable2" parent="room_test" instance=ExtResource("2_7115g")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.476692, 0.611157, -1.37243)
-
-[node name="TestInteractable3" parent="room_test" instance=ExtResource("2_7115g")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.53189, -0.0345907, -1.58328)
-
-[node name="GoToLightSwitch" type="StaticBody3D" parent="room_test"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.63365, 0.361574, -2.00419)
-script = ExtResource("9_wu1oq")
-metadata/_custom_type_script = "uid://cs4l3hmc6dahe"
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="room_test/GoToLightSwitch"]
-shape = SubResource("BoxShape3D_5tpx0")
-
-[node name="light_switch_double" parent="room_test" instance=ExtResource("8_im2du")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.63365, 0.361574, -2.00419)
-
-[node name="EnvironmentAmbientRoomLight" type="Node" parent="room_test/light_switch_double" node_paths=PackedStringArray("_lightSource", "_worldEnvironment")]
-script = ExtResource("11_5tpx0")
-_lightSource = NodePath("../../Room Light")
-_worldEnvironment = NodePath("../../../WorldEnvironment")
-metadata/_custom_type_script = "uid://cwacnbt5x5lar"
-
-[node name="ToRoomFromLightSwitch" type="StaticBody3D" parent="room_test"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.629, 0.308574, -1.656)
-script = ExtResource("9_wu1oq")
-metadata/_custom_type_script = "uid://cs4l3hmc6dahe"
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="room_test/ToRoomFromLightSwitch"]
-shape = SubResource("BoxShape3D_53yew")
-
-[node name="CSGBox3D" type="CSGBox3D" parent="room_test/ToRoomFromLightSwitch"]
-visible = false
-size = Vector3(0.3, 0.2, 0.001)
-
-[connection signal="OnInteracted" from="room_test/GoToLightSwitch" to="room_test/Camera3D2" method="Initialize"]
-[connection signal="OnLeftChange" from="room_test/light_switch_double" to="Flashlight" method="set_visible"]
-[connection signal="OnRightChange" from="room_test/light_switch_double" to="room_test/light_switch_double/EnvironmentAmbientRoomLight" method="SetState"]
-[connection signal="OnInteracted" from="room_test/ToRoomFromLightSwitch" to="room_test/Camera3D" method="Initialize"]
+[node name="MainUi" parent="Ui" instance=ExtResource("1_7115g")]

@@ -6,14 +6,21 @@ using PointAndClick.Scripts;
 public partial class Flashlight : SpotLight3D
 {
     [Export] private SpotLight3D _light;
-    [Export] private MainUI _mainUi;
     [Export] private float _shiftAmount = 0.6f;
 
+    private MainUI _mainUi;
     private Camera3D _currentCamera;
 
     public Flashlight()
     {
         AddToGroup("Flashlight");
+    }
+
+    public override void _Ready()
+    {
+        base._Ready();
+
+        _mainUi = GetTree().GetFirstNodeInGroup("MainUI") as MainUI;
     }
 
     public override void _Process(double delta)

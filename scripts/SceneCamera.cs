@@ -44,7 +44,7 @@ public partial class SceneCamera : Camera3D
 
         GD.Print($"Camera {Name} has {_interactionObjects.Count} interaction objects.");
 
-        if (IsCurrent()) Initialize();
+        if (IsCurrent()) InitializeProperties();
     }
 
     public override void _Process(double delta)
@@ -89,13 +89,18 @@ public partial class SceneCamera : Camera3D
         existingCam?.Deinitialize();
 
         var screenFader = (ScreenFader)GetTree().GetFirstNodeInGroup("MainScreenFade");
-        screenFader.FadeToOpaque(0.2f, () =>
+        screenFader.FadeToOpaque(0.2f, ScreenFader.FadeTypes.ViewportTexture, () =>
         {
             existingCam?.SetCurrent(false);
-            SetObjectStates(true);
-            SetCurrent(true);
+            InitializeProperties();
             OnCameraChange?.Invoke();
-            screenFader.FadeToClear(0.2f);
+            screenFader.FadeToClear(0.3f);
         });
+    }
+
+    public void InitializeProperties()
+    {
+        SetObjectStates(true);
+        SetCurrent(true);
     }
 }
