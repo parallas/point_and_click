@@ -58,11 +58,11 @@ TargetCamera = NodePath("../../../Camera (Room Right)")
 metadata/_custom_type_script = "uid://cnh7d2sjnns57"
 
 [node name="Camera (Room Right)" type="Camera3D" parent="room_test" node_paths=PackedStringArray("_interactionNodes")]
-transform = Transform3D(0.811778, 0.0427686, -0.582398, 1.32635e-10, 0.997315, 0.0732382, 0.583966, -0.0594532, 0.809598, 0.597, 2.03605, 1.34)
+transform = Transform3D(0.811778, 0.0427686, -0.582398, 1.32635e-10, 0.997315, 0.0732382, 0.583966, -0.0594531, 0.809598, 0.597, 1.84044, 1.34)
 current = true
 fov = 50.0
 script = ExtResource("5_i5adb")
-_interactionNodes = [NodePath("../GoToLightSwitch")]
+_interactionNodes = [NodePath("../Light Switch/GoToLightSwitch")]
 
 [node name="RoomRight to RoomLeft" type="Node" parent="room_test/Camera (Room Right)"]
 script = ExtResource("11_xc5fd")
@@ -73,14 +73,6 @@ metadata/_custom_type_script = "uid://kgtl2utfdra"
 script = ExtResource("12_i5adb")
 TargetCamera = NodePath("../../../Camera (Room Left)")
 metadata/_custom_type_script = "uid://cnh7d2sjnns57"
-
-[node name="Camera (Light Switch)" type="Camera3D" parent="room_test" node_paths=PackedStringArray("_interactionNodes")]
-transform = Transform3D(-4.37114e-08, 0.254062, -0.967188, 0, 0.967188, 0.254062, 1, 1.11054e-08, -4.22771e-08, 2.00657, 1.9957, 0.0534218)
-fov = 50.0
-script = ExtResource("5_i5adb")
-_interactionNodes = [NodePath("../light_switch_double"), NodePath("../ToRoomFromLightSwitch")]
-ShiftAmount = 0.025
-FlashlightBrightness = 1.0
 
 [node name="Room Light" type="OmniLight3D" parent="room_test"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 2.67818, 0)
@@ -108,31 +100,26 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.476692, 2.11116, -1.37243)
 [node name="TestInteractable3" parent="room_test" instance=ExtResource("6_hs3ch")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.53189, 1.46541, -1.58328)
 
-[node name="GoToLightSwitch" type="StaticBody3D" parent="room_test"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 2.50071, 1.86157, 0.0486417)
+[node name="Light Switch" type="Node3D" parent="room_test"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 2.50071, 1.64657, 0.0486417)
 
-[node name="PhysicalInteractionObject" type="Node" parent="room_test/GoToLightSwitch"]
-script = ExtResource("8_nx5u7")
-metadata/_custom_type_script = "uid://cb62g5vln3p8w"
+[node name="Camera (Light Switch)" type="Camera3D" parent="room_test/Light Switch" node_paths=PackedStringArray("_interactionNodes")]
+transform = Transform3D(1, 0, 0, 0, 0.967188, 0.254062, 0, -0.254062, 0.967188, 0.00478012, 0.13413, 0.49414)
+fov = 50.0
+script = ExtResource("5_i5adb")
+_interactionNodes = [NodePath("../light_switch_double"), NodePath("../ToRoomFromLightSwitch")]
+ShiftAmount = 0.025
+FlashlightBrightness = 1.0
 
-[node name="CameraChange" type="Node" parent="room_test/GoToLightSwitch/PhysicalInteractionObject" node_paths=PackedStringArray("TargetCamera")]
-script = ExtResource("12_i5adb")
-TargetCamera = NodePath("../../../Camera (Light Switch)")
-metadata/_custom_type_script = "uid://cnh7d2sjnns57"
+[node name="light_switch_double" parent="room_test/Light Switch" instance=ExtResource("8_4qer7")]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="room_test/GoToLightSwitch"]
-shape = SubResource("BoxShape3D_t01cu")
-
-[node name="light_switch_double" parent="room_test" instance=ExtResource("8_4qer7")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 2.50071, 1.86157, 0.0486417)
-
-[node name="EnvironmentAmbientRoomLight" type="Node" parent="room_test/light_switch_double" node_paths=PackedStringArray("_lightSource", "_worldEnvironment")]
+[node name="EnvironmentAmbientRoomLight" type="Node" parent="room_test/Light Switch/light_switch_double" node_paths=PackedStringArray("_lightSource", "_worldEnvironment")]
 script = ExtResource("9_gjtix")
-_lightSource = NodePath("../../Room Light")
-_worldEnvironment = NodePath("../../../WorldEnvironment")
+_lightSource = NodePath("../../../Room Light")
+_worldEnvironment = NodePath("../../../../WorldEnvironment")
 metadata/_custom_type_script = "uid://cwacnbt5x5lar"
 
-[node name="Candle Light2" type="OmniLight3D" parent="room_test/light_switch_double"]
+[node name="Candle Light2" type="OmniLight3D" parent="room_test/Light Switch/light_switch_double"]
 transform = Transform3D(-4.37114e-08, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 4.37114e-08, 1.91069e-15, 7.45058e-09, 0, 0.454108)
 light_color = Color(0.91, 0.633967, 0.4368, 1)
 light_energy = 0.05
@@ -141,25 +128,39 @@ shadow_enabled = true
 omni_range = 1.0
 omni_attenuation = 0.1
 
-[node name="ToRoomFromLightSwitch" type="StaticBody3D" parent="room_test"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 2.15252, 1.80857, 0.0532919)
+[node name="GoToLightSwitch" type="StaticBody3D" parent="room_test/Light Switch"]
 
-[node name="ScreenSpaceInteractionObject" type="Node" parent="room_test/ToRoomFromLightSwitch"]
+[node name="PhysicalInteractionObject" type="Node" parent="room_test/Light Switch/GoToLightSwitch"]
+script = ExtResource("8_nx5u7")
+metadata/_custom_type_script = "uid://cb62g5vln3p8w"
+
+[node name="CameraChange" type="Node" parent="room_test/Light Switch/GoToLightSwitch/PhysicalInteractionObject" node_paths=PackedStringArray("TargetCamera")]
+script = ExtResource("12_i5adb")
+TargetCamera = NodePath("../../../Camera (Light Switch)")
+metadata/_custom_type_script = "uid://cnh7d2sjnns57"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="room_test/Light Switch/GoToLightSwitch"]
+shape = SubResource("BoxShape3D_t01cu")
+
+[node name="ToRoomFromLightSwitch" type="StaticBody3D" parent="room_test/Light Switch"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00465021, -0.053, 0.34819)
+
+[node name="ScreenSpaceInteractionObject" type="Node" parent="room_test/Light Switch/ToRoomFromLightSwitch"]
 script = ExtResource("11_xc5fd")
 Direction = 2
 metadata/_custom_type_script = "uid://kgtl2utfdra"
 
-[node name="CameraChange" type="Node" parent="room_test/ToRoomFromLightSwitch/ScreenSpaceInteractionObject" node_paths=PackedStringArray("TargetCamera")]
+[node name="CameraChange" type="Node" parent="room_test/Light Switch/ToRoomFromLightSwitch/ScreenSpaceInteractionObject" node_paths=PackedStringArray("TargetCamera")]
 script = ExtResource("12_i5adb")
-TargetCamera = NodePath("../../../Camera (Room Right)")
+TargetCamera = NodePath("../../../../Camera (Room Right)")
 metadata/_custom_type_script = "uid://cnh7d2sjnns57"
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="room_test/ToRoomFromLightSwitch"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="room_test/Light Switch/ToRoomFromLightSwitch"]
 shape = SubResource("BoxShape3D_farti")
 
-[node name="CSGBox3D" type="CSGBox3D" parent="room_test/ToRoomFromLightSwitch"]
+[node name="CSGBox3D" type="CSGBox3D" parent="room_test/Light Switch/ToRoomFromLightSwitch"]
 visible = false
 size = Vector3(0.3, 0.2, 0.001)
 
-[connection signal="OnLeftChange" from="room_test/light_switch_double" to="Flashlight" method="set_visible"]
-[connection signal="OnRightChange" from="room_test/light_switch_double" to="room_test/light_switch_double/EnvironmentAmbientRoomLight" method="SetState"]
+[connection signal="OnLeftChange" from="room_test/Light Switch/light_switch_double" to="Flashlight" method="set_visible"]
+[connection signal="OnRightChange" from="room_test/Light Switch/light_switch_double" to="room_test/Light Switch/light_switch_double/EnvironmentAmbientRoomLight" method="SetState"]
