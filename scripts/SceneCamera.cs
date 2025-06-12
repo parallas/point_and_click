@@ -9,7 +9,7 @@ using PointAndClick.Scripts.Interactables;
 
 public partial class SceneCamera : Camera3D
 {
-    public static Action OnCameraChange;
+    public static Action<SceneCamera> OnCameraChange;
     [Export] private Array<Node> _interactionNodes = new();
     [Export] public float ShiftAmount { get; private set; } = 0.1f;
     [Export] public float FlashlightAngle { get; private set; } = 20f;
@@ -98,12 +98,12 @@ public partial class SceneCamera : Camera3D
         existingCam?.Deinitialize();
 
         var screenFader = (ScreenFader)GetTree().GetFirstNodeInGroup("MainScreenFade");
-        screenFader.FadeToOpaque(0.2f, ScreenFader.FadeTypes.ViewportTexture, () =>
+        screenFader.FadeToOpaque(0.15f, ScreenFader.FadeTypes.ViewportTexture, () =>
         {
             existingCam?.SetCurrent(false);
             InitializeProperties();
-            OnCameraChange?.Invoke();
-            screenFader.FadeToClear(0.3f);
+            OnCameraChange?.Invoke(this);
+            screenFader.FadeToClear(0.15f);
         });
     }
 

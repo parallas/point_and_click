@@ -1,9 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://leywsnsi75nu"]
+[gd_scene load_steps=16 format=3 uid="uid://leywsnsi75nu"]
 
 [ext_resource type="Texture2D" uid="uid://bgs7hx85q4kln" path="res://textures/cookie_flashlight.png" id="1_bn13v"]
 [ext_resource type="Script" uid="uid://bxyi547r1qtg2" path="res://scripts/PlayerController.cs" id="1_nx5u7"]
 [ext_resource type="Script" uid="uid://dg0s252bd10un" path="res://scripts/Flashlight.cs" id="2_nx5u7"]
 [ext_resource type="Environment" uid="uid://bbx50g0qsv3jf" path="res://environments/environment_light.tres" id="3_o5l44"]
+[ext_resource type="Script" uid="uid://555f5xw3n14l" path="res://scripts/CameraChangeSignal.cs" id="4_i5adb"]
 [ext_resource type="PackedScene" uid="uid://dwoj65lima5sx" path="res://models/room_test.glb" id="4_xc5fd"]
 [ext_resource type="Script" uid="uid://wq24jtvwn558" path="res://scripts/SceneCamera.cs" id="5_i5adb"]
 [ext_resource type="PackedScene" uid="uid://ccbhv1ml8uk4o" path="res://scenes/nodes/TestInteractable.tscn" id="6_hs3ch"]
@@ -34,6 +35,10 @@ spot_angle = 20.0
 script = ExtResource("2_nx5u7")
 _light = NodePath(".")
 _shiftAmount = 0.1
+
+[node name="CameraChangeSignal" type="Node" parent="Flashlight"]
+script = ExtResource("4_i5adb")
+metadata/_custom_type_script = "uid://555f5xw3n14l"
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("3_o5l44")
@@ -162,5 +167,6 @@ shape = SubResource("BoxShape3D_farti")
 visible = false
 size = Vector3(0.3, 0.2, 0.001)
 
+[connection signal="OnCameraChange" from="Flashlight/CameraChangeSignal" to="Flashlight" method="OnCameraChange"]
 [connection signal="OnLeftChange" from="room_test/Light Switch/light_switch_double" to="Flashlight" method="set_visible"]
 [connection signal="OnRightChange" from="room_test/Light Switch/light_switch_double" to="room_test/Light Switch/light_switch_double/EnvironmentAmbientRoomLight" method="SetState"]

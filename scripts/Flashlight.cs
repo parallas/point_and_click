@@ -27,20 +27,9 @@ public partial class Flashlight : SpotLight3D
     {
         base._Process(delta);
 
-        var currentCamera = GetViewport().GetCamera3D();
-        if (_currentCamera != currentCamera)
-        {
-            _currentCamera = currentCamera;
-            Reset();
-            if (_currentCamera is SceneCamera sceneCamera)
-                SetValues(sceneCamera);
-        }
-        else
-        {
-            GetTargetValues(out var targetPosition, out var targetRotation);
-            Position = MathUtil.ExpDecay(Position, targetPosition, 16f, (float)delta);
-            Quaternion = MathUtil.ExpDecay(Quaternion, targetRotation, 8f, (float)delta);
-        }
+        GetTargetValues(out var targetPosition, out var targetRotation);
+        Position = MathUtil.ExpDecay(Position, targetPosition, 16f, (float)delta);
+        Quaternion = MathUtil.ExpDecay(Quaternion, targetRotation, 8f, (float)delta);
     }
 
     private void GetTargetValues(out Vector3 targetPosition, out Quaternion targetRotation)
@@ -75,5 +64,12 @@ public partial class Flashlight : SpotLight3D
     public void SetValues(SceneCamera sceneCamera)
     {
         SetValues(sceneCamera.FlashlightAngle, sceneCamera.FlashlightBrightness, sceneCamera.ShiftAmount * 4f);
+    }
+
+    public void OnCameraChange(SceneCamera newCamera)
+    {
+        _currentCamera = newCamera;
+        Reset();
+        SetValues(newCamera);
     }
 }
