@@ -26,7 +26,7 @@ public partial class SceneCamera : Camera3D
     {
         base._Ready();
 
-        _initialPosition = GlobalPosition;
+        _initialPosition = Position;
         _initialRotation = Quaternion;
         _mainUi = GetTree().GetFirstNodeInGroup("MainUI") as MainUI;
         _viewport = GetViewport();
@@ -61,7 +61,7 @@ public partial class SceneCamera : Camera3D
         var shiftVector = new Vector3(normalizedCursorPos.X, -normalizedCursorPos.Y, 0f);
         shiftVector *= ShiftAmount;
         var targetPosition = _initialPosition + (_initialRotation * shiftVector);
-        GlobalPosition = MathUtil.ExpDecay(GlobalPosition, targetPosition, 8f, (float)delta);
+        Position = MathUtil.ExpDecay(Position, targetPosition, 8f, (float)delta);
 
         if (IsCurrent())
         {
