@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://dwoj65lima5sx"
-path="res://.godot/imported/room_test.glb-58c3b05b7b5543bdf61ba609b27d4bcd.scn"
+path="res://.godot/imported/room_test.glb-b56ac0a355250de7c9d1f7f92f2ce1f2.scn"
 
 [deps]
 
-source_file="res://models/room_test.glb"
-dest_files=["res://.godot/imported/room_test.glb-58c3b05b7b5543bdf61ba609b27d4bcd.scn"]
+source_file="res://models/room_test/room_test.glb"
+dest_files=["res://.godot/imported/room_test.glb-b56ac0a355250de7c9d1f7f92f2ce1f2.scn"]
 
 [params]
 
@@ -36,7 +36,7 @@ _subresources={
 "materials": {
 "Material": {
 "use_external/enabled": true,
-"use_external/path": "uid://dd1f68st5a0y2"
+"use_external/path": "uid://b2qi0yrefepfe"
 }
 },
 "nodes": {

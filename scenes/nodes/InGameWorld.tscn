@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://dg0s252bd10un" path="res://scripts/Flashlight.cs" id="2_nx5u7"]
 [ext_resource type="Environment" uid="uid://bbx50g0qsv3jf" path="res://environments/environment_light.tres" id="3_o5l44"]
 [ext_resource type="Script" uid="uid://555f5xw3n14l" path="res://scripts/CameraChangeSignal.cs" id="4_i5adb"]
-[ext_resource type="PackedScene" uid="uid://dwoj65lima5sx" path="res://models/room_test.glb" id="4_xc5fd"]
+[ext_resource type="PackedScene" uid="uid://dwoj65lima5sx" path="res://models/room_test/room_test.glb" id="4_xc5fd"]
 [ext_resource type="Script" uid="uid://wq24jtvwn558" path="res://scripts/SceneCamera.cs" id="5_i5adb"]
 [ext_resource type="PackedScene" uid="uid://ccbhv1ml8uk4o" path="res://scenes/nodes/TestInteractable.tscn" id="6_hs3ch"]
 [ext_resource type="PackedScene" uid="uid://cn7jisqiafjom" path="res://scenes/nodes/light_switch_double.tscn" id="8_4qer7"]

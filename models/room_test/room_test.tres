@@ -1,0 +1,13 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://b2qi0yrefepfe"]
+
+[ext_resource type="Shader" uid="uid://b5kel387b2rhw" path="res://shaders/base.gdshader" id="1_qxqs8"]
+[ext_resource type="Texture2D" uid="uid://duj5jy11ytreo" path="res://models/room_test/room_test_Material_BaseMap.png" id="2_7swr2"]
+[ext_resource type="Texture2D" uid="uid://d1mce5suxy1cj" path="res://models/room_test/room_test_Material_Normal.png" id="3_y75on"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_qxqs8")
+shader_parameter/main_tex = ExtResource("2_7swr2")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/vertex_color_intensity = 0.0
+shader_parameter/normal_tex = ExtResource("3_y75on")
