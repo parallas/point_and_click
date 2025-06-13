@@ -1,0 +1,13 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://bt568sbd5s0p7"]
+
+[ext_resource type="Shader" uid="uid://b5kel387b2rhw" path="res://shaders/base.gdshader" id="1_qu1pi"]
+[ext_resource type="Texture2D" uid="uid://cgctf68uosslh" path="res://models/chef/Material_BaseColor.png" id="2_5yr6m"]
+[ext_resource type="Texture2D" uid="uid://chu6bvsu0ubob" path="res://models/chef/Material_Normal.png" id="3_ysrxh"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_qu1pi")
+shader_parameter/is_alpha = false
+shader_parameter/main_tex = ExtResource("2_5yr6m")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/normal_tex = ExtResource("3_ysrxh")

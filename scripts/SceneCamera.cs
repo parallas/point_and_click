@@ -102,7 +102,6 @@ public partial class SceneCamera : Camera3D
         {
             existingCam?.SetCurrent(false);
             InitializeProperties();
-            OnCameraChange?.Invoke(this);
             screenFader.FadeToClear(0.15f);
         });
     }
@@ -111,5 +110,6 @@ public partial class SceneCamera : Camera3D
     {
         SetObjectStates(true);
         SetCurrent(true);
+        OnCameraChange?.Invoke(this);
     }
 }

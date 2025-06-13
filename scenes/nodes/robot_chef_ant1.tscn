@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=3 uid="uid://bt5md6ljxomjo"]
+
+[ext_resource type="PackedScene" uid="uid://d65g7eo3oleh" path="res://models/chef/robot_chef_ant1.glb" id="1_x2ht7"]
+
+[node name="robot_chef_ant1" instance=ExtResource("1_x2ht7")]
+
+[node name="Arm" parent="." index="0"]
+visible = false
+
+[node name="Arm_001" parent="." index="1"]
+visible = false
+
+[node name="Arm_002" parent="." index="2"]
+visible = false
+
+[node name="Arm_003" parent="." index="3"]
+visible = false
+
+[node name="Skeleton3D" parent="Chef (Rigged)" index="0"]
+bones/1/rotation = Quaternion(0.000267213, 0.107026, 0.0959931, 0.989611)
+bones/1/scale = Vector3(1, 1, 1)
+bones/2/scale = Vector3(1, 1, 1)
+bones/3/scale = Vector3(1, 1, 1)
