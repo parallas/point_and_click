@@ -1,19 +1,19 @@
 [gd_scene load_steps=18 format=3 uid="uid://leywsnsi75nu"]
 
-[ext_resource type="Texture2D" uid="uid://bgs7hx85q4kln" path="res://textures/cookie_flashlight.png" id="1_bn13v"]
-[ext_resource type="Script" uid="uid://bxyi547r1qtg2" path="res://scripts/PlayerController.cs" id="1_nx5u7"]
-[ext_resource type="Script" uid="uid://dg0s252bd10un" path="res://scripts/Flashlight.cs" id="2_nx5u7"]
-[ext_resource type="Environment" uid="uid://bbx50g0qsv3jf" path="res://environments/environment_light.tres" id="3_o5l44"]
-[ext_resource type="Script" uid="uid://555f5xw3n14l" path="res://scripts/CameraChangeSignal.cs" id="4_i5adb"]
-[ext_resource type="PackedScene" uid="uid://dwoj65lima5sx" path="res://models/room_test/room_test.glb" id="4_xc5fd"]
-[ext_resource type="Script" uid="uid://wq24jtvwn558" path="res://scripts/SceneCamera.cs" id="5_i5adb"]
-[ext_resource type="PackedScene" uid="uid://ccbhv1ml8uk4o" path="res://scenes/nodes/TestInteractable.tscn" id="6_hs3ch"]
-[ext_resource type="PackedScene" uid="uid://cn7jisqiafjom" path="res://scenes/nodes/light_switch_double.tscn" id="8_4qer7"]
-[ext_resource type="Script" uid="uid://cb62g5vln3p8w" path="res://scripts/interactables/PhysicalInteractionObject.cs" id="8_nx5u7"]
-[ext_resource type="Script" uid="uid://cwacnbt5x5lar" path="res://scripts/interactables/components/EnvironmentAmbientRoomLight.cs" id="9_gjtix"]
-[ext_resource type="Script" uid="uid://kgtl2utfdra" path="res://scripts/interactables/ScreenSpaceInteractionObject.cs" id="11_xc5fd"]
-[ext_resource type="Script" uid="uid://cnh7d2sjnns57" path="res://scripts/interactables/components/CameraChange.cs" id="12_i5adb"]
-[ext_resource type="PackedScene" uid="uid://bt5md6ljxomjo" path="res://scenes/nodes/robot_chef_ant1.tscn" id="14_hs3ch"]
+[ext_resource type="Script" uid="uid://bxyi547r1qtg2" path="res://scripts/PlayerController.cs" id="1_qlgm5"]
+[ext_resource type="Texture2D" uid="uid://bgs7hx85q4kln" path="res://textures/cookie_flashlight.png" id="2_43ege"]
+[ext_resource type="Script" uid="uid://dg0s252bd10un" path="res://scripts/Flashlight.cs" id="3_vx7ic"]
+[ext_resource type="Script" uid="uid://555f5xw3n14l" path="res://scripts/CameraChangeSignal.cs" id="4_ujffn"]
+[ext_resource type="Environment" uid="uid://bbx50g0qsv3jf" path="res://environments/environment_light.tres" id="5_t2sdv"]
+[ext_resource type="PackedScene" uid="uid://dwoj65lima5sx" path="res://models/room_test/room_test.glb" id="6_py8pi"]
+[ext_resource type="Script" uid="uid://wq24jtvwn558" path="res://scripts/SceneCamera.cs" id="7_yglvq"]
+[ext_resource type="Script" uid="uid://kgtl2utfdra" path="res://scripts/interactables/ScreenSpaceInteractionObject.cs" id="8_grkv1"]
+[ext_resource type="Script" uid="uid://cnh7d2sjnns57" path="res://scripts/interactables/components/CameraChange.cs" id="9_uvux4"]
+[ext_resource type="PackedScene" uid="uid://ccbhv1ml8uk4o" path="res://scenes/nodes/TestInteractable.tscn" id="10_n0600"]
+[ext_resource type="PackedScene" uid="uid://cn7jisqiafjom" path="res://scenes/nodes/light_switch_double.tscn" id="11_yy3mg"]
+[ext_resource type="Script" uid="uid://cwacnbt5x5lar" path="res://scripts/interactables/components/EnvironmentAmbientRoomLight.cs" id="12_wnwbn"]
+[ext_resource type="Script" uid="uid://cb62g5vln3p8w" path="res://scripts/interactables/PhysicalInteractionObject.cs" id="13_k0krr"]
+[ext_resource type="PackedScene" uid="uid://bt5md6ljxomjo" path="res://scenes/nodes/robot_chef_ant1.tscn" id="14_uu1rt"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_t01cu"]
 size = Vector3(0.2, 0.2, 0.1)
@@ -27,43 +27,43 @@ size = Vector3(0.349609, 0.329102, 0.137146)
 [node name="InGameWorld" type="Node3D"]
 
 [node name="Player Controller" type="Node3D" parent="."]
-script = ExtResource("1_nx5u7")
+script = ExtResource("1_qlgm5")
 
 [node name="Flashlight" type="SpotLight3D" parent="." node_paths=PackedStringArray("_light")]
 light_color = Color(1, 0.966667, 0.9, 1)
 light_energy = 5.0
-light_projector = ExtResource("1_bn13v")
+light_projector = ExtResource("2_43ege")
 shadow_enabled = true
 spot_range = 15.0
 spot_angle = 20.0
-script = ExtResource("2_nx5u7")
+script = ExtResource("3_vx7ic")
 _light = NodePath(".")
 _shiftAmount = 0.1
 
 [node name="CameraChangeSignal" type="Node" parent="Flashlight"]
-script = ExtResource("4_i5adb")
+script = ExtResource("4_ujffn")
 metadata/_custom_type_script = "uid://555f5xw3n14l"
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = ExtResource("3_o5l44")
+environment = ExtResource("5_t2sdv")
 
-[node name="room_test" parent="." instance=ExtResource("4_xc5fd")]
+[node name="room_test" parent="." instance=ExtResource("6_py8pi")]
 
 [node name="Camera (Room Left)" type="Camera3D" parent="room_test" node_paths=PackedStringArray("_interactionNodes")]
 transform = Transform3D(0.984408, -0.0128826, 0.175427, 0, 0.997315, 0.0732382, -0.175899, -0.0720963, 0.981764, -0.590461, 1.75316, 1.36314)
 current = true
 fov = 50.0
 far = 100.0
-script = ExtResource("5_i5adb")
+script = ExtResource("7_yglvq")
 _interactionNodes = [NodePath("../TestInteractable"), NodePath("../TestInteractable2"), NodePath("../TestInteractable3"), NodePath("../../robot_chef_ant1/StaticBody3D/PhysicalInteractionObject")]
 
 [node name="RoomLeft to RoomRight" type="Node" parent="room_test/Camera (Room Left)"]
-script = ExtResource("11_xc5fd")
+script = ExtResource("8_grkv1")
 Direction = 4
 metadata/_custom_type_script = "uid://kgtl2utfdra"
 
 [node name="CameraChange" type="Node" parent="room_test/Camera (Room Left)/RoomLeft to RoomRight" node_paths=PackedStringArray("TargetCamera")]
-script = ExtResource("12_i5adb")
+script = ExtResource("9_uvux4")
 TargetCamera = NodePath("../../../Camera (Room Right)")
 metadata/_custom_type_script = "uid://cnh7d2sjnns57"
 
@@ -72,16 +72,16 @@ transform = Transform3D(0.811778, 0.0427686, -0.582398, 1.32635e-10, 0.997315, 0
 current = true
 fov = 50.0
 far = 100.0
-script = ExtResource("5_i5adb")
+script = ExtResource("7_yglvq")
 _interactionNodes = [NodePath("../Light Switch/GoToLightSwitch")]
 
 [node name="RoomRight to RoomLeft" type="Node" parent="room_test/Camera (Room Right)"]
-script = ExtResource("11_xc5fd")
+script = ExtResource("8_grkv1")
 Direction = 3
 metadata/_custom_type_script = "uid://kgtl2utfdra"
 
 [node name="CameraChange" type="Node" parent="room_test/Camera (Room Right)/RoomRight to RoomLeft" node_paths=PackedStringArray("TargetCamera")]
-script = ExtResource("12_i5adb")
+script = ExtResource("9_uvux4")
 TargetCamera = NodePath("../../../Camera (Room Left)")
 metadata/_custom_type_script = "uid://cnh7d2sjnns57"
 
@@ -90,13 +90,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.67818, 0)
 light_color = Color(0.89, 0.904667, 1, 1)
 shadow_enabled = true
 
-[node name="TestInteractable" parent="room_test" instance=ExtResource("6_hs3ch")]
+[node name="TestInteractable" parent="room_test" instance=ExtResource("10_n0600")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.898694, 1.71406, -1.37243)
 
-[node name="TestInteractable2" parent="room_test" instance=ExtResource("6_hs3ch")]
+[node name="TestInteractable2" parent="room_test" instance=ExtResource("10_n0600")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.476692, 2.11116, -1.37243)
 
-[node name="TestInteractable3" parent="room_test" instance=ExtResource("6_hs3ch")]
+[node name="TestInteractable3" parent="room_test" instance=ExtResource("10_n0600")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.53189, 1.46541, -1.58328)
 
 [node name="Light Switch" type="Node3D" parent="room_test"]
@@ -106,15 +106,15 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 2.5007
 transform = Transform3D(1, 0, 0, 0, 0.967188, 0.254062, 0, -0.254062, 0.967188, 0.00478012, 0.13413, 0.49414)
 fov = 50.0
 far = 100.0
-script = ExtResource("5_i5adb")
+script = ExtResource("7_yglvq")
 _interactionNodes = [NodePath("../light_switch_double"), NodePath("../ToRoomFromLightSwitch")]
 ShiftAmount = 0.025
 FlashlightBrightness = 1.0
 
-[node name="light_switch_double" parent="room_test/Light Switch" instance=ExtResource("8_4qer7")]
+[node name="light_switch_double" parent="room_test/Light Switch" instance=ExtResource("11_yy3mg")]
 
 [node name="EnvironmentAmbientRoomLight" type="Node" parent="room_test/Light Switch/light_switch_double" node_paths=PackedStringArray("_lightSource", "_worldEnvironment")]
-script = ExtResource("9_gjtix")
+script = ExtResource("12_wnwbn")
 _lightSource = NodePath("../../../Room Light")
 _worldEnvironment = NodePath("../../../../WorldEnvironment")
 metadata/_custom_type_script = "uid://cwacnbt5x5lar"
@@ -131,11 +131,11 @@ omni_attenuation = 0.1
 [node name="GoToLightSwitch" type="StaticBody3D" parent="room_test/Light Switch"]
 
 [node name="PhysicalInteractionObject" type="Node" parent="room_test/Light Switch/GoToLightSwitch"]
-script = ExtResource("8_nx5u7")
+script = ExtResource("13_k0krr")
 metadata/_custom_type_script = "uid://cb62g5vln3p8w"
 
 [node name="CameraChange" type="Node" parent="room_test/Light Switch/GoToLightSwitch/PhysicalInteractionObject" node_paths=PackedStringArray("TargetCamera")]
-script = ExtResource("12_i5adb")
+script = ExtResource("9_uvux4")
 TargetCamera = NodePath("../../../Camera (Light Switch)")
 metadata/_custom_type_script = "uid://cnh7d2sjnns57"
 
@@ -146,12 +146,12 @@ shape = SubResource("BoxShape3D_t01cu")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00465021, -0.053, 0.34819)
 
 [node name="ScreenSpaceInteractionObject" type="Node" parent="room_test/Light Switch/ToRoomFromLightSwitch"]
-script = ExtResource("11_xc5fd")
+script = ExtResource("8_grkv1")
 Direction = 2
 metadata/_custom_type_script = "uid://kgtl2utfdra"
 
 [node name="CameraChange" type="Node" parent="room_test/Light Switch/ToRoomFromLightSwitch/ScreenSpaceInteractionObject" node_paths=PackedStringArray("TargetCamera")]
-script = ExtResource("12_i5adb")
+script = ExtResource("9_uvux4")
 TargetCamera = NodePath("../../../../Camera (Room Right)")
 metadata/_custom_type_script = "uid://cnh7d2sjnns57"
 
@@ -162,7 +162,7 @@ shape = SubResource("BoxShape3D_farti")
 visible = false
 size = Vector3(0.3, 0.2, 0.001)
 
-[node name="robot_chef_ant1" parent="." instance=ExtResource("14_hs3ch")]
+[node name="robot_chef_ant1" parent="." instance=ExtResource("14_uu1rt")]
 transform = Transform3D(0.964534, 0, 0.263957, 0, 1, 0, -0.263957, 0, 0.964534, -1.44434, 0.0174828, -0.963111)
 
 [node name="OmniLight3D" type="OmniLight3D" parent="robot_chef_ant1"]
@@ -173,18 +173,18 @@ omni_range = 0.404
 [node name="Camera3D" type="Camera3D" parent="robot_chef_ant1" node_paths=PackedStringArray("_interactionNodes")]
 transform = Transform3D(1, 0, -2.98023e-08, 0, 0.984193, 0.177102, 0, -0.177102, 0.984193, 0, 1.0344, 1.23924)
 fov = 45.0
-script = ExtResource("5_i5adb")
+script = ExtResource("7_yglvq")
 _interactionNodes = [NodePath("../TestInteractable4")]
 ShiftAmount = 0.02
 FlashlightBrightness = 1.0
 
 [node name="ScreenSpaceInteractionObject" type="Node" parent="robot_chef_ant1/Camera3D"]
-script = ExtResource("11_xc5fd")
+script = ExtResource("8_grkv1")
 Direction = 2
 metadata/_custom_type_script = "uid://kgtl2utfdra"
 
 [node name="CameraChange" type="Node" parent="robot_chef_ant1/Camera3D/ScreenSpaceInteractionObject" node_paths=PackedStringArray("TargetCamera")]
-script = ExtResource("12_i5adb")
+script = ExtResource("9_uvux4")
 TargetCamera = NodePath("../../../../room_test/Camera (Room Left)")
 metadata/_custom_type_script = "uid://cnh7d2sjnns57"
 
@@ -196,15 +196,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0620673, 0.271149)
 shape = SubResource("BoxShape3D_hs3ch")
 
 [node name="PhysicalInteractionObject" type="Node" parent="robot_chef_ant1/StaticBody3D"]
-script = ExtResource("8_nx5u7")
+script = ExtResource("13_k0krr")
 metadata/_custom_type_script = "uid://cb62g5vln3p8w"
 
 [node name="CameraChange" type="Node" parent="robot_chef_ant1/StaticBody3D/PhysicalInteractionObject" node_paths=PackedStringArray("TargetCamera")]
-script = ExtResource("12_i5adb")
+script = ExtResource("9_uvux4")
 TargetCamera = NodePath("../../../Camera3D")
 metadata/_custom_type_script = "uid://cnh7d2sjnns57"
 
-[node name="TestInteractable4" parent="robot_chef_ant1" instance=ExtResource("6_hs3ch")]
+[node name="TestInteractable4" parent="robot_chef_ant1" instance=ExtResource("10_n0600")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.878, 0.496085)
 
 [connection signal="OnCameraChange" from="Flashlight/CameraChangeSignal" to="Flashlight" method="OnCameraChange"]
