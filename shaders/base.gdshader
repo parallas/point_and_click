@@ -5,6 +5,8 @@ uniform vec3 color : source_color = vec3(1,1,1);
 uniform float vertex_color_intensity : hint_range(0, 1) = 1;
 instance uniform vec3 tint : source_color = vec3(1,1,1);
 uniform sampler2D normal_tex : hint_normal, filter_nearest;
+uniform sampler2D emissive_tex : hint_default_black, filter_nearest;
+uniform float emissive_intensity = 1.0;
 
 void vertex() {
 	// Called for every vertex the material is visible on.
@@ -20,6 +22,9 @@ void fragment() {
 	METALLIC = 0.0;
 	
 	NORMAL_MAP = mix(texture(normal_tex, UV).rgb, vec3(0.5, 0.5, 1.0), 0.25);
+	
+	vec4 emissive_sample = texture(emissive_tex, UV);
+	EMISSION = emissive_sample.rgb * emissive_intensity;
 }
 
 void light() {
