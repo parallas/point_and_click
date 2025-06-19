@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://3jequgsmhula"]
+
+[ext_resource type="PackedScene" uid="uid://cuqlfdq8ws4wt" path="res://models/maid/robot_maid_julie.glb" id="1_imvjm"]
+
+[node name="robot_maid_julie" instance=ExtResource("1_imvjm")]
+
+[node name="Skeleton3D" parent="Armature (Maid)" index="0"]
+bones/3/rotation = Quaternion(-0.000821949, -0.031091, 0.0264149, 0.999167)
+bones/4/rotation = Quaternion(9.20945e-09, -1.21206e-07, -0.0778501, 0.996965)
+bones/5/rotation = Quaternion(0.0281132, 0.056596, -0.0204351, 0.997792)
+bones/7/rotation = Quaternion(0.768167, -3.14286e-08, -2.64984e-08, 0.64025)
+bones/10/rotation = Quaternion(0.768167, 3.15939e-08, 2.76556e-08, 0.64025)
+bones/12/rotation = Quaternion(-4.28655e-08, 4.37816e-08, -0.926629, 0.375977)
+bones/13/rotation = Quaternion(-4.72929e-08, -4.28504e-08, 0.935616, 0.353018)
+bones/14/rotation = Quaternion(3.06513e-07, 0.707107, 0.707107, 3.04208e-07)
+bones/15/rotation = Quaternion(2.05904e-07, 1.10136e-07, -0.858999, 0.511977)
+bones/16/rotation = Quaternion(1.22207e-09, -8.15935e-11, -0.73311, 0.68011)
+bones/17/rotation = Quaternion(0.895638, -0.444784, 6.03733e-08, -1.90742e-07)
+bones/18/rotation = Quaternion(3.46314e-09, 1.11905e-09, 0.693913, 0.720059)

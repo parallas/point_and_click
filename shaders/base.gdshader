@@ -19,7 +19,7 @@ void fragment() {
 	SPECULAR = 1.0;
 	METALLIC = 0.0;
 	
-	NORMAL_MAP = texture(normal_tex, UV).rgb;
+	NORMAL_MAP = mix(texture(normal_tex, UV).rgb, vec3(0.5, 0.5, 1.0), 0.25);
 }
 
 void light() {
