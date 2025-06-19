@@ -15,7 +15,7 @@
 [ext_resource type="Script" uid="uid://cb62g5vln3p8w" path="res://scripts/interactables/PhysicalInteractionObject.cs" id="13_k0krr"]
 [ext_resource type="PackedScene" uid="uid://bt5md6ljxomjo" path="res://scenes/nodes/robot_chef_ant1.tscn" id="14_uu1rt"]
 [ext_resource type="PackedScene" uid="uid://3jequgsmhula" path="res://scenes/nodes/robot_maid_julie.tscn" id="15_43ege"]
-[ext_resource type="PackedScene" uid="uid://crtb50xjbsaei" path="res://models/security/robot_security_axel.glb" id="16_vx7ic"]
+[ext_resource type="PackedScene" uid="uid://b21eymyghsv4t" path="res://scenes/nodes/robot_security_axel.tscn" id="16_vx7ic"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_t01cu"]
 size = Vector3(0.2, 0.2, 0.1)
@@ -215,12 +215,6 @@ visible = false
 
 [node name="robot_security_axel" parent="." instance=ExtResource("16_vx7ic")]
 transform = Transform3D(0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, 1.20233, 0, -1.13793)
-
-[node name="OmniLight3D" type="OmniLight3D" parent="robot_security_axel"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 2.35, 0)
-light_color = Color(1, 0, 0, 1)
-light_energy = 0.2
-omni_range = 2.0
 
 [connection signal="OnCameraChange" from="Flashlight/CameraChangeSignal" to="Flashlight" method="OnCameraChange"]
 [connection signal="OnLeftChange" from="room_test/Light Switch/light_switch_double" to="Flashlight" method="set_visible"]
