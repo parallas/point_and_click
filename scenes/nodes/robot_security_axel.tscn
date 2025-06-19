@@ -1,16 +1,26 @@
-[gd_scene load_steps=2 format=3 uid="uid://b21eymyghsv4t"]
+[gd_scene load_steps=3 format=3 uid="uid://b21eymyghsv4t"]
 
 [ext_resource type="PackedScene" uid="uid://crtb50xjbsaei" path="res://models/security/robot_security_axel.glb" id="1_xn44q"]
+[ext_resource type="Texture2D" uid="uid://bgs7hx85q4kln" path="res://textures/cookie_flashlight.png" id="2_hibbf"]
 
 [node name="robot_security_axel" instance=ExtResource("1_xn44q")]
 
-[node name="arm_l" parent="." index="1"]
-transform = Transform3D(0.258819, 0.965926, 0, -0.965926, 0.258819, 0, 0, 0, 1, 0.661769, 1.5809, 0)
+[node name="Flashlight" type="SpotLight3D" parent="root/body/beam" index="0"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -2.18557e-08, 0, -0.25)
+light_color = Color(1, 0.289333, 0.18, 1)
+light_energy = 5.0
+light_projector = ExtResource("2_hibbf")
+shadow_enabled = true
+spot_range = 15.0
+spot_angle = 5.71
 
-[node name="arm_r" parent="." index="4"]
-transform = Transform3D(-0.258819, -0.965926, -3.25841e-07, -0.965926, 0.258819, 0, 8.4334e-08, 3.14739e-07, -1, -0.661769, 1.5809, 0)
+[node name="arm_l" parent="root/body/shoulder_l" index="0"]
+transform = Transform3D(0.258819, 0.965926, 0, -0.965926, 0.258819, 0, 0, 0, 1, 0.128343, 0, 0)
 
-[node name="OmniLight3D" type="OmniLight3D" parent="." index="9"]
+[node name="arm_r" parent="root/body/shoulder_r" index="0"]
+transform = Transform3D(0.258819, 0.965926, 0, -0.965926, 0.258819, 0, 0, 0, 1, 0.128343, 0, 0)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." index="1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 2.35, 0)
 light_color = Color(1, 0, 0, 1)
 light_energy = 0.2

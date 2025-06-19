@@ -37,6 +37,10 @@ _subresources={
 "base_mat": {
 "use_external/enabled": true,
 "use_external/path": "uid://bjwbu3jsvrqjb"
+},
+"beam": {
+"use_external/enabled": true,
+"use_external/path": "uid://bf4ban3258s4n"
 }
 }
 }

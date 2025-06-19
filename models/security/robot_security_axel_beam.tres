@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://bf4ban3258s4n"]
+
+[ext_resource type="Shader" uid="uid://n11itgstaqy1" path="res://shaders/godray.gdshader" id="1_q2awh"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_q2awh")
+shader_parameter/tint = Color(1, 0, 0, 0.168627)
+shader_parameter/power = 2.0
