@@ -7,9 +7,6 @@ namespace PointAndClick.Scripts.Interactables.Components;
 [GlobalClass]
 public partial class Lever : InteractionComponent
 {
-    [Signal]
-    public delegate void OnLightStateChangedEventHandler(bool state);
-
     [Export] private Node3D _lever;
     [Export] private float _angleRange = 23;
 
@@ -36,16 +33,11 @@ public partial class Lever : InteractionComponent
         );
     }
 
-    public bool Toggle()
+    public bool SetState(bool state)
     {
+        if (state == IsOn) return state;
         GD.Print("Lever Toggle");
-        IsOn = !IsOn;
-        EmitSignalOnLightStateChanged(IsOn);
+        IsOn = state;
         return IsOn;
-    }
-
-    public override void OnInteract()
-    {
-        Toggle();
     }
 }

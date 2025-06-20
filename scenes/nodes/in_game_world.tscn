@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://leywsnsi75nu"]
+[gd_scene load_steps=23 format=3 uid="uid://leywsnsi75nu"]
 
 [ext_resource type="Script" uid="uid://bxyi547r1qtg2" path="res://scripts/PlayerController.cs" id="1_qlgm5"]
 [ext_resource type="Texture2D" uid="uid://bgs7hx85q4kln" path="res://textures/cookie_flashlight.png" id="2_43ege"]
@@ -16,6 +16,8 @@
 [ext_resource type="PackedScene" uid="uid://bt5md6ljxomjo" path="res://scenes/nodes/robot_chef_ant1.tscn" id="14_uu1rt"]
 [ext_resource type="PackedScene" uid="uid://3jequgsmhula" path="res://scenes/nodes/robot_maid_julie.tscn" id="15_43ege"]
 [ext_resource type="PackedScene" uid="uid://b21eymyghsv4t" path="res://scenes/nodes/robot_security_axel.tscn" id="16_vx7ic"]
+[ext_resource type="Script" uid="uid://bkgnpk8ut6udu" path="res://scripts/interactables/components/Toggle.cs" id="17_t2sdv"]
+[ext_resource type="Script" uid="uid://dbr6mxd1g0m7q" path="res://scripts/interactables/components/Spinner.cs" id="18_py8pi"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_t01cu"]
 size = Vector3(0.2, 0.2, 0.1)
@@ -25,6 +27,9 @@ size = Vector3(0.3, 0.2, 0)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_hs3ch"]
 size = Vector3(0.349609, 0.329102, 0.137146)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_vx7ic"]
+radius = 0.55
 
 [node name="InGameWorld" type="Node3D"]
 
@@ -75,7 +80,7 @@ current = true
 fov = 50.0
 far = 100.0
 script = ExtResource("7_yglvq")
-_interactionNodes = [NodePath("../Light Switch/GoToLightSwitch")]
+_interactionNodes = [NodePath("../Light Switch/GoToLightSwitch"), NodePath("../../robot_security_axel/Robot Security Spin")]
 
 [node name="RoomRight to RoomLeft" type="Node" parent="room_test/Camera (Room Right)"]
 script = ExtResource("8_grkv1")
@@ -216,6 +221,26 @@ visible = false
 [node name="robot_security_axel" parent="." instance=ExtResource("16_vx7ic")]
 transform = Transform3D(0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, 1.20233, 0, -1.13793)
 
+[node name="Robot Security Spin" type="StaticBody3D" parent="robot_security_axel"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="robot_security_axel/Robot Security Spin"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
+shape = SubResource("CapsuleShape3D_vx7ic")
+
+[node name="PhysicalInteractionObject" type="Node" parent="robot_security_axel/Robot Security Spin"]
+script = ExtResource("13_k0krr")
+metadata/_custom_type_script = "uid://cb62g5vln3p8w"
+
+[node name="Toggle" type="Node" parent="robot_security_axel/Robot Security Spin/PhysicalInteractionObject"]
+script = ExtResource("17_t2sdv")
+metadata/_custom_type_script = "uid://bkgnpk8ut6udu"
+
+[node name="Spinner" type="Node" parent="robot_security_axel/Robot Security Spin" node_paths=PackedStringArray("TargetNode")]
+script = ExtResource("18_py8pi")
+TargetNode = NodePath("../..")
+metadata/_custom_type_script = "uid://dbr6mxd1g0m7q"
+
 [connection signal="OnCameraChange" from="Flashlight/CameraChangeSignal" to="Flashlight" method="OnCameraChange"]
 [connection signal="OnLeftChange" from="room_test/Light Switch/light_switch_double" to="Flashlight" method="set_visible"]
 [connection signal="OnRightChange" from="room_test/Light Switch/light_switch_double" to="room_test/Light Switch/light_switch_double/EnvironmentAmbientRoomLight" method="SetState"]
+[connection signal="OnToggle" from="robot_security_axel/Robot Security Spin/PhysicalInteractionObject/Toggle" to="robot_security_axel/Robot Security Spin/Spinner" method="SetState"]
