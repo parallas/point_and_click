@@ -17,4 +17,15 @@ visible = false
 visible = false
 
 [node name="Skeleton3D" parent="Chef (Rigged)" index="0"]
-bones/1/rotation = Quaternion(0.000267213, 0.107026, 0.0959931, 0.989611)
+bones/1/rotation = Quaternion(8.03692e-06, 0.120707, 0.153089, 0.980813)
+bones/1/scale = Vector3(1, 1, 1)
+
+[node name="BoneAttachment3D" type="BoneAttachment3D" parent="Chef (Rigged)/Skeleton3D" index="2"]
+transform = Transform3D(0.923987, -0.300302, 0.236784, 0.300306, 0.953127, 0.0369421, -0.236779, 0.0369736, 0.97086, 5.16176e-08, 1.49516, -3.89461e-08)
+bone_name = "Neck"
+bone_idx = 1
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Chef (Rigged)/Skeleton3D/BoneAttachment3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.266682, 0.363642)
+light_energy = 0.025
+omni_range = 0.6
