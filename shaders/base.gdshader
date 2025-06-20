@@ -76,17 +76,23 @@ void fragment() {
 	float roughness_value = roughness_sample * roughness_intensity;
 	float smoothness_value = 1.0 - roughness_value;
 	
-	vec3 normalmap = normal_sample * vec3(2.0) - vec3(1.0);
-	vec3 normal_world = normalize(TANGENT * normalmap.y + BINORMAL * normalmap.x + NORMAL * normalmap.z);
-	v_world_normal = (INV_VIEW_MATRIX * vec4(normal_world, 0.0)).rgb;
-	vec2 matcap_uv = get_matcap_uv(v_world_normal, v_eye_pos, v_world_pos, 0.15, false);
-	vec4 matcap_color = texture(matcap_tex, matcap_uv);
-    vec4 matcap_adjusted = pow(mix(vec4(0), matcap_color, matcap_intensity), vec4(matcap_power));
-	float matcap_alpha = matcap_adjusted.a;
-	float matcap_visibility = matcap_alpha * smoothness_value;
-	vec3 matcap_add = mix(vec3(0), matcap_adjusted.rgb, matcap_visibility) * 0.05;
-	vec3 matcap_mul = mix(vec3(1), matcap_adjusted.rgb, matcap_visibility);
-	ALBEDO = mix(base_color + matcap_add, base_color * matcap_mul, float(metallic_value));
+	vec3 albedo_with_matcap = apply_matcap(
+		base_color,
+		matcap_tex,
+		matcap_intensity,
+		matcap_power,
+		smoothness_value,
+		metallic_value,
+		normal_sample,
+		TANGENT,
+		BINORMAL,
+		NORMAL,
+		INV_VIEW_MATRIX,
+		v_eye_pos,
+		v_world_pos
+	);
+	
+	ALBEDO = albedo_with_matcap;
 }
 
 void light() {

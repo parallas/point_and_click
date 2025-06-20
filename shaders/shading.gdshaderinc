@@ -32,6 +32,34 @@ vec2 get_matcap_uv(vec3 v_world_normal, vec3 v_eye_pos, vec3 v_world_pos, float 
 	return uv;
 }
 
+vec3 apply_matcap(
+	vec3 albedo,
+	sampler2D matcap_tex,
+	float matcap_intensity,
+	float matcap_power,
+	float smoothness,
+	float metallic,
+	vec3 normal_map_sample,
+	vec3 tangent,
+	vec3 binormal,
+	vec3 normal,
+	mat4 inv_view_matrix,
+	vec3 eye_pos,
+	vec3 world_pos
+) {
+	vec3 normal_offset = normal_map_sample * vec3(2.0) - vec3(1.0);
+	vec3 normal_world = normalize(tangent * normal_offset.y + binormal * normal_offset.x + normal * normal_offset.z);
+	vec3 v_world_normal = (inv_view_matrix * vec4(normal_world, 0.0)).rgb;
+	vec2 matcap_uv = get_matcap_uv(v_world_normal, eye_pos, world_pos, 0.15, false);
+	vec4 matcap_color = texture(matcap_tex, matcap_uv);
+    vec4 matcap_adjusted = pow(mix(vec4(0), matcap_color, matcap_intensity), vec4(matcap_power));
+	float matcap_alpha = matcap_adjusted.a;
+	float matcap_visibility = matcap_alpha * smoothness;
+	vec3 matcap_add = mix(vec3(0), matcap_adjusted.rgb, matcap_visibility) * 0.05;
+	vec3 matcap_mul = mix(vec3(1), matcap_adjusted.rgb, matcap_visibility);
+	return mix(albedo + matcap_add, albedo * matcap_mul, metallic);
+}
+
 vec3 rgb2hsv(vec3 c) {
     vec4 K = vec4(0.0, -1.0 / 3.0, 2.0 / 3.0, -1.0);
     vec4 p = mix(vec4(c.bg, K.wz), vec4(c.gb, K.xy), step(c.b, c.g));
