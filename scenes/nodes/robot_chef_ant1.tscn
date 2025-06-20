@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://bt5md6ljxomjo"]
+[gd_scene load_steps=8 format=3 uid="uid://bt5md6ljxomjo"]
 
 [ext_resource type="PackedScene" uid="uid://d65g7eo3oleh" path="res://models/chef/robot_chef_ant1.glb" id="1_x2ht7"]
-[ext_resource type="Script" uid="uid://b3bb7ckbauk3c" path="res://scripts/FlipbookAnimator.cs" id="2_q72i2"]
+[ext_resource type="Script" uid="uid://1umihe6digpy" path="res://scripts/characters/RobotChef.cs" id="2_jp4nm"]
+[ext_resource type="Script" uid="uid://b3bb7ckbauk3c" path="res://scripts/flipbook/FlipbookAnimator.cs" id="2_q72i2"]
 [ext_resource type="Script" uid="uid://dp708w40wxamb" path="res://scripts/OffsetUVs.cs" id="3_4by6f"]
-[ext_resource type="Script" uid="uid://c3htt7co87k48" path="res://scripts/resources/FlipbookAnimation.cs" id="3_brh8o"]
+[ext_resource type="Script" uid="uid://c3htt7co87k48" path="res://scripts/flipbook/FlipbookAnimation.cs" id="3_brh8o"]
 
 [sub_resource type="Resource" id="Resource_jp4nm"]
 script = ExtResource("3_brh8o")
@@ -23,7 +24,9 @@ AnimationLength = 4
 Mode = 2
 metadata/_custom_type_script = "uid://c3htt7co87k48"
 
-[node name="robot_chef_ant1" instance=ExtResource("1_x2ht7")]
+[node name="robot_chef_ant1" node_paths=PackedStringArray("FlipbookAnimator") instance=ExtResource("1_x2ht7")]
+script = ExtResource("2_jp4nm")
+FlipbookAnimator = NodePath("FlipbookAnimator")
 
 [node name="Arm" parent="." index="0"]
 visible = false
@@ -58,7 +61,7 @@ omni_range = 0.6
 
 [node name="FlipbookAnimator" type="Node" parent="." index="10"]
 script = ExtResource("2_q72i2")
-Animations = [SubResource("Resource_jp4nm"), SubResource("Resource_v4yeo")]
+Animations = Array[ExtResource("3_brh8o")]([SubResource("Resource_jp4nm"), SubResource("Resource_v4yeo")])
 FrameSize = Vector2i(64, 32)
 FrameWidthHeight = Vector2i(2, 5)
 metadata/_custom_type_script = "uid://b3bb7ckbauk3c"

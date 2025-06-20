@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-namespace PointAndClick.Scripts;
+namespace PointAndClick.Scripts.Flipbook;
 [GlobalClass]
 public partial class FlipbookAnimation : Resource
 {

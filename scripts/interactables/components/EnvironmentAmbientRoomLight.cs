@@ -15,6 +15,7 @@ public partial class EnvironmentAmbientRoomLight : InteractionComponent
     {
         _isOn = isOn;
         _lightSource.Visible = _isOn;
+        if (_worldEnvironment?.Environment is null) return;
         _worldEnvironment.Environment.BackgroundEnergyMultiplier = _isOn ? 1f : 0f;
     }
 

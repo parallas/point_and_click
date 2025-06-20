@@ -1,23 +1,27 @@
 using Godot;
 using System;
+using System.Linq;
 using Godot.Collections;
 
-namespace PointAndClick.Scripts;
+namespace PointAndClick.Scripts.Flipbook;
 
 [GlobalClass]
 public partial class FlipbookAnimator : Node
 {
     [Signal] public delegate void OnFrameChangeEventHandler(int frame);
     [Signal] public delegate void OnUvOffsetChangeEventHandler(Vector2 uvOffset);
-    [Export] public Array<FlipbookAnimation> Animations = new Array<FlipbookAnimation>();
+    [Export] public Array<FlipbookAnimation> Animations;
     [Export] public Vector2I FrameSize = Vector2I.Zero;
     [Export] public Vector2I FrameWidthHeight = Vector2I.Zero;
     [Export] public Direction FrameDirection = Direction.Vertical;
     [Export] public int FrameIndex = 0;
 
-    private FlipbookAnimation _currentAnimation = null;
+    public FlipbookAnimation CurrentAnimation { get; private set; } = null;
+
     private int _pingPongDirection = 1;
     private double _frameTimer = 0f;
+
+    private System.Collections.Generic.Dictionary<String, FlipbookAnimation> _animationTable = new();
 
     public Vector2 UvOffset
     {
@@ -35,7 +39,7 @@ public partial class FlipbookAnimator : Node
                 frameDistance = FrameSize.X;
             }
 
-            Vector2 animationStartPosition = animationStartDirection * _currentAnimation.SheetIndex * animationDistance;
+            Vector2 animationStartPosition = animationStartDirection * CurrentAnimation.SheetIndex * animationDistance;
             Vector2 framePosition = frameDirection * FrameIndex * frameDistance;
 
             Vector2 pixelPosition = animationStartPosition + framePosition;
@@ -51,6 +55,8 @@ public partial class FlipbookAnimator : Node
     public override void _Ready()
     {
         base._Ready();
+
+        _animationTable = Animations.ToDictionary(anim => anim.Name, anim => anim);
 
         if (Animations is []) return;
         StartAnimation(Animations[0]);
@@ -68,13 +74,13 @@ public partial class FlipbookAnimator : Node
         //         StartAnimation(0, 0, 3, 5f, AnimationMode.PingPong);
         // }
 
-        if (_currentAnimation is null) return;
+        if (CurrentAnimation is null) return;
         if (FrameSize.X == 0 || FrameSize.Y == 0) return;
         if (FrameWidthHeight.X == 0 || FrameWidthHeight.Y == 0) return;
 
-        var framesPerSecond = _currentAnimation.FramesPerSecond;
-        var mode = _currentAnimation.Mode;
-        var animationLength = _currentAnimation.AnimationLength;
+        var framesPerSecond = CurrentAnimation.FramesPerSecond;
+        var mode = CurrentAnimation.Mode;
+        var animationLength = CurrentAnimation.AnimationLength;
         if (framesPerSecond <= 0) return;
 
         float frameTime = 1f / framesPerSecond;
@@ -103,10 +109,13 @@ public partial class FlipbookAnimator : Node
 
     public void StartAnimation(FlipbookAnimation animation, int startingFrame = 0)
     {
-        _currentAnimation = animation;
+        CurrentAnimation = animation;
+        _animationTable.TryAdd(animation.Name, animation);
         FrameIndex = startingFrame;
         _pingPongDirection = 1;
-        _frameTimer = _currentAnimation.FramesPerSecond;
+        _frameTimer = 1f / animation.FramesPerSecond;
+        EmitSignalOnFrameChange(FrameIndex);
+        EmitSignalOnUvOffsetChange(UvOffset);
     }
 
     public void StartAnimation(int animationIndex, int startingFrame, int endingFrame, float framesPerSecond, AnimationMode mode)
@@ -119,6 +128,18 @@ public partial class FlipbookAnimator : Node
             Mode = mode
         };
 
-        StartAnimation(newAnimation);
+        StartAnimation(newAnimation, startingFrame);
+    }
+
+    public void StartAnimation(String name)
+    {
+        if (_animationTable.TryGetValue(name, out var animation))
+        {
+            StartAnimation(animation);
+        }
+        else
+        {
+            GD.PrintErr($"Animation with name \"{name}\" does not exist");
+        }
     }
 }

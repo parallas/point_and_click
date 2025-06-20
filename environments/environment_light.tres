@@ -1,8 +1,6 @@
 [gd_resource type="Environment" format=3 uid="uid://bbx50g0qsv3jf"]
 
 [resource]
-background_mode = 1
-background_color = Color(0.256793, 0.253428, 0.372696, 1)
 tonemap_mode = 2
 ssao_enabled = true
 ssao_intensity = 5.0
