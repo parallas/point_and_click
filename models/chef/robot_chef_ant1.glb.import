@@ -41,6 +41,10 @@ _subresources={
 "Material": {
 "use_external/enabled": true,
 "use_external/path": "uid://bt568sbd5s0p7"
+},
+"Screen": {
+"use_external/enabled": true,
+"use_external/path": "uid://d1nelebl5avny"
 }
 }
 }

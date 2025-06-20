@@ -13,7 +13,7 @@ uniform sampler2D metallic_tex : hint_default_white, filter_nearest;
 uniform float metallic_intensity : hint_range(0.0, 1.0) = 0;
 
 group_uniforms Roughness;
-uniform sampler2D roughness_tex : hint_default_black, filter_nearest;
+uniform sampler2D roughness_tex : hint_default_white, filter_nearest;
 uniform float roughness_intensity : hint_range(0.0, 1.0) = 1;
 
 group_uniforms NormalMap;
@@ -27,6 +27,10 @@ group_uniforms Matcap;
 uniform sampler2D matcap_tex : hint_default_transparent, filter_nearest;
 uniform float matcap_intensity = 1.0;
 uniform float matcap_power = 1.0;
+
+group_uniforms ScaleOffset;
+uniform vec2 uv_scale = vec2(1.0, 1.0);
+uniform vec2 uv_offset = vec2(0.0, 0.0);
 
 varying vec3 v_world_normal;
 varying vec3 v_world_pos;
@@ -56,23 +60,24 @@ void vertex() {
 }
 
 void fragment() {
-	vec4 main_tex_sample = texture(main_tex, UV);
+	vec2 uv = UV * uv_scale + uv_offset;
+	vec4 main_tex_sample = texture(main_tex, uv);
 	vec3 base_color = main_tex_sample.rgb * COLOR.rgb;
-	ROUGHNESS = 0.0;
+	ROUGHNESS = 1.0;
 	SPECULAR = 1.0;
 	METALLIC = 0.0;
 	
-	vec3 normal_sample = texture(normal_tex, UV).rgb;
+	vec3 normal_sample = texture(normal_tex, uv).rgb;
 	vec3 normal_adjusted = mix(normal_sample, vec3(0.5, 0.5, 1.0), 0.25);
 	NORMAL_MAP = normal_adjusted;
 	
-	vec4 emissive_sample = texture(emissive_tex, UV);
+	vec4 emissive_sample = texture(emissive_tex, uv);
 	EMISSION = emissive_sample.rgb * emissive_intensity;
 	
-	float metallic_sample = texture(metallic_tex, UV).r;
+	float metallic_sample = texture(metallic_tex, uv).r;
 	float metallic_value = metallic_sample * metallic_intensity;
 	
-	float roughness_sample = texture(roughness_tex, UV).r;
+	float roughness_sample = texture(roughness_tex, uv).r;
 	float roughness_value = roughness_sample * roughness_intensity;
 	float smoothness_value = 1.0 - roughness_value;
 	

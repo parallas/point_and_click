@@ -62,7 +62,7 @@ current = true
 fov = 50.0
 far = 100.0
 script = ExtResource("7_yglvq")
-_interactionNodes = [NodePath("../TestInteractable"), NodePath("../TestInteractable2"), NodePath("../TestInteractable3"), NodePath("../robot_chef_ant1/StaticBody3D/PhysicalInteractionObject")]
+_interactionNodes = [NodePath("../TestInteractable"), NodePath("../TestInteractable2"), NodePath("../TestInteractable3"), NodePath("../robot_chef_ant1/Go to Oven"), NodePath("../robot_chef_ant1/Go to Face")]
 
 [node name="RoomLeft to RoomRight" type="Node" parent="room_test/Camera (Room Left)"]
 script = ExtResource("8_grkv1")
@@ -177,7 +177,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.878, 0.496085)
 light_color = Color(1, 0.79, 0.72, 1)
 omni_range = 0.404
 
-[node name="Camera3D" type="Camera3D" parent="room_test/robot_chef_ant1" node_paths=PackedStringArray("_interactionNodes")]
+[node name="Camera Oven" type="Camera3D" parent="room_test/robot_chef_ant1" node_paths=PackedStringArray("_interactionNodes")]
 transform = Transform3D(1, 0, -2.98023e-08, 0, 0.984193, 0.177102, 0, -0.177102, 0.984193, 0, 1.0344, 1.23924)
 fov = 45.0
 script = ExtResource("7_yglvq")
@@ -185,30 +185,62 @@ _interactionNodes = [NodePath("../TestInteractable4")]
 ShiftAmount = 0.02
 FlashlightBrightness = 1.0
 
-[node name="ScreenSpaceInteractionObject" type="Node" parent="room_test/robot_chef_ant1/Camera3D"]
+[node name="ScreenSpaceInteractionObject" type="Node" parent="room_test/robot_chef_ant1/Camera Oven"]
 script = ExtResource("8_grkv1")
 Direction = 2
 metadata/_custom_type_script = "uid://kgtl2utfdra"
 
-[node name="CameraChange" type="Node" parent="room_test/robot_chef_ant1/Camera3D/ScreenSpaceInteractionObject" node_paths=PackedStringArray("TargetCamera")]
+[node name="CameraChange" type="Node" parent="room_test/robot_chef_ant1/Camera Oven/ScreenSpaceInteractionObject" node_paths=PackedStringArray("TargetCamera")]
 script = ExtResource("9_uvux4")
 TargetCamera = NodePath("../../../../Camera (Room Left)")
 metadata/_custom_type_script = "uid://cnh7d2sjnns57"
 
-[node name="StaticBody3D" type="StaticBody3D" parent="room_test/robot_chef_ant1"]
+[node name="Camera Face" type="Camera3D" parent="room_test/robot_chef_ant1"]
+transform = Transform3D(1, 0, -2.98023e-08, 0, 0.999994, 0.00350809, 0, -0.00350809, 0.999994, -2.98023e-09, 1.76526, 1.20492)
+fov = 45.0
+script = ExtResource("7_yglvq")
+ShiftAmount = 0.02
+FlashlightBrightness = 1.0
+
+[node name="Go Back" type="Node" parent="room_test/robot_chef_ant1/Camera Face"]
+script = ExtResource("8_grkv1")
+Direction = 2
+metadata/_custom_type_script = "uid://kgtl2utfdra"
+
+[node name="CameraChange" type="Node" parent="room_test/robot_chef_ant1/Camera Face/Go Back" node_paths=PackedStringArray("TargetCamera")]
+script = ExtResource("9_uvux4")
+TargetCamera = NodePath("../../../../Camera (Room Left)")
+metadata/_custom_type_script = "uid://cnh7d2sjnns57"
+
+[node name="Go to Oven" type="StaticBody3D" parent="room_test/robot_chef_ant1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.878, 0.496085)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="room_test/robot_chef_ant1/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="room_test/robot_chef_ant1/Go to Oven"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0620673, 0.271149)
 shape = SubResource("BoxShape3D_hs3ch")
 
-[node name="PhysicalInteractionObject" type="Node" parent="room_test/robot_chef_ant1/StaticBody3D"]
+[node name="PhysicalInteractionObject" type="Node" parent="room_test/robot_chef_ant1/Go to Oven"]
 script = ExtResource("13_k0krr")
 metadata/_custom_type_script = "uid://cb62g5vln3p8w"
 
-[node name="CameraChange" type="Node" parent="room_test/robot_chef_ant1/StaticBody3D/PhysicalInteractionObject" node_paths=PackedStringArray("TargetCamera")]
+[node name="CameraChange" type="Node" parent="room_test/robot_chef_ant1/Go to Oven/PhysicalInteractionObject" node_paths=PackedStringArray("TargetCamera")]
 script = ExtResource("9_uvux4")
-TargetCamera = NodePath("../../../Camera3D")
+TargetCamera = NodePath("../../../Camera Oven")
+metadata/_custom_type_script = "uid://cnh7d2sjnns57"
+
+[node name="Go to Face" type="StaticBody3D" parent="room_test/robot_chef_ant1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.728, 0.321085)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="room_test/robot_chef_ant1/Go to Face"]
+shape = SubResource("BoxShape3D_hs3ch")
+
+[node name="PhysicalInteractionObject" type="Node" parent="room_test/robot_chef_ant1/Go to Face"]
+script = ExtResource("13_k0krr")
+metadata/_custom_type_script = "uid://cb62g5vln3p8w"
+
+[node name="CameraChange" type="Node" parent="room_test/robot_chef_ant1/Go to Face/PhysicalInteractionObject" node_paths=PackedStringArray("TargetCamera")]
+script = ExtResource("9_uvux4")
+TargetCamera = NodePath("../../../Camera Face")
 metadata/_custom_type_script = "uid://cnh7d2sjnns57"
 
 [node name="TestInteractable4" parent="room_test/robot_chef_ant1" instance=ExtResource("10_n0600")]

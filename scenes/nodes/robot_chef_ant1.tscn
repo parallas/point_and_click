@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://bt5md6ljxomjo"]
+[gd_scene load_steps=4 format=3 uid="uid://bt5md6ljxomjo"]
 
 [ext_resource type="PackedScene" uid="uid://d65g7eo3oleh" path="res://models/chef/robot_chef_ant1.glb" id="1_x2ht7"]
+[ext_resource type="Script" uid="uid://b3bb7ckbauk3c" path="res://scripts/FlipbookAnimator.cs" id="2_q72i2"]
+[ext_resource type="Script" uid="uid://dp708w40wxamb" path="res://scripts/OffsetUVs.cs" id="3_4by6f"]
 
 [node name="robot_chef_ant1" instance=ExtResource("1_x2ht7")]
 
@@ -16,16 +18,31 @@ visible = false
 [node name="Arm_003" parent="." index="3"]
 visible = false
 
-[node name="Skeleton3D" parent="Chef (Rigged)" index="0"]
-bones/1/rotation = Quaternion(8.03692e-06, 0.120707, 0.153089, 0.980813)
-bones/1/scale = Vector3(1, 1, 1)
-
-[node name="BoneAttachment3D" type="BoneAttachment3D" parent="Chef (Rigged)/Skeleton3D" index="2"]
-transform = Transform3D(0.923987, -0.300302, 0.236784, 0.300306, 0.953127, 0.0369421, -0.236779, 0.0369736, 0.97086, 5.16176e-08, 1.49516, -3.89461e-08)
+[node name="Face Light" type="BoneAttachment3D" parent="." index="9"]
+transform = Transform3D(1, 0, 2.38419e-07, 0, 1, 0, -2.38419e-07, 0, 1, 5.16176e-08, 1.48589, -3.89461e-08)
 bone_name = "Neck"
 bone_idx = 1
+use_external_skeleton = true
+external_skeleton = NodePath("../Chef (Rigged)/Skeleton3D")
 
-[node name="OmniLight3D" type="OmniLight3D" parent="Chef (Rigged)/Skeleton3D/BoneAttachment3D" index="0"]
+[node name="OmniLight3D" type="OmniLight3D" parent="Face Light" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.266682, 0.363642)
+light_color = Color(1, 0.864, 0.66, 1)
 light_energy = 0.025
 omni_range = 0.6
+
+[node name="FlipbookAnimator" type="Node" parent="." index="10"]
+script = ExtResource("2_q72i2")
+FrameSize = Vector2i(64, 32)
+FrameWidthHeight = Vector2i(2, 4)
+FramesPerSecond = 5.0
+AnimationLength = 3
+Mode = 2
+metadata/_custom_type_script = "uid://b3bb7ckbauk3c"
+
+[node name="OffsetUVs" type="Node" parent="." index="11" node_paths=PackedStringArray("TargetMesh")]
+script = ExtResource("3_4by6f")
+TargetMesh = NodePath("../Chef (Rigged)/Skeleton3D/Screen")
+metadata/_custom_type_script = "uid://dp708w40wxamb"
+
+[connection signal="OnUvOffsetChange" from="FlipbookAnimator" to="OffsetUVs" method="SetOffset"]
