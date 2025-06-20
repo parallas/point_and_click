@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ngppy3ha4cw8"
-path.s3tc="res://.godot/imported/Material_Roughness.png-6afe7ad04307a852ba13e425501cb2f0.s3tc.ctex"
+uid="uid://bbfpkbtclewhn"
+path.s3tc="res://.godot/imported/Matcap_Metal_04.jpeg-00db10a040d3c8ad10ef3180f3a040c5.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://models/chef/Material_Roughness.png"
-dest_files=["res://.godot/imported/Material_Roughness.png-6afe7ad04307a852ba13e425501cb2f0.s3tc.ctex"]
+source_file="res://matcaps/Matcap_Metal_04.jpeg"
+dest_files=["res://.godot/imported/Matcap_Metal_04.jpeg-00db10a040d3c8ad10ef3180f3a040c5.s3tc.ctex"]
 
 [params]
 

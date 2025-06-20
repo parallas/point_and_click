@@ -1,9 +1,12 @@
-[gd_resource type="ShaderMaterial" load_steps=5 format=3 uid="uid://bjwbu3jsvrqjb"]
+[gd_resource type="ShaderMaterial" load_steps=8 format=3 uid="uid://bjwbu3jsvrqjb"]
 
 [ext_resource type="Shader" uid="uid://b5kel387b2rhw" path="res://shaders/base.gdshader" id="1_n8gsh"]
 [ext_resource type="Texture2D" uid="uid://csu424cggp1d" path="res://models/security/base_mat_Base_color.png" id="2_md7il"]
 [ext_resource type="Texture2D" uid="uid://2y1n4rrv1xtk" path="res://models/security/base_mat_Emissive.png" id="2_po1i1"]
 [ext_resource type="Texture2D" uid="uid://cu3be7dg8xyvh" path="res://models/security/base_mat_Normal.png" id="3_md7il"]
+[ext_resource type="Texture2D" uid="uid://bbfpkbtclewhn" path="res://matcaps/Matcap_Metal_04.jpeg" id="4_84l20"]
+[ext_resource type="Texture2D" uid="uid://01owl1gsevn8" path="res://models/security/base_mat_Metallic.png" id="5_vfmhn"]
+[ext_resource type="Texture2D" uid="uid://ddcw656s0nxx1" path="res://models/security/base_mat_Roughness.png" id="7_t4sba"]
 
 [resource]
 render_priority = 0
@@ -11,6 +14,13 @@ shader = ExtResource("1_n8gsh")
 shader_parameter/main_tex = ExtResource("2_md7il")
 shader_parameter/color = Color(1, 1, 1, 1)
 shader_parameter/vertex_color_intensity = 0.0
+shader_parameter/metallic_tex = ExtResource("5_vfmhn")
+shader_parameter/metallic_intensity = 1.0
+shader_parameter/roughness_tex = ExtResource("7_t4sba")
+shader_parameter/roughness_intensity = 1.0
 shader_parameter/normal_tex = ExtResource("3_md7il")
 shader_parameter/emissive_tex = ExtResource("2_po1i1")
 shader_parameter/emissive_intensity = 5.0
+shader_parameter/matcap_tex = ExtResource("4_84l20")
+shader_parameter/matcap_intensity = 1.2
+shader_parameter/matcap_power = 2.0
