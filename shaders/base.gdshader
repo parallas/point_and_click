@@ -13,18 +13,19 @@ uniform sampler2D metallic_tex : hint_default_white, filter_nearest;
 uniform float metallic_intensity : hint_range(0.0, 1.0) = 0;
 
 group_uniforms Roughness;
-uniform sampler2D roughness_tex : hint_default_white, filter_nearest;
+uniform sampler2D roughness_tex : hint_roughness_gray, filter_nearest;
 uniform float roughness_intensity : hint_range(0.0, 1.0) = 1;
 
 group_uniforms NormalMap;
 uniform sampler2D normal_tex : hint_normal, filter_nearest;
 
 group_uniforms Emission;
-uniform sampler2D emissive_tex : hint_default_black, filter_nearest;
+uniform sampler2D emissive_tex : hint_default_black, source_color, filter_nearest;
 uniform float emissive_intensity = 1.0;
+uniform float emissive_power = 1.0;
 
 group_uniforms Matcap;
-uniform sampler2D matcap_tex : hint_default_transparent, filter_nearest;
+uniform sampler2D matcap_tex : hint_default_transparent, source_color, filter_nearest;
 uniform float matcap_intensity = 1.0;
 uniform float matcap_power = 1.0;
 
@@ -71,7 +72,7 @@ void fragment() {
 	vec3 normal_adjusted = mix(normal_sample, vec3(0.5, 0.5, 1.0), 0.25);
 	NORMAL_MAP = normal_adjusted;
 	
-	vec4 emissive_sample = texture(emissive_tex, uv);
+	vec4 emissive_sample = pow(texture(emissive_tex, uv), vec4(emissive_power));
 	EMISSION = emissive_sample.rgb * emissive_intensity;
 	
 	float metallic_sample = texture(metallic_tex, uv).r;

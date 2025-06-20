@@ -26,7 +26,6 @@ public partial class OffsetUVs : Node
 
     public void SetOffset(Vector2 offset)
     {
-        GD.Print($"Offset: {offset}");
         Offset = offset;
     }
 }
