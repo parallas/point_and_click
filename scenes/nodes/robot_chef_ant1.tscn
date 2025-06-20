@@ -34,9 +34,9 @@ omni_range = 0.6
 [node name="FlipbookAnimator" type="Node" parent="." index="10"]
 script = ExtResource("2_q72i2")
 FrameSize = Vector2i(64, 32)
-FrameWidthHeight = Vector2i(2, 4)
+FrameWidthHeight = Vector2i(2, 5)
 FramesPerSecond = 5.0
-AnimationLength = 3
+AnimationLength = 5
 Mode = 2
 metadata/_custom_type_script = "uid://b3bb7ckbauk3c"
 
