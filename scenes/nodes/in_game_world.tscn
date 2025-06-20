@@ -104,7 +104,9 @@ metadata/_custom_type_script = "uid://cnh7d2sjnns57"
 [node name="Room Light" type="OmniLight3D" parent="room_test"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.67818, 0)
 light_color = Color(0.89, 0.904667, 1, 1)
+light_energy = 1.5
 shadow_enabled = true
+omni_range = 4.0
 omni_attenuation = 2.0
 
 [node name="TestInteractable" parent="room_test" instance=ExtResource("10_n0600")]
