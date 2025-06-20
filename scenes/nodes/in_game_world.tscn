@@ -196,7 +196,7 @@ TargetCamera = NodePath("../../../../Camera (Room Left)")
 metadata/_custom_type_script = "uid://cnh7d2sjnns57"
 
 [node name="Camera Face" type="Camera3D" parent="room_test/robot_chef_ant1"]
-transform = Transform3D(1, 0, -2.98023e-08, 0, 0.999994, 0.00350809, 0, -0.00350809, 0.999994, -2.98023e-09, 1.76526, 1.20492)
+transform = Transform3D(1, 5.82077e-11, 0, 0, 0.999994, 0.00350809, 0, -0.00350809, 0.999994, 0, 1.76526, 1.20492)
 fov = 45.0
 script = ExtResource("7_yglvq")
 ShiftAmount = 0.02
