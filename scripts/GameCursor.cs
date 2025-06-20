@@ -6,8 +6,11 @@ public partial class GameCursor : Control
 {
     [Export] private TextureRect _textureRect;
 
-    public bool IsHighlighted { get; set; }
+    public bool IsHighlighted { get; private set; }
     private float _cursorCurrentSpeed = 1f;
+
+    private float _squashStretchAmount = 0f;
+    private float _squashStretchVelocity = 0f;
 
     public override void _Ready()
     {
@@ -19,6 +22,10 @@ public partial class GameCursor : Control
 
     public override void _Process(double delta)
     {
+        MathUtil.Spring(ref _squashStretchAmount, ref _squashStretchVelocity, 0f, 0.2f, 20f, (float)delta);
+        Scale = MathUtil.SquashScale(1f + _squashStretchAmount).ToVector2();
+        Modulate = Colors.White with { A = IsHighlighted ? 1f : 0.5f };
+
         var atlasTexture = (AtlasTexture)_textureRect.Texture;
         atlasTexture.SetRegion(
             new Rect2(
@@ -56,6 +63,23 @@ public partial class GameCursor : Control
         if (@event is InputEventMouseMotion mouseEvent)
         {
             SetPosition(mouseEvent.Position, true);
+        }
+    }
+
+    public void SetHighlighted(bool highlighted)
+    {
+        bool justStartedHighlight = !IsHighlighted && highlighted;
+        bool justStoppedHighlight = IsHighlighted && !highlighted;
+        IsHighlighted = highlighted;
+
+        if (justStartedHighlight)
+        {
+            _squashStretchAmount = 0.3f;
+        }
+
+        if (justStoppedHighlight)
+        {
+            _squashStretchAmount = -0.3f;
         }
     }
 }

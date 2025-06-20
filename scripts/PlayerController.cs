@@ -27,9 +27,19 @@ public partial class PlayerController : Node3D
         base._Process(delta);
 
         // raycast for interactable object
-        HoverTarget = null;
-        GameCursor.IsHighlighted = false;
 
+        HoverTarget = GetTargetInteractionObject();
+        GameCursor.SetHighlighted(HoverTarget is not null);
+
+        HoverTarget?.Hover();
+        if (InputFixer.ConfirmActionPressed())
+        {
+            HoverTarget?.Interact();
+        }
+    }
+
+    private InteractionObject GetTargetInteractionObject()
+    {
         InteractionObject targetInteractionObject = null;
 
         // Physical Interaction Objects
@@ -46,14 +56,7 @@ public partial class PlayerController : Node3D
             targetInteractionObject = screenSpaceInteraction;
         }
 
-        if (targetInteractionObject is null) return;
-        HoverTarget = targetInteractionObject;
-        GameCursor.IsHighlighted = true;
-        targetInteractionObject.Hover();
-        if (InputFixer.ConfirmActionPressed())
-        {
-            targetInteractionObject.Interact();
-        }
+        return targetInteractionObject;
     }
 
     private PhysicalInteractionObject GetPhysicalInteractionObject(Vector2 mousePosition)
