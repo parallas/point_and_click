@@ -1,8 +1,27 @@
-[gd_scene load_steps=4 format=3 uid="uid://bt5md6ljxomjo"]
+[gd_scene load_steps=7 format=3 uid="uid://bt5md6ljxomjo"]
 
 [ext_resource type="PackedScene" uid="uid://d65g7eo3oleh" path="res://models/chef/robot_chef_ant1.glb" id="1_x2ht7"]
 [ext_resource type="Script" uid="uid://b3bb7ckbauk3c" path="res://scripts/FlipbookAnimator.cs" id="2_q72i2"]
 [ext_resource type="Script" uid="uid://dp708w40wxamb" path="res://scripts/OffsetUVs.cs" id="3_4by6f"]
+[ext_resource type="Script" uid="uid://c3htt7co87k48" path="res://scripts/resources/FlipbookAnimation.cs" id="3_brh8o"]
+
+[sub_resource type="Resource" id="Resource_jp4nm"]
+script = ExtResource("3_brh8o")
+Name = "idle"
+FramesPerSecond = 5.0
+SheetIndex = 0
+AnimationLength = 5
+Mode = 2
+metadata/_custom_type_script = "uid://c3htt7co87k48"
+
+[sub_resource type="Resource" id="Resource_v4yeo"]
+script = ExtResource("3_brh8o")
+Name = "talk"
+FramesPerSecond = 10.0
+SheetIndex = 1
+AnimationLength = 4
+Mode = 2
+metadata/_custom_type_script = "uid://c3htt7co87k48"
 
 [node name="robot_chef_ant1" instance=ExtResource("1_x2ht7")]
 
@@ -19,7 +38,8 @@ visible = false
 visible = false
 
 [node name="Skeleton3D" parent="Chef (Rigged)" index="0"]
-bones/1/rotation = Quaternion(-0.00730274, 0.124101, 0.14066, 0.982222)
+bones/1/position = Vector3(5.16176e-08, 1.49516, -3.89461e-08)
+bones/1/rotation = Quaternion(-0.00730271, 0.124101, 0.14066, 0.982222)
 bones/1/scale = Vector3(1, 1, 1)
 
 [node name="Face Light" type="BoneAttachment3D" parent="." index="9"]
@@ -38,11 +58,9 @@ omni_range = 0.6
 
 [node name="FlipbookAnimator" type="Node" parent="." index="10"]
 script = ExtResource("2_q72i2")
+Animations = [SubResource("Resource_jp4nm"), SubResource("Resource_v4yeo")]
 FrameSize = Vector2i(64, 32)
 FrameWidthHeight = Vector2i(2, 5)
-FramesPerSecond = 5.0
-AnimationLength = 5
-Mode = 2
 metadata/_custom_type_script = "uid://b3bb7ckbauk3c"
 
 [node name="OffsetUVs" type="Node" parent="." index="11" node_paths=PackedStringArray("TargetMesh")]

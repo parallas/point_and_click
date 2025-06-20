@@ -42,6 +42,7 @@ light_energy = 5.0
 light_projector = ExtResource("2_43ege")
 shadow_enabled = true
 spot_range = 15.0
+spot_attenuation = 2.0
 spot_angle = 20.0
 script = ExtResource("3_vx7ic")
 _light = NodePath(".")
@@ -116,7 +117,7 @@ far = 100.0
 script = ExtResource("7_yglvq")
 _interactionNodes = [NodePath("../light_switch_double"), NodePath("../ToRoomFromLightSwitch")]
 ShiftAmount = 0.025
-FlashlightBrightness = 1.0
+FlashlightBrightness = 0.3
 
 [node name="light_switch_double" parent="room_test/Light Switch" instance=ExtResource("11_yy3mg")]
 
@@ -245,6 +246,14 @@ metadata/_custom_type_script = "uid://cnh7d2sjnns57"
 
 [node name="TestInteractable4" parent="room_test/robot_chef_ant1" instance=ExtResource("10_n0600")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.878, 0.496085)
+
+[node name="Contour Light" type="SpotLight3D" parent="room_test/robot_chef_ant1"]
+transform = Transform3D(0.258819, 0.683013, -0.683013, -1.54089e-08, 0.707107, 0.707107, 0.965926, -0.183013, 0.183013, -1.46273, 2.75, 0.0915301)
+light_color = Color(0.45, 0.486667, 1, 1)
+light_energy = 0.3
+spot_range = 2.5
+spot_attenuation = 2.0
+spot_angle = 40.0
 
 [node name="robot_maid_julie" parent="room_test" instance=ExtResource("15_43ege")]
 transform = Transform3D(0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, 0.866025, 1.85385, 0, -1.28885)

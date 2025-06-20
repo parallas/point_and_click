@@ -1,20 +1,21 @@
 using Godot;
 using System;
+using Godot.Collections;
+
+namespace PointAndClick.Scripts;
 
 [GlobalClass]
 public partial class FlipbookAnimator : Node
 {
     [Signal] public delegate void OnFrameChangeEventHandler(int frame);
     [Signal] public delegate void OnUvOffsetChangeEventHandler(Vector2 uvOffset);
+    [Export] public Array<FlipbookAnimation> Animations = new Array<FlipbookAnimation>();
     [Export] public Vector2I FrameSize = Vector2I.Zero;
     [Export] public Vector2I FrameWidthHeight = Vector2I.Zero;
     [Export] public Direction FrameDirection = Direction.Vertical;
-    [Export(PropertyHint.Range, "0,120")] public float FramesPerSecond = 20;
-    [Export] public int AnimationIndex = 0;
-    [Export] public int AnimationLength = 0;
-    [Export] public AnimationMode Mode = AnimationMode.Forward;
     [Export] public int FrameIndex = 0;
 
+    private FlipbookAnimation _currentAnimation = null;
     private int _pingPongDirection = 1;
     private double _frameTimer = 0f;
 
@@ -34,7 +35,7 @@ public partial class FlipbookAnimator : Node
                 frameDistance = FrameSize.X;
             }
 
-            Vector2 animationStartPosition = animationStartDirection * AnimationIndex * animationDistance;
+            Vector2 animationStartPosition = animationStartDirection * _currentAnimation.SheetIndex * animationDistance;
             Vector2 framePosition = frameDirection * FrameIndex * frameDistance;
 
             Vector2 pixelPosition = animationStartPosition + framePosition;
@@ -46,6 +47,14 @@ public partial class FlipbookAnimator : Node
 
     public enum Direction { Vertical, Horizontal }
     public enum AnimationMode { Forward, Backward, PingPong }
+
+    public override void _Ready()
+    {
+        base._Ready();
+
+        if (Animations is []) return;
+        StartAnimation(Animations[0]);
+    }
 
     public override void _Process(double delta)
     {
@@ -59,25 +68,30 @@ public partial class FlipbookAnimator : Node
         //         StartAnimation(0, 0, 3, 5f, AnimationMode.PingPong);
         // }
 
-        if (FramesPerSecond <= 0) return;
+        if (_currentAnimation is null) return;
         if (FrameSize.X == 0 || FrameSize.Y == 0) return;
         if (FrameWidthHeight.X == 0 || FrameWidthHeight.Y == 0) return;
 
-        float frameTime = 1f / FramesPerSecond;
+        var framesPerSecond = _currentAnimation.FramesPerSecond;
+        var mode = _currentAnimation.Mode;
+        var animationLength = _currentAnimation.AnimationLength;
+        if (framesPerSecond <= 0) return;
+
+        float frameTime = 1f / framesPerSecond;
         _frameTimer += delta;
         while (_frameTimer >= frameTime)
         {
             _frameTimer -= frameTime;
-            switch (Mode)
+            switch (mode)
             {
                 case AnimationMode.Forward:
-                    FrameIndex = (FrameIndex + 1) % AnimationLength;
+                    FrameIndex = (FrameIndex + 1) % animationLength;
                     break;
                 case AnimationMode.Backward:
-                    FrameIndex = (FrameIndex - 1) % AnimationLength;
+                    FrameIndex = (FrameIndex - 1) % animationLength;
                     break;
                 case AnimationMode.PingPong:
-                    if (FrameIndex + _pingPongDirection >= AnimationLength || FrameIndex + _pingPongDirection < 0)
+                    if (FrameIndex + _pingPongDirection >= animationLength || FrameIndex + _pingPongDirection < 0)
                         _pingPongDirection = -_pingPongDirection;
                     FrameIndex += _pingPongDirection;
                     break;
@@ -87,14 +101,24 @@ public partial class FlipbookAnimator : Node
         }
     }
 
+    public void StartAnimation(FlipbookAnimation animation, int startingFrame = 0)
+    {
+        _currentAnimation = animation;
+        FrameIndex = startingFrame;
+        _pingPongDirection = 1;
+        _frameTimer = _currentAnimation.FramesPerSecond;
+    }
+
     public void StartAnimation(int animationIndex, int startingFrame, int endingFrame, float framesPerSecond, AnimationMode mode)
     {
-        AnimationIndex = animationIndex;
-        AnimationLength = endingFrame - startingFrame;
-        FrameIndex = startingFrame;
-        FramesPerSecond = framesPerSecond;
-        Mode = mode;
-        _pingPongDirection = 1;
-        _frameTimer = FramesPerSecond;
+        var newAnimation = new FlipbookAnimation()
+        {
+            SheetIndex = animationIndex,
+            AnimationLength = endingFrame - startingFrame,
+            FramesPerSecond = framesPerSecond,
+            Mode = mode
+        };
+
+        StartAnimation(newAnimation);
     }
 }
