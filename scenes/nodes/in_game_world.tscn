@@ -289,7 +289,7 @@ size = Vector3(0.6, 0.6, 0.6)
 interior = true
 
 [node name="robot_maid_julie" parent="room_test" instance=ExtResource("15_43ege")]
-transform = Transform3D(1.00529, 0, -0.655288, 0, 1.2, 0, 0.655288, 0, 1.00529, 1.59634, 3.57628e-07, -1.29987)
+transform = Transform3D(1.16257, 0, -0.297392, 0, 1.2, 0, 0.297392, 0, 1.16257, 1.59634, 3.57628e-07, -1.29987)
 
 [node name="robot_security_axel" parent="room_test" instance=ExtResource("16_vx7ic")]
 transform = Transform3D(0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, 1.20233, 0, -1.13793)
