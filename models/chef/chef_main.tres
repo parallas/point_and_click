@@ -1,6 +1,7 @@
-[gd_resource type="ShaderMaterial" load_steps=7 format=3 uid="uid://bt568sbd5s0p7"]
+[gd_resource type="ShaderMaterial" load_steps=8 format=3 uid="uid://bt568sbd5s0p7"]
 
 [ext_resource type="Shader" uid="uid://b5kel387b2rhw" path="res://shaders/base.gdshader" id="1_qu1pi"]
+[ext_resource type="Texture2D" uid="uid://hbmkpraqla57" path="res://models/chef/textures/robot_chef_ant1_Material_Emissive.png" id="2_33xpg"]
 [ext_resource type="Texture2D" uid="uid://cmv5jisx0hhty" path="res://models/chef/textures/robot_chef_ant1_Material_BaseColor.png" id="2_bcpb1"]
 [ext_resource type="Texture2D" uid="uid://bbfpkbtclewhn" path="res://matcaps/Matcap_Metal_04.jpeg" id="3_cvo3m"]
 [ext_resource type="Texture2D" uid="uid://64gufhk8nt08" path="res://models/chef/textures/robot_chef_ant1_Material_Metallic.png" id="4_33xpg"]
@@ -18,7 +19,8 @@ shader_parameter/metallic_intensity = 1.0
 shader_parameter/roughness_tex = ExtResource("6_3xmt6")
 shader_parameter/roughness_intensity = 1.0
 shader_parameter/normal_tex = ExtResource("5_5wxfy")
-shader_parameter/emissive_intensity = 1.0
+shader_parameter/emissive_tex = ExtResource("2_33xpg")
+shader_parameter/emissive_intensity = 3.0
 shader_parameter/emissive_power = 1.0
 shader_parameter/matcap_tex = ExtResource("3_cvo3m")
 shader_parameter/matcap_intensity = 1.2

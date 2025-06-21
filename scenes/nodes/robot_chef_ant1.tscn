@@ -59,14 +59,28 @@ light_color = Color(1, 0.864, 0.66, 1)
 light_energy = 0.025
 omni_range = 0.6
 
-[node name="FlipbookAnimator" type="Node" parent="." index="10"]
+[node name="Antenna Light" type="BoneAttachment3D" parent="." index="10"]
+transform = Transform3D(0.929627, -0.278131, 0.241735, 0.274506, 0.960323, 0.0492579, -0.245844, 0.0205664, 0.969091, -0.25548, 2.368, 0.0188914)
+bone_name = "Antenna"
+bone_idx = 3
+override_pose = true
+use_external_skeleton = true
+external_skeleton = NodePath("../Chef (Rigged)/Skeleton3D")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Antenna Light" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.86265e-09, 0.340308, 0)
+light_color = Color(1, 0.240333, 0.14, 1)
+light_energy = 0.025
+omni_range = 1.0
+
+[node name="FlipbookAnimator" type="Node" parent="." index="11"]
 script = ExtResource("2_q72i2")
 Animations = Array[ExtResource("3_brh8o")]([SubResource("Resource_jp4nm"), SubResource("Resource_v4yeo")])
 FrameSize = Vector2i(64, 32)
 FrameWidthHeight = Vector2i(2, 5)
 metadata/_custom_type_script = "uid://b3bb7ckbauk3c"
 
-[node name="OffsetUVs" type="Node" parent="." index="11"]
+[node name="OffsetUVs" type="Node" parent="." index="12"]
 script = ExtResource("3_4by6f")
 metadata/_custom_type_script = "uid://dp708w40wxamb"
 
