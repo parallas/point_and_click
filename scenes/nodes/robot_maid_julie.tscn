@@ -7,7 +7,6 @@
 [node name="Skeleton3D" parent="Armature (Maid)" index="0"]
 bones/3/rotation = Quaternion(-0.000821949, -0.031091, 0.0264149, 0.999167)
 bones/4/rotation = Quaternion(9.20945e-09, -1.21206e-07, -0.0778501, 0.996965)
-bones/5/rotation = Quaternion(0.0281132, 0.056596, -0.0204351, 0.997792)
 bones/7/rotation = Quaternion(0.768167, -3.14286e-08, -2.64984e-08, 0.64025)
 bones/10/rotation = Quaternion(0.768167, 3.15939e-08, 2.76556e-08, 0.64025)
 bones/12/rotation = Quaternion(-4.28655e-08, 4.37816e-08, -0.926629, 0.375977)
@@ -17,3 +16,24 @@ bones/15/rotation = Quaternion(2.05904e-07, 1.10136e-07, -0.858999, 0.511977)
 bones/16/rotation = Quaternion(1.22207e-09, -8.15935e-11, -0.73311, 0.68011)
 bones/17/rotation = Quaternion(0.895638, -0.444784, 6.03733e-08, -1.90742e-07)
 bones/18/rotation = Quaternion(3.46314e-09, 1.11905e-09, 0.693913, 0.720059)
+
+[node name="BoneAttachment3D" type="BoneAttachment3D" parent="." index="2"]
+transform = Transform3D(0.992776, 0.102615, -0.0621739, -0.102814, 0.994701, -1.48982e-08, 0.0618444, 0.00639239, 0.998065, 0.0117567, 1.31645, 0.000732381)
+bone_name = "Head"
+bone_idx = 5
+use_external_skeleton = true
+external_skeleton = NodePath("../Armature (Maid)/Skeleton3D")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="BoneAttachment3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.175, 0)
+light_color = Color(1, 0.240333, 0.14, 1)
+light_energy = 0.05
+omni_range = 1.0
+omni_attenuation = 2.0
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="BoneAttachment3D" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 0.175, 0)
+light_color = Color(1, 0.240333, 0.14, 1)
+light_energy = 0.05
+omni_range = 1.0
+omni_attenuation = 2.0
