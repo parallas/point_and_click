@@ -29,6 +29,10 @@ uniform sampler2D matcap_tex : hint_default_transparent, source_color, filter_ne
 uniform float matcap_intensity = 1.0;
 uniform float matcap_power = 1.0;
 
+group_uniforms AO;
+uniform sampler2D ao_tex : hint_default_transparent, filter_nearest;
+uniform float ao_intensity : hint_range(0.0, 1.0) = 1.0;
+
 group_uniforms ScaleOffset;
 uniform vec2 uv_scale = vec2(1.0, 1.0);
 uniform vec2 uv_offset = vec2(0.0, 0.0);
@@ -67,6 +71,14 @@ void fragment() {
 	ROUGHNESS = 1.0;
 	SPECULAR = 1.0;
 	METALLIC = 0.0;
+	
+	vec4 ao_sample = texture(ao_tex, uv);
+	vec4 ao_adjusted = mix(
+		vec4(1.0),
+		ao_sample,
+		vec4(ao_sample.a * ao_intensity)
+	);
+	AO = ao_adjusted.r;
 	
 	vec3 normal_sample = texture(normal_tex, uv).rgb;
 	vec3 normal_adjusted = mix(normal_sample, vec3(0.5, 0.5, 1.0), 0.25);

@@ -34,9 +34,9 @@ animation/import_rest_as_RESET=false
 import_script/path=""
 _subresources={
 "materials": {
-"Flashers": {
+"EyeLens": {
 "use_external/enabled": true,
-"use_external/path": "uid://d1ccqfs8wipqy"
+"use_external/path": "uid://qmamgv2b623e"
 },
 "Plastic": {
 "use_external/enabled": true,

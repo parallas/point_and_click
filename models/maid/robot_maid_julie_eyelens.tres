@@ -1,0 +1,29 @@
+[gd_resource type="ShaderMaterial" load_steps=8 format=3 uid="uid://qmamgv2b623e"]
+
+[ext_resource type="Shader" uid="uid://b5kel387b2rhw" path="res://shaders/base.gdshader" id="1_ityaa"]
+[ext_resource type="Texture2D" uid="uid://37grq6lx7hqy" path="res://models/maid/textures/EyeLens_Emissive.png" id="2_ityaa"]
+[ext_resource type="Texture2D" uid="uid://dqjx17es1m0wd" path="res://models/maid/textures/EyeLens_Base_color.png" id="3_feanx"]
+[ext_resource type="Texture2D" uid="uid://bbfpkbtclewhn" path="res://matcaps/Matcap_Metal_04.jpeg" id="4_layqh"]
+[ext_resource type="Texture2D" uid="uid://cqvx0wdfoimuh" path="res://models/maid/textures/EyeLens_Metallic.png" id="5_ywult"]
+[ext_resource type="Texture2D" uid="uid://moxopq5pp3wn" path="res://models/maid/textures/Plastic_Normal.png" id="6_kwmgy"]
+[ext_resource type="Texture2D" uid="uid://qllvrwfbl04w" path="res://models/maid/textures/EyeLens_Roughness.png" id="7_layqh"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_ityaa")
+shader_parameter/main_tex = ExtResource("3_feanx")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/vertex_color_intensity = 0.0
+shader_parameter/metallic_tex = ExtResource("5_ywult")
+shader_parameter/metallic_intensity = 1.0
+shader_parameter/roughness_tex = ExtResource("7_layqh")
+shader_parameter/roughness_intensity = 1.0
+shader_parameter/normal_tex = ExtResource("6_kwmgy")
+shader_parameter/emissive_tex = ExtResource("2_ityaa")
+shader_parameter/emissive_intensity = 0.5
+shader_parameter/emissive_power = 1.0
+shader_parameter/matcap_tex = ExtResource("4_layqh")
+shader_parameter/matcap_intensity = 1.1
+shader_parameter/matcap_power = 2.0
+shader_parameter/uv_scale = Vector2(1, 1)
+shader_parameter/uv_offset = Vector2(0, 0)

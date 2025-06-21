@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b7m281cd1gl73"
-path.s3tc="res://.godot/imported/base_mat_Mixed_AO.png-c1dafc98d2cf628d5b2acbfa06cf4edc.s3tc.ctex"
+uid="uid://4kpfr656n1x"
+path.s3tc="res://.godot/imported/Plastic_Normal.png-58a457792d497c827f9a4dc017401bb8.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://models/security/base_mat_Mixed_AO.png"
-dest_files=["res://.godot/imported/base_mat_Mixed_AO.png-c1dafc98d2cf628d5b2acbfa06cf4edc.s3tc.ctex"]
+source_file="res://models/maid/textures/Plastic_Normal.png"
+dest_files=["res://.godot/imported/Plastic_Normal.png-58a457792d497c827f9a4dc017401bb8.s3tc.ctex"]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
-compress/normal_map=0
+compress/normal_map=1
 compress/channel_pack=0
 mipmaps/generate=true
 mipmaps/limit=-1

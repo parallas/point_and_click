@@ -1,21 +1,32 @@
-[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://cvb1w7rrfo5n3"]
+[gd_resource type="ShaderMaterial" load_steps=9 format=3 uid="uid://cvb1w7rrfo5n3"]
 
 [ext_resource type="Shader" uid="uid://b5kel387b2rhw" path="res://shaders/base.gdshader" id="1_l8aat"]
-[ext_resource type="Texture2D" uid="uid://fyhaf1th00ks" path="res://models/maid/Plastic_Base_color.png" id="2_tnjab"]
-[ext_resource type="Texture2D" uid="uid://moxopq5pp3wn" path="res://models/maid/Plastic_Normal.png" id="3_23ppf"]
+[ext_resource type="Texture2D" uid="uid://bdrhf8gsnovry" path="res://models/maid/textures/Plastic_Emissive.png" id="2_4df48"]
+[ext_resource type="Texture2D" uid="uid://b3vmofi7kgjeu" path="res://models/maid/textures/Plastic_Mixed_AO.png" id="2_ogcgy"]
+[ext_resource type="Texture2D" uid="uid://b77hsc2wgk2d7" path="res://models/maid/textures/Plastic_Base_color.png" id="3_ogcgy"]
+[ext_resource type="Texture2D" uid="uid://bbfpkbtclewhn" path="res://matcaps/Matcap_Metal_04.jpeg" id="4_86la6"]
+[ext_resource type="Texture2D" uid="uid://bjedevs4mu431" path="res://models/maid/textures/Plastic_Metallic.png" id="5_60c86"]
+[ext_resource type="Texture2D" uid="uid://4kpfr656n1x" path="res://models/maid/textures/Plastic_Normal.png" id="6_tradv"]
+[ext_resource type="Texture2D" uid="uid://n04jyfbij0tr" path="res://models/maid/textures/Plastic_Roughness.png" id="7_upgn2"]
 
 [resource]
 render_priority = 0
 shader = ExtResource("1_l8aat")
-shader_parameter/main_tex = ExtResource("2_tnjab")
+shader_parameter/main_tex = ExtResource("3_ogcgy")
 shader_parameter/color = Color(1, 1, 1, 1)
 shader_parameter/vertex_color_intensity = 0.0
-shader_parameter/metallic_intensity = 0.0
+shader_parameter/metallic_tex = ExtResource("5_60c86")
+shader_parameter/metallic_intensity = 1.0
+shader_parameter/roughness_tex = ExtResource("7_upgn2")
 shader_parameter/roughness_intensity = 1.0
-shader_parameter/normal_tex = ExtResource("3_23ppf")
-shader_parameter/emissive_intensity = 1.0
+shader_parameter/normal_tex = ExtResource("6_tradv")
+shader_parameter/emissive_tex = ExtResource("2_4df48")
+shader_parameter/emissive_intensity = 3.0
 shader_parameter/emissive_power = 1.0
+shader_parameter/matcap_tex = ExtResource("4_86la6")
 shader_parameter/matcap_intensity = 1.0
-shader_parameter/matcap_power = 1.0
+shader_parameter/matcap_power = 1.5
+shader_parameter/ao_tex = ExtResource("2_ogcgy")
+shader_parameter/ao_intensity = 1.0
 shader_parameter/uv_scale = Vector2(1, 1)
 shader_parameter/uv_offset = Vector2(0, 0)

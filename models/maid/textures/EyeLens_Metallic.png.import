@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b7m281cd1gl73"
-path.s3tc="res://.godot/imported/base_mat_Mixed_AO.png-c1dafc98d2cf628d5b2acbfa06cf4edc.s3tc.ctex"
+uid="uid://bkblgvwc1fu21"
+path.s3tc="res://.godot/imported/EyeLens_Metallic.png-66f88b5333c7e6d3233110b634656839.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://models/security/base_mat_Mixed_AO.png"
-dest_files=["res://.godot/imported/base_mat_Mixed_AO.png-c1dafc98d2cf628d5b2acbfa06cf4edc.s3tc.ctex"]
+source_file="res://models/maid/textures/EyeLens_Metallic.png"
+dest_files=["res://.godot/imported/EyeLens_Metallic.png-66f88b5333c7e6d3233110b634656839.s3tc.ctex"]
 
 [params]
 
