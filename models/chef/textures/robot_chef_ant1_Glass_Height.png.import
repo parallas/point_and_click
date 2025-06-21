@@ -2,27 +2,26 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://djgdgy5xacmu3"
-path.s3tc="res://.godot/imported/Glass_Normal.png-c1886fe6055b89cfff2c6df6a516b5cd.s3tc.ctex"
+uid="uid://ds2ufatrs04v"
+path="res://.godot/imported/robot_chef_ant1_Glass_Height.png-8a0c3d39f7255137875382659539b91e.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
-source_file="res://models/chef/Glass_Normal.png"
-dest_files=["res://.godot/imported/Glass_Normal.png-c1886fe6055b89cfff2c6df6a516b5cd.s3tc.ctex"]
+source_file="res://models/chef/textures/robot_chef_ant1_Glass_Height.png"
+dest_files=["res://.godot/imported/robot_chef_ant1_Glass_Height.png-8a0c3d39f7255137875382659539b91e.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
-compress/normal_map=1
+compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
@@ -32,4 +31,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=0
+detect_3d/compress_to=1

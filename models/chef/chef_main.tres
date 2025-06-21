@@ -1,23 +1,23 @@
 [gd_resource type="ShaderMaterial" load_steps=7 format=3 uid="uid://bt568sbd5s0p7"]
 
 [ext_resource type="Shader" uid="uid://b5kel387b2rhw" path="res://shaders/base.gdshader" id="1_qu1pi"]
-[ext_resource type="Texture2D" uid="uid://cgctf68uosslh" path="res://models/chef/Material_BaseColor.png" id="2_5yr6m"]
+[ext_resource type="Texture2D" uid="uid://cmv5jisx0hhty" path="res://models/chef/textures/robot_chef_ant1_Material_BaseColor.png" id="2_bcpb1"]
 [ext_resource type="Texture2D" uid="uid://bbfpkbtclewhn" path="res://matcaps/Matcap_Metal_04.jpeg" id="3_cvo3m"]
-[ext_resource type="Texture2D" uid="uid://chu6bvsu0ubob" path="res://models/chef/Material_Normal.png" id="3_ysrxh"]
-[ext_resource type="Texture2D" uid="uid://dk8c8ysimg7ot" path="res://models/chef/Material_Metallic.png" id="4_bcpb1"]
-[ext_resource type="Texture2D" uid="uid://ngppy3ha4cw8" path="res://models/chef/Material_Roughness.png" id="6_33xpg"]
+[ext_resource type="Texture2D" uid="uid://64gufhk8nt08" path="res://models/chef/textures/robot_chef_ant1_Material_Metallic.png" id="4_33xpg"]
+[ext_resource type="Texture2D" uid="uid://cti01ohbj1jaq" path="res://models/chef/textures/robot_chef_ant1_Material_Normal.png" id="5_5wxfy"]
+[ext_resource type="Texture2D" uid="uid://bfs3u0hjagtfe" path="res://models/chef/textures/robot_chef_ant1_Material_Roughness.png" id="6_3xmt6"]
 
 [resource]
 render_priority = 0
 shader = ExtResource("1_qu1pi")
-shader_parameter/main_tex = ExtResource("2_5yr6m")
+shader_parameter/main_tex = ExtResource("2_bcpb1")
 shader_parameter/color = Color(1, 1, 1, 1)
 shader_parameter/vertex_color_intensity = 1.0
-shader_parameter/metallic_tex = ExtResource("4_bcpb1")
+shader_parameter/metallic_tex = ExtResource("4_33xpg")
 shader_parameter/metallic_intensity = 1.0
-shader_parameter/roughness_tex = ExtResource("6_33xpg")
+shader_parameter/roughness_tex = ExtResource("6_3xmt6")
 shader_parameter/roughness_intensity = 1.0
-shader_parameter/normal_tex = ExtResource("3_ysrxh")
+shader_parameter/normal_tex = ExtResource("5_5wxfy")
 shader_parameter/emissive_intensity = 1.0
 shader_parameter/emissive_power = 1.0
 shader_parameter/matcap_tex = ExtResource("3_cvo3m")

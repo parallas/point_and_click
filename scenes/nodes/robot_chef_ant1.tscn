@@ -28,21 +28,22 @@ metadata/_custom_type_script = "uid://c3htt7co87k48"
 script = ExtResource("2_jp4nm")
 FlipbookAnimator = NodePath("FlipbookAnimator")
 
-[node name="Arm" parent="." index="0"]
+[node name="Arm Root" parent="." index="0"]
 visible = false
 
-[node name="Arm_001" parent="." index="1"]
+[node name="Arm Root_003" parent="." index="1"]
 visible = false
 
-[node name="Arm_002" parent="." index="2"]
+[node name="Arm Root_002" parent="." index="2"]
 visible = false
 
-[node name="Arm_003" parent="." index="3"]
+[node name="Arm Root_001" parent="." index="3"]
 visible = false
 
 [node name="Skeleton3D" parent="Chef (Rigged)" index="0"]
 bones/1/position = Vector3(5.16176e-08, 1.49516, -3.89461e-08)
 bones/1/rotation = Quaternion(-0.00730271, 0.124101, 0.14066, 0.982222)
+bones/1/scale = Vector3(1, 1, 1)
 
 [node name="Face Light" type="BoneAttachment3D" parent="." index="9"]
 transform = Transform3D(0.929627, -0.278131, 0.241735, 0.274506, 0.960323, 0.0492579, -0.245844, 0.0205663, 0.969091, 5.16176e-08, 1.48589, -3.89461e-08)
@@ -65,9 +66,8 @@ FrameSize = Vector2i(64, 32)
 FrameWidthHeight = Vector2i(2, 5)
 metadata/_custom_type_script = "uid://b3bb7ckbauk3c"
 
-[node name="OffsetUVs" type="Node" parent="." index="11" node_paths=PackedStringArray("TargetMesh")]
+[node name="OffsetUVs" type="Node" parent="." index="11"]
 script = ExtResource("3_4by6f")
-TargetMesh = NodePath("../Chef (Rigged)/Skeleton3D/Screen")
 metadata/_custom_type_script = "uid://dp708w40wxamb"
 
 [connection signal="OnUvOffsetChange" from="FlipbookAnimator" to="OffsetUVs" method="SetOffset"]

@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://chu6bvsu0ubob"
-path.s3tc="res://.godot/imported/Material_Normal.png-a179d529c749c75661d6e06896932c87.s3tc.ctex"
+uid="uid://cc43gu8y6adde"
+path.s3tc="res://.godot/imported/robot_chef_ant1_Glass_Normal.png-210ece9d8058fef12fa01a2e2b920574.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://models/chef/Material_Normal.png"
-dest_files=["res://.godot/imported/Material_Normal.png-a179d529c749c75661d6e06896932c87.s3tc.ctex"]
+source_file="res://models/chef/textures/robot_chef_ant1_Glass_Normal.png"
+dest_files=["res://.godot/imported/robot_chef_ant1_Glass_Normal.png-210ece9d8058fef12fa01a2e2b920574.s3tc.ctex"]
 
 [params]
 
@@ -22,7 +22,7 @@ compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=1
 compress/channel_pack=0
-mipmaps/generate=false
+mipmaps/generate=true
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""

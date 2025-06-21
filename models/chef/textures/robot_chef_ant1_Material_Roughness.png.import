@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dk8c8ysimg7ot"
-path.s3tc="res://.godot/imported/Material_Metallic.png-693487224516d59c087d2adf082a47f3.s3tc.ctex"
+uid="uid://bfs3u0hjagtfe"
+path.s3tc="res://.godot/imported/robot_chef_ant1_Material_Roughness.png-d6fd8a71f3c7d313788efb6551f85fd2.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://models/chef/Material_Metallic.png"
-dest_files=["res://.godot/imported/Material_Metallic.png-693487224516d59c087d2adf082a47f3.s3tc.ctex"]
+source_file="res://models/chef/textures/robot_chef_ant1_Material_Roughness.png"
+dest_files=["res://.godot/imported/robot_chef_ant1_Material_Roughness.png-d6fd8a71f3c7d313788efb6551f85fd2.s3tc.ctex"]
 
 [params]
 

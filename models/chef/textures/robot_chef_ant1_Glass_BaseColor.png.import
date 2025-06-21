@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bh61ahgttqkid"
-path.s3tc="res://.godot/imported/Glass_Metallic.png-cadddfa8e7db243c6740098fa73e24c0.s3tc.ctex"
+uid="uid://cqwy5c5yncwov"
+path.s3tc="res://.godot/imported/robot_chef_ant1_Glass_BaseColor.png-64317d9a9b4541b86af1eb7eb1fffc9b.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://models/chef/Glass_Metallic.png"
-dest_files=["res://.godot/imported/Glass_Metallic.png-cadddfa8e7db243c6740098fa73e24c0.s3tc.ctex"]
+source_file="res://models/chef/textures/robot_chef_ant1_Glass_BaseColor.png"
+dest_files=["res://.godot/imported/robot_chef_ant1_Glass_BaseColor.png-64317d9a9b4541b86af1eb7eb1fffc9b.s3tc.ctex"]
 
 [params]
 
