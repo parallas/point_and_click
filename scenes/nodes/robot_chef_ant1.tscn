@@ -83,8 +83,9 @@ FrameSize = Vector2i(64, 32)
 FrameWidthHeight = Vector2i(2, 5)
 metadata/_custom_type_script = "uid://b3bb7ckbauk3c"
 
-[node name="OffsetUVs" type="Node" parent="." index="12"]
+[node name="OffsetUVs" type="Node" parent="." index="12" node_paths=PackedStringArray("TargetMesh")]
 script = ExtResource("3_4by6f")
+TargetMesh = NodePath("../Chef (Rigged)/Skeleton3D/Screen")
 metadata/_custom_type_script = "uid://dp708w40wxamb"
 
 [connection signal="OnUvOffsetChange" from="FlipbookAnimator" to="OffsetUVs" method="SetOffset"]
