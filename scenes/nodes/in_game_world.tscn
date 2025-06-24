@@ -57,11 +57,10 @@ metadata/_custom_type_script = "uid://555f5xw3n14l"
 environment = ExtResource("5_t2sdv")
 
 [node name="room_test" parent="." instance=ExtResource("6_py8pi")]
-process_mode = 4
-visible = false
 
 [node name="ReflectionProbe" type="ReflectionProbe" parent="room_test"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.19783, 1.52592, 0.0352173)
+update_mode = 1
 blend_distance = 0.5
 size = Vector3(7.86832, 4.32703, 5.39001)
 box_projection = true
@@ -73,7 +72,7 @@ current = true
 fov = 50.0
 far = 100.0
 script = ExtResource("7_yglvq")
-_interactionNodes = [null, null, null, NodePath("../robot_chef_ant1/Go to Oven"), NodePath("../robot_chef_ant1/Go to Face"), NodePath("../robot_maid_julie/Robot Security Spin")]
+_interactionNodes = [NodePath("../robot_chef_ant1/Go to Oven"), NodePath("../robot_chef_ant1/Go to Face"), NodePath("../robot_maid_julie/Robot Security Spin")]
 
 [node name="RoomLeft to RoomRight" type="Node" parent="room_test/Camera (Room Left)"]
 script = ExtResource("8_grkv1")
@@ -309,6 +308,7 @@ transform = Transform3D(0.987978, 0, 0.15459, 0, 1, 0, -0.15459, 0, 0.987978, 2.
 
 [node name="room_circle" parent="." instance=ExtResource("19_py8pi")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.0864, 0, 0)
+visible = false
 
 [node name="Probes" type="Node3D" parent="room_circle"]
 
@@ -394,7 +394,6 @@ spot_angle_attenuation = 2.1293
 
 [node name="Camera (Room Right)" type="Camera3D" parent="room_circle"]
 transform = Transform3D(0.826708, 0, 0.562632, 0, 1, 0, -0.562632, 0, 0.826708, 0.710155, 1.355, 4.65982)
-current = true
 fov = 50.0
 far = 100.0
 script = ExtResource("7_yglvq")

@@ -13,6 +13,6 @@ public partial class PhysicalInteractionObject : InteractionObject
         PhysicsBody = GetParent() as PhysicsBody3D;
         if (PhysicsBody is null)
             GD.PushError($"Physics body could not be found on Physical Interaction Object: {Name}");
-        PhysicsBody.SetMeta("PhysicalInteractionObject", this);
+        PhysicsBody!.SetMeta("PhysicalInteractionObject", this);
     }
 }

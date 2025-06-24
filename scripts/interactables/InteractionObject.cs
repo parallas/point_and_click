@@ -13,7 +13,7 @@ public abstract partial class InteractionObject : Node
     [Signal]
     public delegate void OnInteractedEventHandler();
 
-    public List<InteractionComponent> InteractionComponents = new List<InteractionComponent>();
+    public List<InteractionComponent> InteractionComponents;
 
     public InteractionObject()
     {
