@@ -9,11 +9,31 @@ public partial class OffsetUVs : Node
 
     [Export] public Vector2 Offset = new(0, 0);
 
+    private Material _initialMaterial;
+    private Material _material;
+
+    public override void _EnterTree()
+    {
+        base._EnterTree();
+
+        _initialMaterial ??= TargetMesh.GetActiveMaterial(0);
+
+        _material = _initialMaterial.Duplicate() as Material;
+        TargetMesh.SetSurfaceOverrideMaterial(0, _material);
+    }
+
+    public override void _ExitTree()
+    {
+        base._ExitTree();
+
+        _material.Free();
+    }
+
     public override void _Process(double delta)
     {
         base._Process(delta);
 
-        if (TargetMesh.GetActiveMaterial(0) is ShaderMaterial shaderMaterial)
+        if (_material is ShaderMaterial shaderMaterial)
         {
             shaderMaterial.SetShaderParameter("uv_offset", Offset);
         }
