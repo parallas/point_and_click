@@ -35,6 +35,11 @@ public partial class SceneCamera : Camera3D
 
         foreach (var node in _interactionNodes)
         {
+            if (node is null)
+            {
+                GD.PushError($"SceneCamera \"{Name}\" has a null reference in the Interaction Nodes array.");
+                continue;
+            }
             if (node is InteractionObject baseInteractionObject)
                 _interactionObjects.Add(baseInteractionObject);
 
