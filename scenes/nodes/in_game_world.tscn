@@ -57,6 +57,7 @@ metadata/_custom_type_script = "uid://555f5xw3n14l"
 environment = ExtResource("5_t2sdv")
 
 [node name="room_test" parent="." instance=ExtResource("6_py8pi")]
+process_mode = 4
 visible = false
 
 [node name="ReflectionProbe" type="ReflectionProbe" parent="room_test"]
@@ -392,9 +393,9 @@ spot_angle = 29.61
 spot_angle_attenuation = 2.1293
 
 [node name="Camera (Room Right)" type="Camera3D" parent="room_circle"]
-transform = Transform3D(0.825547, 0, 0.564333, 0, 1, 0, -0.564333, 0, 0.825547, 0.242968, 1.355, 4.12864)
+transform = Transform3D(0.826708, 0, 0.562632, 0, 1, 0, -0.562632, 0, 0.826708, 0.710155, 1.355, 4.65982)
 current = true
-fov = 60.0
+fov = 50.0
 far = 100.0
 script = ExtResource("7_yglvq")
 
