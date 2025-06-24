@@ -1,0 +1,258 @@
+[gd_scene load_steps=14 format=3 uid="uid://c3s3myuqbsp1l"]
+
+[ext_resource type="PackedScene" uid="uid://dflw1qvsqpdyi" path="res://models/rooms/circle/room_circle.glb" id="1_lapl2"]
+[ext_resource type="Script" uid="uid://wq24jtvwn558" path="res://scripts/SceneCamera.cs" id="2_3mkly"]
+[ext_resource type="PackedScene" uid="uid://b21eymyghsv4t" path="res://scenes/nodes/robot_security_axel.tscn" id="3_rfx3s"]
+[ext_resource type="PackedScene" uid="uid://3jequgsmhula" path="res://scenes/nodes/robot_maid_julie.tscn" id="4_hjqno"]
+[ext_resource type="Script" uid="uid://cb62g5vln3p8w" path="res://scripts/interactables/PhysicalInteractionObject.cs" id="5_hjqno"]
+[ext_resource type="PackedScene" uid="uid://bt5md6ljxomjo" path="res://scenes/nodes/robot_chef_ant1.tscn" id="5_tv6ry"]
+[ext_resource type="Script" uid="uid://bkgnpk8ut6udu" path="res://scripts/interactables/components/Toggle.cs" id="6_tv6ry"]
+[ext_resource type="Script" uid="uid://dbr6mxd1g0m7q" path="res://scripts/interactables/components/Spinner.cs" id="7_qs4nl"]
+[ext_resource type="Script" uid="uid://kgtl2utfdra" path="res://scripts/interactables/ScreenSpaceInteractionObject.cs" id="9_oofti"]
+[ext_resource type="Script" uid="uid://cnh7d2sjnns57" path="res://scripts/interactables/components/CameraChange.cs" id="10_hhlyt"]
+[ext_resource type="PackedScene" uid="uid://ccbhv1ml8uk4o" path="res://scenes/nodes/TestInteractable.tscn" id="11_u5rum"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_oofti"]
+radius = 0.35
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_g6ito"]
+size = Vector3(0.349609, 0.329102, 0.137146)
+
+[node name="room_circle" type="Node3D"]
+
+[node name="room_circle geometry" parent="." instance=ExtResource("1_lapl2")]
+
+[node name="Probes" type="Node3D" parent="."]
+
+[node name="ReflectionProbe" type="ReflectionProbe" parent="Probes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1.25, 0)
+update_mode = 1
+size = Vector3(8, 6, 13)
+origin_offset = Vector3(0, -1.5, 0)
+interior = true
+
+[node name="ReflectionProbe2" type="ReflectionProbe" parent="Probes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1.25, 0)
+update_mode = 1
+size = Vector3(8, 6, 13)
+origin_offset = Vector3(0, -1.5, 0)
+interior = true
+
+[node name="ReflectionProbe3" type="ReflectionProbe" parent="Probes"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 1.25, 2)
+update_mode = 1
+size = Vector3(8, 6, 13)
+origin_offset = Vector3(0, -1.5, 0)
+interior = true
+
+[node name="ReflectionProbe4" type="ReflectionProbe" parent="Probes"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 1.25, -2)
+update_mode = 1
+size = Vector3(8, 6, 13)
+origin_offset = Vector3(0, -1.5, 0)
+interior = true
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(0.939693, -2.50384e-14, -0.34202, 0.34202, -4.37114e-08, 0.939693, -1.49502e-08, -1, -4.10753e-08, 1.95872, 5.32855, 0.025538)
+rotation_order = 0
+light_color = Color(0.92, 0.860967, 0.8188, 1)
+light_energy = 15.0
+light_bake_mode = 1
+shadow_enabled = true
+distance_fade_enabled = true
+spot_range = 15.0
+spot_attenuation = 2.0
+spot_angle = 29.61
+spot_angle_attenuation = 2.1293
+
+[node name="SpotLight3D2" type="SpotLight3D" parent="."]
+transform = Transform3D(0.939693, 2.50384e-14, 0.34202, -0.34202, -4.37114e-08, 0.939693, 1.49502e-08, -1, -4.10753e-08, -2.04128, 5.32855, 0.025538)
+rotation_order = 0
+light_color = Color(0.92, 0.860967, 0.8188, 1)
+light_energy = 15.0
+light_bake_mode = 1
+shadow_enabled = true
+distance_fade_enabled = true
+spot_range = 15.0
+spot_attenuation = 2.0
+spot_angle = 29.61
+spot_angle_attenuation = 2.1293
+
+[node name="SpotLight3D3" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.34202, 0.939693, 0, -0.939693, -0.34202, -0.0412807, 5.32855, 2.02554)
+rotation_order = 0
+light_color = Color(0.92, 0.860967, 0.8188, 1)
+light_energy = 15.0
+light_bake_mode = 1
+shadow_enabled = true
+distance_fade_enabled = true
+spot_range = 15.0
+spot_attenuation = 2.0
+spot_angle = 29.61
+spot_angle_attenuation = 2.1293
+
+[node name="SpotLight3D4" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.34202, 0.939693, 0, -0.939693, 0.34202, -0.0412807, 5.32855, -1.97446)
+rotation_order = 0
+light_color = Color(0.92, 0.860967, 0.8188, 1)
+light_energy = 15.0
+light_bake_mode = 1
+shadow_enabled = true
+distance_fade_enabled = true
+spot_range = 15.0
+spot_attenuation = 2.0
+spot_angle = 29.61
+spot_angle_attenuation = 2.1293
+
+[node name="Camera (Room Left)" type="Camera3D" parent="." node_paths=PackedStringArray("_interactionNodes")]
+transform = Transform3D(0.826708, 0, 0.562632, 0, 1, 0, -0.562632, 0, 0.826708, 0.710155, 1.355, 4.65982)
+current = true
+fov = 50.0
+far = 100.0
+script = ExtResource("2_3mkly")
+_interactionNodes = [NodePath("../robot_maid_julie/Robot Security Spin"), NodePath("../robot_chef_ant1/Go to Face"), NodePath("../robot_chef_ant1/Go to Oven")]
+
+[node name="robot_security_axel" parent="." instance=ExtResource("3_rfx3s")]
+transform = Transform3D(0.0788413, 0, 0.996887, 0, 1, 0, -0.996887, 0, 0.0788413, -5.2644, 0, -0.0679436)
+
+[node name="robot_maid_julie" parent="." instance=ExtResource("4_hjqno")]
+transform = Transform3D(0.0367289, 0, 0.999326, 0, 1, 0, -0.999326, 0, 0.0367289, -3.04249, 3.57628e-07, 2.9239)
+
+[node name="Robot Security Spin" type="StaticBody3D" parent="robot_maid_julie"]
+transform = Transform3D(0.595911, 0, 0.582519, 0, 0.833333, 0, -0.582519, 0, 0.595911, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="robot_maid_julie/Robot Security Spin"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
+shape = SubResource("CapsuleShape3D_oofti")
+
+[node name="PhysicalInteractionObject" type="Node" parent="robot_maid_julie/Robot Security Spin"]
+script = ExtResource("5_hjqno")
+metadata/_custom_type_script = "uid://cb62g5vln3p8w"
+
+[node name="Toggle" type="Node" parent="robot_maid_julie/Robot Security Spin/PhysicalInteractionObject"]
+script = ExtResource("6_tv6ry")
+metadata/_custom_type_script = "uid://bkgnpk8ut6udu"
+
+[node name="Spinner" type="Node" parent="robot_maid_julie/Robot Security Spin" node_paths=PackedStringArray("TargetNode")]
+script = ExtResource("7_qs4nl")
+TargetNode = NodePath("../..")
+metadata/_custom_type_script = "uid://dbr6mxd1g0m7q"
+
+[node name="robot_chef_ant1" parent="." instance=ExtResource("5_tv6ry")]
+transform = Transform3D(0.920286, 0, 0.391245, 0, 1, 0, -0.391245, 0, 0.920286, -1.79156, -0.407936, 0.548465)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="robot_chef_ant1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.878, 0.496085)
+light_color = Color(1, 0.79, 0.72, 1)
+light_energy = 0.4
+omni_range = 0.404
+omni_attenuation = 2.0
+
+[node name="Camera Oven" type="Camera3D" parent="robot_chef_ant1" node_paths=PackedStringArray("_interactionNodes")]
+transform = Transform3D(1, 0, -2.98023e-08, 0, 0.984193, 0.177102, 0, -0.177102, 0.984193, 0, 1.0344, 1.23924)
+fov = 45.0
+script = ExtResource("2_3mkly")
+_interactionNodes = [NodePath("../TestInteractable4")]
+ShiftAmount = 0.02
+FlashlightBrightness = 1.0
+
+[node name="ScreenSpaceInteractionObject" type="Node" parent="robot_chef_ant1/Camera Oven"]
+script = ExtResource("9_oofti")
+Direction = 2
+metadata/_custom_type_script = "uid://kgtl2utfdra"
+
+[node name="CameraChange" type="Node" parent="robot_chef_ant1/Camera Oven/ScreenSpaceInteractionObject" node_paths=PackedStringArray("TargetCamera")]
+script = ExtResource("10_hhlyt")
+TargetCamera = NodePath("../../../../Camera (Room Left)")
+metadata/_custom_type_script = "uid://cnh7d2sjnns57"
+
+[node name="Camera Face" type="Camera3D" parent="robot_chef_ant1" node_paths=PackedStringArray("_interactionNodes")]
+transform = Transform3D(1, 5.82077e-11, 0, 0, 0.999994, 0.00350809, 0, -0.00350809, 0.999994, 0, 1.76526, 1.20492)
+fov = 45.0
+script = ExtResource("2_3mkly")
+_interactionNodes = [NodePath("../Test Toggle Face Anim")]
+ShiftAmount = 0.02
+FlashlightBrightness = 1.0
+
+[node name="Go Back" type="Node" parent="robot_chef_ant1/Camera Face"]
+script = ExtResource("9_oofti")
+Direction = 2
+metadata/_custom_type_script = "uid://kgtl2utfdra"
+
+[node name="CameraChange" type="Node" parent="robot_chef_ant1/Camera Face/Go Back" node_paths=PackedStringArray("TargetCamera")]
+script = ExtResource("10_hhlyt")
+TargetCamera = NodePath("../../../../Camera (Room Left)")
+metadata/_custom_type_script = "uid://cnh7d2sjnns57"
+
+[node name="Go to Oven" type="StaticBody3D" parent="robot_chef_ant1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.878, 0.496085)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="robot_chef_ant1/Go to Oven"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0620673, 0.271149)
+shape = SubResource("BoxShape3D_g6ito")
+
+[node name="PhysicalInteractionObject" type="Node" parent="robot_chef_ant1/Go to Oven"]
+script = ExtResource("5_hjqno")
+metadata/_custom_type_script = "uid://cb62g5vln3p8w"
+
+[node name="CameraChange" type="Node" parent="robot_chef_ant1/Go to Oven/PhysicalInteractionObject" node_paths=PackedStringArray("TargetCamera")]
+script = ExtResource("10_hhlyt")
+TargetCamera = NodePath("../../../Camera Oven")
+metadata/_custom_type_script = "uid://cnh7d2sjnns57"
+
+[node name="Go to Face" type="StaticBody3D" parent="robot_chef_ant1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.728, 0.321085)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="robot_chef_ant1/Go to Face"]
+shape = SubResource("BoxShape3D_g6ito")
+
+[node name="PhysicalInteractionObject" type="Node" parent="robot_chef_ant1/Go to Face"]
+script = ExtResource("5_hjqno")
+metadata/_custom_type_script = "uid://cb62g5vln3p8w"
+
+[node name="CameraChange" type="Node" parent="robot_chef_ant1/Go to Face/PhysicalInteractionObject" node_paths=PackedStringArray("TargetCamera")]
+script = ExtResource("10_hhlyt")
+TargetCamera = NodePath("../../../Camera Face")
+metadata/_custom_type_script = "uid://cnh7d2sjnns57"
+
+[node name="Test Toggle Face Anim" type="StaticBody3D" parent="robot_chef_ant1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.728, 0.321085)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="robot_chef_ant1/Test Toggle Face Anim"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0160387, 0, -0.0586073)
+shape = SubResource("BoxShape3D_g6ito")
+
+[node name="PhysicalInteractionObject" type="Node" parent="robot_chef_ant1/Test Toggle Face Anim"]
+script = ExtResource("5_hjqno")
+metadata/_custom_type_script = "uid://cb62g5vln3p8w"
+
+[node name="TestInteractable4" parent="robot_chef_ant1" instance=ExtResource("11_u5rum")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.878, 0.496085)
+
+[node name="Contour Light" type="SpotLight3D" parent="robot_chef_ant1"]
+transform = Transform3D(0.258819, 0.683013, -0.683013, -1.54089e-08, 0.707107, 0.707107, 0.965926, -0.183013, 0.183013, -1.46273, 2.75, 0.0915301)
+visible = false
+light_color = Color(0.45, 0.486667, 1, 1)
+light_energy = 0.3
+spot_range = 2.5
+spot_attenuation = 2.0
+spot_angle = 40.0
+
+[node name="ReflectionProbe2" type="ReflectionProbe" parent="robot_chef_ant1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.858899, 0.496085)
+update_mode = 1
+blend_distance = 0.1
+max_distance = 0.1
+size = Vector3(0.6, 0.6, 0.6)
+interior = true
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.30211, 0)
+light_color = Color(0.563459, 0.560223, 0.984694, 1)
+light_energy = 2.5
+shadow_enabled = true
+omni_range = 3.5
+omni_attenuation = 2.0
+
+[connection signal="OnToggle" from="robot_maid_julie/Robot Security Spin/PhysicalInteractionObject/Toggle" to="robot_maid_julie/Robot Security Spin/Spinner" method="SetState"]
+[connection signal="OnInteracted" from="robot_chef_ant1/Test Toggle Face Anim/PhysicalInteractionObject" to="robot_chef_ant1" method="TestToggleAnim"]

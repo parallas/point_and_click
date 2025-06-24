@@ -1,0 +1,282 @@
+[gd_scene load_steps=18 format=3 uid="uid://b65btb3aivl4r"]
+
+[ext_resource type="PackedScene" uid="uid://dwoj65lima5sx" path="res://models/rooms/room_test/room_test.glb" id="1_7pvdv"]
+[ext_resource type="Script" uid="uid://wq24jtvwn558" path="res://scripts/SceneCamera.cs" id="2_u1vu7"]
+[ext_resource type="Script" uid="uid://kgtl2utfdra" path="res://scripts/interactables/ScreenSpaceInteractionObject.cs" id="3_v7qoc"]
+[ext_resource type="Script" uid="uid://cnh7d2sjnns57" path="res://scripts/interactables/components/CameraChange.cs" id="4_bswes"]
+[ext_resource type="PackedScene" uid="uid://cn7jisqiafjom" path="res://scenes/nodes/light_switch_double.tscn" id="5_7dnr3"]
+[ext_resource type="Script" uid="uid://cwacnbt5x5lar" path="res://scripts/interactables/components/EnvironmentAmbientRoomLight.cs" id="6_633lj"]
+[ext_resource type="Script" uid="uid://cb62g5vln3p8w" path="res://scripts/interactables/PhysicalInteractionObject.cs" id="7_6nvye"]
+[ext_resource type="PackedScene" uid="uid://bt5md6ljxomjo" path="res://scenes/nodes/robot_chef_ant1.tscn" id="8_3bc8j"]
+[ext_resource type="PackedScene" uid="uid://ccbhv1ml8uk4o" path="res://scenes/nodes/TestInteractable.tscn" id="9_ly3ij"]
+[ext_resource type="PackedScene" uid="uid://3jequgsmhula" path="res://scenes/nodes/robot_maid_julie.tscn" id="10_3lmpd"]
+[ext_resource type="Script" uid="uid://bkgnpk8ut6udu" path="res://scripts/interactables/components/Toggle.cs" id="11_ai761"]
+[ext_resource type="Script" uid="uid://dbr6mxd1g0m7q" path="res://scripts/interactables/components/Spinner.cs" id="12_r14r1"]
+[ext_resource type="PackedScene" uid="uid://b21eymyghsv4t" path="res://scenes/nodes/robot_security_axel.tscn" id="13_ao6ou"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_t01cu"]
+size = Vector3(0.2, 0.2, 0.1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_farti"]
+size = Vector3(0.3, 0.2, 0)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hs3ch"]
+size = Vector3(0.349609, 0.329102, 0.137146)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_vx7ic"]
+radius = 0.55
+
+[node name="test_room" type="Node3D"]
+
+[node name="room_test" parent="." instance=ExtResource("1_7pvdv")]
+
+[node name="ReflectionProbe" type="ReflectionProbe" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.19783, 1.52592, 0.0352173)
+update_mode = 1
+blend_distance = 0.5
+size = Vector3(7.86832, 4.32703, 5.39001)
+box_projection = true
+interior = true
+
+[node name="Camera (Room Left)" type="Camera3D" parent="." node_paths=PackedStringArray("_interactionNodes")]
+transform = Transform3D(0.984408, -0.0128825, 0.175427, 0, 0.997315, 0.0732382, -0.175899, -0.0720963, 0.981765, -0.59, 1.75, 1.363)
+current = true
+fov = 50.0
+far = 100.0
+script = ExtResource("2_u1vu7")
+_interactionNodes = [NodePath("../robot_chef_ant1/Go to Oven"), NodePath("../robot_chef_ant1/Go to Face"), NodePath("../robot_maid_julie/Robot Security Spin")]
+
+[node name="RoomLeft to RoomRight" type="Node" parent="Camera (Room Left)"]
+script = ExtResource("3_v7qoc")
+Direction = 4
+metadata/_custom_type_script = "uid://kgtl2utfdra"
+
+[node name="CameraChange" type="Node" parent="Camera (Room Left)/RoomLeft to RoomRight" node_paths=PackedStringArray("TargetCamera")]
+script = ExtResource("4_bswes")
+TargetCamera = NodePath("../../../Camera (Room Right)")
+metadata/_custom_type_script = "uid://cnh7d2sjnns57"
+
+[node name="Camera (Room Right)" type="Camera3D" parent="." node_paths=PackedStringArray("_interactionNodes")]
+transform = Transform3D(0.811778, 0.0427686, -0.582398, 1.32635e-10, 0.997315, 0.0732381, 0.583966, -0.0594531, 0.809598, 1.597, 1.75, 1.34)
+current = true
+fov = 50.0
+far = 100.0
+script = ExtResource("2_u1vu7")
+_interactionNodes = [NodePath("../Light Switch/GoToLightSwitch")]
+
+[node name="RoomRight to RoomLeft" type="Node" parent="Camera (Room Right)"]
+script = ExtResource("3_v7qoc")
+Direction = 3
+metadata/_custom_type_script = "uid://kgtl2utfdra"
+
+[node name="CameraChange" type="Node" parent="Camera (Room Right)/RoomRight to RoomLeft" node_paths=PackedStringArray("TargetCamera")]
+script = ExtResource("4_bswes")
+TargetCamera = NodePath("../../../Camera (Room Left)")
+metadata/_custom_type_script = "uid://cnh7d2sjnns57"
+
+[node name="Room Light" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 2.48839, 0)
+light_color = Color(0.89, 0.904667, 1, 1)
+light_energy = 1.5
+shadow_enabled = true
+omni_range = 4.5
+omni_attenuation = 2.0
+
+[node name="Light Switch" type="Node3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 3.501, 1.647, 0.049)
+
+[node name="Camera (Light Switch)" type="Camera3D" parent="Light Switch" node_paths=PackedStringArray("_interactionNodes")]
+transform = Transform3D(1, 0, 0, 0, 0.967188, 0.254062, 0, -0.254062, 0.967188, 0.00478012, 0.13413, 0.49414)
+fov = 50.0
+far = 100.0
+script = ExtResource("2_u1vu7")
+_interactionNodes = [NodePath("../light_switch_double"), NodePath("../ToRoomFromLightSwitch")]
+ShiftAmount = 0.025
+FlashlightBrightness = 0.3
+
+[node name="light_switch_double" parent="Light Switch" instance=ExtResource("5_7dnr3")]
+
+[node name="EnvironmentAmbientRoomLight" type="Node" parent="Light Switch/light_switch_double" node_paths=PackedStringArray("_lightSource")]
+script = ExtResource("6_633lj")
+_lightSource = NodePath("../../../Room Light")
+metadata/_custom_type_script = "uid://cwacnbt5x5lar"
+
+[node name="Candle Light2" type="OmniLight3D" parent="Light Switch/light_switch_double"]
+transform = Transform3D(-4.37114e-08, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 4.37114e-08, 1.91069e-15, 7.45058e-09, 0, 0.454108)
+light_color = Color(0.91, 0.633967, 0.4368, 1)
+light_energy = 0.05
+light_size = 0.075
+shadow_enabled = true
+omni_range = 1.0
+omni_attenuation = 0.1
+
+[node name="GoToLightSwitch" type="StaticBody3D" parent="Light Switch"]
+
+[node name="PhysicalInteractionObject" type="Node" parent="Light Switch/GoToLightSwitch"]
+script = ExtResource("7_6nvye")
+metadata/_custom_type_script = "uid://cb62g5vln3p8w"
+
+[node name="CameraChange" type="Node" parent="Light Switch/GoToLightSwitch/PhysicalInteractionObject" node_paths=PackedStringArray("TargetCamera")]
+script = ExtResource("4_bswes")
+TargetCamera = NodePath("../../../Camera (Light Switch)")
+metadata/_custom_type_script = "uid://cnh7d2sjnns57"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Light Switch/GoToLightSwitch"]
+shape = SubResource("BoxShape3D_t01cu")
+
+[node name="ToRoomFromLightSwitch" type="StaticBody3D" parent="Light Switch"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00465021, -0.053, 0.34819)
+
+[node name="ScreenSpaceInteractionObject" type="Node" parent="Light Switch/ToRoomFromLightSwitch"]
+script = ExtResource("3_v7qoc")
+Direction = 2
+metadata/_custom_type_script = "uid://kgtl2utfdra"
+
+[node name="CameraChange" type="Node" parent="Light Switch/ToRoomFromLightSwitch/ScreenSpaceInteractionObject" node_paths=PackedStringArray("TargetCamera")]
+script = ExtResource("4_bswes")
+TargetCamera = NodePath("../../../../Camera (Room Right)")
+metadata/_custom_type_script = "uid://cnh7d2sjnns57"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Light Switch/ToRoomFromLightSwitch"]
+shape = SubResource("BoxShape3D_farti")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Light Switch/ToRoomFromLightSwitch"]
+visible = false
+size = Vector3(0.3, 0.2, 0.001)
+
+[node name="robot_chef_ant1" parent="." instance=ExtResource("8_3bc8j")]
+transform = Transform3D(0.964534, 0, 0.263957, 0, 1, 0, -0.263957, 0, 0.964534, -1.44434, 0.0174828, -0.963111)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="robot_chef_ant1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.878, 0.496085)
+light_color = Color(1, 0.79, 0.72, 1)
+light_energy = 0.4
+omni_range = 0.404
+omni_attenuation = 2.0
+
+[node name="Camera Oven" type="Camera3D" parent="robot_chef_ant1" node_paths=PackedStringArray("_interactionNodes")]
+transform = Transform3D(1, 0, -2.98023e-08, 0, 0.984193, 0.177102, 0, -0.177102, 0.984193, 0, 1.0344, 1.23924)
+fov = 45.0
+script = ExtResource("2_u1vu7")
+_interactionNodes = [NodePath("../TestInteractable4")]
+ShiftAmount = 0.02
+FlashlightBrightness = 1.0
+
+[node name="ScreenSpaceInteractionObject" type="Node" parent="robot_chef_ant1/Camera Oven"]
+script = ExtResource("3_v7qoc")
+Direction = 2
+metadata/_custom_type_script = "uid://kgtl2utfdra"
+
+[node name="CameraChange" type="Node" parent="robot_chef_ant1/Camera Oven/ScreenSpaceInteractionObject" node_paths=PackedStringArray("TargetCamera")]
+script = ExtResource("4_bswes")
+TargetCamera = NodePath("../../../../Camera (Room Left)")
+metadata/_custom_type_script = "uid://cnh7d2sjnns57"
+
+[node name="Camera Face" type="Camera3D" parent="robot_chef_ant1" node_paths=PackedStringArray("_interactionNodes")]
+transform = Transform3D(1, 5.82077e-11, 0, 0, 0.999994, 0.00350809, 0, -0.00350809, 0.999994, 0, 1.76526, 1.20492)
+fov = 45.0
+script = ExtResource("2_u1vu7")
+_interactionNodes = [NodePath("../Test Toggle Face Anim")]
+ShiftAmount = 0.02
+FlashlightBrightness = 1.0
+
+[node name="Go Back" type="Node" parent="robot_chef_ant1/Camera Face"]
+script = ExtResource("3_v7qoc")
+Direction = 2
+metadata/_custom_type_script = "uid://kgtl2utfdra"
+
+[node name="CameraChange" type="Node" parent="robot_chef_ant1/Camera Face/Go Back" node_paths=PackedStringArray("TargetCamera")]
+script = ExtResource("4_bswes")
+TargetCamera = NodePath("../../../../Camera (Room Left)")
+metadata/_custom_type_script = "uid://cnh7d2sjnns57"
+
+[node name="Go to Oven" type="StaticBody3D" parent="robot_chef_ant1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.878, 0.496085)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="robot_chef_ant1/Go to Oven"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0620673, 0.271149)
+shape = SubResource("BoxShape3D_hs3ch")
+
+[node name="PhysicalInteractionObject" type="Node" parent="robot_chef_ant1/Go to Oven"]
+script = ExtResource("7_6nvye")
+metadata/_custom_type_script = "uid://cb62g5vln3p8w"
+
+[node name="CameraChange" type="Node" parent="robot_chef_ant1/Go to Oven/PhysicalInteractionObject" node_paths=PackedStringArray("TargetCamera")]
+script = ExtResource("4_bswes")
+TargetCamera = NodePath("../../../Camera Oven")
+metadata/_custom_type_script = "uid://cnh7d2sjnns57"
+
+[node name="Go to Face" type="StaticBody3D" parent="robot_chef_ant1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.728, 0.321085)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="robot_chef_ant1/Go to Face"]
+shape = SubResource("BoxShape3D_hs3ch")
+
+[node name="PhysicalInteractionObject" type="Node" parent="robot_chef_ant1/Go to Face"]
+script = ExtResource("7_6nvye")
+metadata/_custom_type_script = "uid://cb62g5vln3p8w"
+
+[node name="CameraChange" type="Node" parent="robot_chef_ant1/Go to Face/PhysicalInteractionObject" node_paths=PackedStringArray("TargetCamera")]
+script = ExtResource("4_bswes")
+TargetCamera = NodePath("../../../Camera Face")
+metadata/_custom_type_script = "uid://cnh7d2sjnns57"
+
+[node name="Test Toggle Face Anim" type="StaticBody3D" parent="robot_chef_ant1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.728, 0.321085)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="robot_chef_ant1/Test Toggle Face Anim"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0160387, 0, -0.0586073)
+shape = SubResource("BoxShape3D_hs3ch")
+
+[node name="PhysicalInteractionObject" type="Node" parent="robot_chef_ant1/Test Toggle Face Anim"]
+script = ExtResource("7_6nvye")
+metadata/_custom_type_script = "uid://cb62g5vln3p8w"
+
+[node name="TestInteractable4" parent="robot_chef_ant1" instance=ExtResource("9_ly3ij")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.878, 0.496085)
+
+[node name="Contour Light" type="SpotLight3D" parent="robot_chef_ant1"]
+transform = Transform3D(0.258819, 0.683013, -0.683013, -1.54089e-08, 0.707107, 0.707107, 0.965926, -0.183013, 0.183013, -1.46273, 2.75, 0.0915301)
+light_color = Color(0.45, 0.486667, 1, 1)
+light_energy = 0.3
+spot_range = 2.5
+spot_attenuation = 2.0
+spot_angle = 40.0
+
+[node name="ReflectionProbe2" type="ReflectionProbe" parent="robot_chef_ant1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.858899, 0.496085)
+update_mode = 1
+blend_distance = 0.1
+max_distance = 0.1
+size = Vector3(0.6, 0.6, 0.6)
+interior = true
+
+[node name="robot_maid_julie" parent="." instance=ExtResource("10_3lmpd")]
+transform = Transform3D(0.987941, 0, 0.154833, 0, 1, 0, -0.154833, 0, 0.987941, -0.0301983, 3.57628e-07, -1.40933)
+
+[node name="Robot Security Spin" type="StaticBody3D" parent="robot_maid_julie"]
+transform = Transform3D(0.595911, 0, 0.582519, 0, 0.833333, 0, -0.582519, 0, 0.595911, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="robot_maid_julie/Robot Security Spin"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
+shape = SubResource("CapsuleShape3D_vx7ic")
+
+[node name="PhysicalInteractionObject" type="Node" parent="robot_maid_julie/Robot Security Spin"]
+script = ExtResource("7_6nvye")
+metadata/_custom_type_script = "uid://cb62g5vln3p8w"
+
+[node name="Toggle" type="Node" parent="robot_maid_julie/Robot Security Spin/PhysicalInteractionObject"]
+script = ExtResource("11_ai761")
+metadata/_custom_type_script = "uid://bkgnpk8ut6udu"
+
+[node name="Spinner" type="Node" parent="robot_maid_julie/Robot Security Spin" node_paths=PackedStringArray("TargetNode")]
+script = ExtResource("12_r14r1")
+TargetNode = NodePath("../..")
+metadata/_custom_type_script = "uid://dbr6mxd1g0m7q"
+
+[node name="robot_security_axel" parent="." instance=ExtResource("13_ao6ou")]
+transform = Transform3D(0.987978, 0, 0.15459, 0, 1, 0, -0.15459, 0, 0.987978, 2.10688, 0, -1.26922)
+
+[connection signal="OnRightChange" from="Light Switch/light_switch_double" to="Light Switch/light_switch_double/EnvironmentAmbientRoomLight" method="SetState"]
+[connection signal="OnInteracted" from="robot_chef_ant1/Test Toggle Face Anim/PhysicalInteractionObject" to="robot_chef_ant1" method="TestToggleAnim"]
+[connection signal="OnToggle" from="robot_maid_julie/Robot Security Spin/PhysicalInteractionObject/Toggle" to="robot_maid_julie/Robot Security Spin/Spinner" method="SetState"]
